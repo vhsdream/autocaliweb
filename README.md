@@ -24,8 +24,6 @@ Autocaliweb is a web app that offers a clean and intuitive interface for browsin
 
 _This software is a fork of [Calibre-Web](https://github.com/janeczku/calibre-web) and licensed under the GPL v3 License._
 
-![Main screen](https://github.com/janeczku/calibre-web/wiki/images/main_screen.png)
-
 ## Features
 
 - Modern and responsive Bootstrap 3 HTML5 interface
@@ -56,13 +54,6 @@ _This software is a fork of [Calibre-Web](https://github.com/janeczku/calibre-we
 ### Installation via Docker (recommended)
 
 _To be added..._
-
-### Important Links
-
-- For additional installation examples, check the following:
-  - [Manual installation](https://github.com/janeczku/calibre-web/wiki/Manual-installation)
-  - [Linux Mint installation](https://github.com/janeczku/calibre-web/wiki/How-To:-Install-Calibre-Web-in-Linux-Mint-19-or-20)
-  - [Cloud Provider setup](https://github.com/janeczku/calibre-web/wiki/How-To:-Install-Calibre-Web-on-a-Cloud-Provider)
 
 ## Quick Start
 
