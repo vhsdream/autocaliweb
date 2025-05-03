@@ -1,0 +1,12 @@
+.git
+.github
+.dockerignore
+.editorconfig
+.eslintrc
+.gitattributes
+.gitignore
+CONTRIBUTING.md
+Dockerfile
+LICENSE
+README.md
+SECURITY.md
