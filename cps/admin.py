@@ -1582,6 +1582,13 @@ def ldap_import_create_user(user, user_data):
         log.warning("LDAP User  %s Already in Database", user_data)
         return 0, None
 
+    user, error = ldap_create_user(username, user_data, config.config_default_role)
+    if user:
+        return 1, error
+    else:
+        return 0, error
+
+def ldap_create_user(username, user_data, role):
     ereader_mail = ''
     if 'mail' in user_data:
         useremail = user_data['mail'][0].decode('utf-8')
@@ -1596,8 +1603,8 @@ def ldap_import_create_user(user, user_data):
         # check for duplicate email
         useremail = check_email(useremail)
     except Exception as ex:
-        log.warning("LDAP Email Error: {}, {}".format(user_data, ex))
-        return 0, None
+        log.warning("LDAP Email Error: {}, {}".format(username, ex))
+        return None, None
     content = ub.User()
     content.name = username
     content.password = ''  # dummy password which will be replaced by ldap one
@@ -1605,7 +1612,7 @@ def ldap_import_create_user(user, user_data):
     content.kindle_mail = ereader_mail
     content.default_language = config.config_default_language
     content.locale = config.config_default_locale
-    content.role = config.config_default_role
+    content.role = role
     content.sidebar_view = config.config_default_show
     content.allowed_tags = config.config_allowed_tags
     content.denied_tags = config.config_denied_tags
@@ -1614,12 +1621,12 @@ def ldap_import_create_user(user, user_data):
     ub.session.add(content)
     try:
         ub.session.commit()
-        return 1, None  # increase no of users
+        return content, None  # increase no of users
     except Exception as ex:
-        log.warning("Failed to create LDAP user: %s - %s", user, ex)
+        log.warning("Failed to create LDAP user: %s - %s", username, ex)
         ub.session.rollback()
         message = _(u'Failed to Create at Least One LDAP User')
-        return 0, message
+        return None, message
 
 
 @admi.route('/import_ldap_users', methods=["POST"])
