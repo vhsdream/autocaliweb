@@ -1,4 +1,4 @@
-# autocaliweb
+# Autocaliweb
 
 Autocaliweb is a web app that offers a clean and intuitive interface for browsing, reading, and downloading eBooks using a valid [Calibre](https://calibre-ebook.com) database.
 
