@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version:  Autocaliweb\n"
-"Report-Msgid-Bugs-To: https://github.com/janeczku/Autocaliweb\n"
+"Report-Msgid-Bugs-To: https://github.com/gelbphoenix/autocaliweb\n"
 "POT-Creation-Date: 2025-03-30 15:55+0200\n"
 "PO-Revision-Date: 2022-09-20 21:36+0700\n"
 "Last-Translator: Ha Link <halink0803@gmail.com>\n"
