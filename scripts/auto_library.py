@@ -25,8 +25,8 @@ class AutoLibrary:
         self.dirs_path = "/app/autocaliweb/dirs.json"
         self.app_db = "/config/app.db"
 
-        self.empty_appdb = "/app/autocaliweb/empty_library/app.db"
-        self.empty_metadb = "/app/autocaliweb/empty_library/metadata.db"
+        self.empty_appdb = "/app/autocaliweb/library/app.db"
+        self.empty_metadb = "/app/autocaliweb/library/metadata.db"
 
         self.metadb_path = None
         self.lib_path = None
