@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv bash
+#!/bin/bash
 # shellcheck shell=bash
 
 if find /run/s6/container_environment/FILE__* -maxdepth 1 > /dev/null 2>&1; then
