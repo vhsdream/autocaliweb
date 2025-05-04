@@ -14,7 +14,7 @@ Autocaliweb is a web app that offers a clean and intuitive interface for browsin
 3. [Installation](#installation)
    - [Installation via Docker (recommended)](#installation-via-docker-recommended)
    - [Quick start](#quick-start)
-   - [Requirements](#requirements)
+   - [Deploy Requirements](#deploy-requirements)
 4. [Troubleshooting](#troubleshooting)
 5. [Contributor Recognition](#contributor-recognition)
 6. [Contact](#contact)
@@ -53,26 +53,47 @@ _This software is a fork of [Calibre-Web](https://github.com/janeczku/calibre-we
 
 ### Installation via Docker (recommended)
 
-_To be added..._
+#### Docker compose:
+
+```yml
+services:
+  autocaliweb:
+    image: gelbphoenix/autocaliweb:latest
+    container_name: autocaliweb
+    restart: unless-stopped
+    ports:
+      - "8083:8083"
+    environment:
+      - TZ=Etc/UTC # Change to your specific timezone (e.g. Europe/Berlin, America/Denver)
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /path/to/config:/config
+      - /path/to/book/ingest:/acw-book-ingest
+      - /path/to/library:/calibre-library
+    stop_signal: SIGINT
+    stop_grace_period: 15s
+```
 
 ## Quick Start
 
-1. **Access Autocaliweb**: Open your browser and navigate to:
+1. **Access Autocaliweb**: Open your browser and navigate to: http://localhost:8083 or http://localhost:8083/opds for the OPDS catalog.
+2. **Log in with the default admin credentials**:
    ```
-   http://localhost:8083
+   Username: admin
+   Password: admin123
    ```
-   or for the OPDS catalog:
-   ```
-   http://localhost:8083/opds
-   ```
-2. **Log in**: Use the default admin credentials:
-   - **Username:** admin
-   - **Password:** admin123
-3. **Google Drive Integration**: For hosting your Calibre library on Google Drive, refer to the [Google Drive integration guide of Calibre-Web](https://github.com/janeczku/calibre-web/wiki/G-Drive-Setup#using-google-drive-integration).
+3. Configure your Autocaliweb instance via the Admin Page
 
-## Requirements
+- A guide to what all of the stock CW Settings do can be found [here](https://github.com/janeczku/calibre-web/wiki/Configuration#basic-configuration)
+- Make sure `Enable Uploads` is enabled in `Settings -> Basic Configuration -> Feature Configuration`
 
-- Docker version XYZ
+4. **Google Drive Integration**: For hosting your Calibre library on Google Drive, refer to the [Google Drive integration guide of Calibre-Web](https://github.com/janeczku/calibre-web/wiki/G-Drive-Setup#using-google-drive-integration).
+
+## Deploy Requirements
+
+- Docker version 27.5.1
+- Docker Compose version 2.33.1
 
 ## Troubleshooting
 
