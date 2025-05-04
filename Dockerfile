@@ -1,11 +1,12 @@
 # syntax=docker/dockerfile:1
-FROM python:3.13-slim
+FROM ubuntu:22.04
 
 SHELL [ "/bin/bash", "-c" ]
 
 ARG BUILD_DATE 
 ARG VERSION
 ARG UNIVERSAL_CALIBRE_VERSION=7.16.0
+ARG DEBIAN_FRONTEND=noninteractive
 
 LABEL build_version="Version:- ${VERSION}" \
       build_date="${BUILD_DATE}" \
@@ -21,6 +22,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     UMASK=0002
 
 USER root
+
+SHELL [ "/bin/bash", "-c" ]
 
 # Install dependencies
 RUN apt-get update && \
@@ -50,17 +53,20 @@ RUN apt-get update && \
       libxdamage1 \
       libgl1 \
       libglx-mesa0 \
-      xz-utils
+      xz-utils \
+      sqlite3 \
+      xdg-utils \
+      tzdata
 
 # Install Autocaliweb
 COPY requirements.txt optional-requirements.txt /app/autocaliweb/
 
 RUN cd /app/autocaliweb && \
     python3 -m venv venv && \
-    ./venv/bin/python3 -m pip install -U pip wheel && \
-    ./venv/bin/python3 -m pip install --find-links https://wheel-index.linuxserver.io/ubuntu/ -r \
-    requirements.txt -r \
-    optional-requirements.txt 
+    pip install -U pip wheel && \
+    pip install --find-links https://wheel-index.linuxserver.io/ubuntu/ -r \
+    /app/autocaliweb/requirements.txt -r \
+    /app/autocaliweb/optional-requirements.txt 
 
 COPY . /app/autocaliweb/
 
@@ -73,7 +79,8 @@ RUN export KEPUBIFY_RELEASE=$(curl -s https://api.github.com/repos/pgaskin/kepub
 RUN mkdir -p /app/calibre && \
     curl -o /tmp/calibre.tar.xz -L https://download.calibre-ebook.com/${UNIVERSAL_CALIBRE_VERSION}/calibre-${UNIVERSAL_CALIBRE_VERSION}-$(uname -m | sed 's/x86_64/x86_64/;s/arm64/arm64/').txz && \
     tar xf /tmp/calibre.tar.xz -C /app/calibre && \
-    rm /tmp/calibre.tar.xz
+    rm /tmp/calibre.tar.xz && \
+    /app/calibre/calibre_postinstall 
 
 # Clean up
 RUN apt-get purge -y \
@@ -91,6 +98,10 @@ RUN apt-get purge -y \
 # add unrar
 COPY --from=ghcr.io/linuxserver/unrar:latest /usr/bin/unrar-ubuntu /usr/bin/unrar 
 
+COPY ./entrypoint.sh /entrypoint.sh
+
 # ports and volumes
 EXPOSE 8083
 VOLUME /config
+
+CMD ["/entrypoint.sh"]
