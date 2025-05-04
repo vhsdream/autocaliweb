@@ -16,7 +16,7 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from flask import render_template, g, abort, request
+from flask import render_template, g, abort, request, flash
 from flask_babel import gettext as _
 from werkzeug.local import LocalProxy
 from .cw_login import current_user
@@ -24,6 +24,15 @@ from sqlalchemy.sql.expression import or_
 
 from . import config, constants, logger, ub
 from .ub import User
+
+# CWA specific imports
+import requests
+from datetime import datetime
+import os.path
+
+import sys
+sys.path.insert(1, '/app/autocaliweb/scripts/')
+from acw_db import ACW_DB
 
 
 log = logger.create()
@@ -105,10 +114,58 @@ def get_sidebar_config(kwargs=None):
 
     return sidebar, simple
 
+# Checks if an update for CWA is available, returning True if yes
+def acw_update_available() -> tuple[bool, str, str]:
+    with open("/app/ACW_RELEASE", 'r') as f:
+        current_version = f.read().strip()
+    response = requests.get("https://api.github.com/repos/gelbphoenix/autocaliweb/releases/latest")
+    tag_name = response.json().get('tag_name', current_version)
+    return (tag_name != current_version), current_version, tag_name
+
+# Gets the date the last cwa update notification was displayed
+def get_acw_last_notification() -> str:
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    if not os.path.isfile('/app/acw_update_notice'):
+        with open('/app/acw_update_notice', 'w') as f:
+            f.write(current_date)
+        return "0001-01-01"
+    else:
+        with open('/app/acw_update_notice', 'r') as f:
+            last_notification = f.read()
+    return last_notification
+
+# Displays a notification to the user that an update for CWA is available, no matter which page they're on
+# Currently set to only display once per calender day
+def acw_update_notification() -> None:
+    db = ACW_DB()
+    if db.acw_settings['acw_update_notifications']:
+        current_date = datetime.now().strftime("%Y-%m-%d")
+        acw_last_notification = get_acw_last_notification()
+        
+        if acw_last_notification == current_date:
+            return
+
+        update_available, current_version, tag_name = acw_update_available()
+        if update_available:
+            message = f"⚡🚨 ACW UPDATE AVAILABLE! 🚨⚡ Current - {current_version} | Newest - {tag_name} | To update, just re-pull the image! This message will only display once per day |"
+            flash(_(message), category="acw_update")
+            print(f"[acw-update-notification-service] {message}", flush=True)
+
+        with open('/app/acw_update_notice', 'w') as f:
+            f.write(current_date)
+        return
+    else:
+        return
+
 
 # Returns the template for rendering and includes the instance name
 def render_title_template(*args, **kwargs):
     sidebar, simple = get_sidebar_config(kwargs)
+    if current_user.role_admin():
+        try:
+            acw_update_notification()
+        except Exception as e:
+            print(f"[acw-update-notification-service] The following error occurred when checking for available updates:\n{e}", flush=True)
     try:
         return render_template(instance=config.config_calibre_web_title, sidebar=sidebar, simple=simple,
                                accept=config.config_upload_formats.split(','),

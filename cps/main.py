@@ -30,8 +30,8 @@ def request_username():
 def main():
     app = create_app()
 
+    from .acw_functions import switch_theme, library_refresh, convert_library, epub_fixer, acw_stats, acw_check_status, acw_settings, acw_logs
     from .web import web
-    from .basic import basic
     from .opds import opds
     from .admin import admi
     from .gdrive import gdrive
@@ -62,10 +62,20 @@ def main():
     from . import web_server
     init_errorhandler()
 
+    # ACW Blueprints
+    app.register_blueprint(switch_theme)
+    app.register_blueprint(library_refresh)
+    app.register_blueprint(convert_library)
+    app.register_blueprint(epub_fixer)
+    app.register_blueprint(acw_stats)
+    app.register_blueprint(acw_check_status)
+    app.register_blueprint(acw_settings)
+    app.register_blueprint(acw_logs)
+
+    # Stock CW
     app.register_blueprint(search)
     app.register_blueprint(tasks)
     app.register_blueprint(web)
-    app.register_blueprint(basic)
     app.register_blueprint(opds)
     limiter.limit("3/minute", key_func=request_username)(opds)
     app.register_blueprint(jinjia)

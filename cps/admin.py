@@ -32,8 +32,7 @@ from datetime import time as datetime_time
 from functools import wraps
 from urllib.parse import urlparse
 
-from flask import Blueprint, flash, redirect, url_for, abort, request, make_response, \
-    send_from_directory, g, jsonify
+from flask import Blueprint, flash, redirect, url_for, abort, request, make_response, send_from_directory, g, Response
 from markupsafe import Markup
 from .cw_login import current_user
 from flask_babel import gettext as _
@@ -119,7 +118,7 @@ def before_request():
     g.allow_upload = config.config_uploading
     g.current_theme = config.config_theme
     g.config_authors_max = config.config_authors_max
-    if ('/static/' not in request.path and not config.db_configured and
+    if '/static/' not in request.path and not config.db_configured and \
         request.endpoint not in ('admin.ajax_db_config',
                                  'admin.simulatedbchange',
                                  'admin.db_configuration',
@@ -127,7 +126,7 @@ def before_request():
                                  'web.login_post',
                                  'web.logout',
                                  'admin.load_dialogtexts',
-                                 'admin.ajax_pathchooser')):
+                                 'admin.ajax_pathchooser'):
         return redirect(url_for('admin.db_configuration'))
 
 
@@ -145,6 +144,7 @@ def shutdown():
     show_text = {}
     if task in (0, 1):  # valid commandos received
         # close all database connections
+        calibre_db.dispose()
         ub.dispose()
 
         if task == 0:
@@ -199,11 +199,34 @@ def update_thumbnails():
     return ""
 
 
+def acw_get_package_versions() -> tuple[str, str, str, str]:
+    try:
+        with open("/app/ACW_RELEASE", "r") as f:
+            acw_version = f.read()
+    except Exception:
+        acw_version = "Unknown"
+
+    try:
+        with open("/app/KEPUBIFY_RELEASE", "r") as f:
+            kepubify_version = f.read()
+    except Exception:
+        kepubify_version = "Unknown"
+
+    try:
+        with open("/CALIBRE_RELEASE", "r") as f:
+            calibre_version = f.read()
+    except Exception:
+        calibre_version = "Unknown"
+
+    return acw_version, kepubify_version, calibre_version
+
+
 @admi.route("/admin/view")
 @user_login_required
 @admin_required
 def admin():
     version = updater_thread.get_current_version_info()
+    acw_version, kepubify_version, calibre_version = acw_get_package_versions()
     if version is False:
         commit = _('Unknown')
     else:
@@ -228,8 +251,9 @@ def admin():
     schedule_duration = format_timedelta(t, threshold=.99)
 
     return render_title_template("admin.html", allUser=all_user, config=config, commit=commit,
-                                 feature_support=feature_support, schedule_time=schedule_time,
-                                 schedule_duration=schedule_duration,
+                                 acw_version=acw_version, kepubify_version=kepubify_version,
+                                 calibre_version=calibre_version, feature_support=feature_support, 
+                                 schedule_time=schedule_time, schedule_duration=schedule_duration,
                                  title=_("Admin page"), page="admin")
 
 
@@ -379,7 +403,10 @@ def list_users():
             user.default = get_user_locale_language(user.default_language)
 
     table_entries = {'totalNotFiltered': total_count, 'total': filtered_count, "rows": users}
-    return make_response(json.dumps(table_entries, cls=db.AlchemyEncoder))
+    js_list = json.dumps(table_entries, cls=db.AlchemyEncoder)
+    response = make_response(js_list)
+    response.headers["Content-Type"] = "application/json; charset=utf-8"
+    return response
 
 
 @admi.route("/ajax/deleteuser", methods=['POST'])
@@ -398,7 +425,7 @@ def delete_user():
     success = list()
     if not users:
         log.error("User not found")
-        return make_response(jsonify(type="danger", message=_("User not found")))
+        return Response(json.dumps({'type': "danger", 'message': _("User not found")}), mimetype='application/json')
     for user in users:
         try:
             message = _delete_user(user)
@@ -414,7 +441,7 @@ def delete_user():
         log.info("Users {} deleted".format(user_ids))
         success = [{'type': "success", 'message': _("{} users deleted successfully").format(count)}]
     success.extend(errors)
-    return make_response(jsonify(success))
+    return Response(json.dumps(success), mimetype='application/json')
 
 
 @admi.route("/ajax/getlocale")
@@ -426,7 +453,7 @@ def table_get_locale():
     current_locale = get_locale()
     for loc in locale:
         ret.append({'value': str(loc), 'text': loc.get_language_name(current_locale)})
-    return json.dumps(sorted(ret, key=lambda x: x['text']))
+    return json.dumps(ret)
 
 
 @admi.route("/ajax/getdefaultlanguage")
@@ -438,7 +465,7 @@ def table_get_default_lang():
     ret.append({'value': 'all', 'text': _('Show All')})
     for lang in languages:
         ret.append({'value': lang.lang_code, 'text': lang.name})
-    return json.dumps(sorted(ret, key=lambda x: x['text']))
+    return json.dumps(ret)
 
 
 @admi.route("/ajax/editlistusers/<param>", methods=['POST'])
@@ -496,10 +523,10 @@ def edit_list_user(param):
                                 if not ub.session.query(ub.User). \
                                     filter(ub.User.role.op('&')(constants.ROLE_ADMIN) == constants.ROLE_ADMIN,
                                            ub.User.id != user.id).count():
-                                    return make_response(
-                                        jsonify([{'type': "danger",
+                                    return Response(
+                                        json.dumps([{'type': "danger",
                                                      'message': _("No admin user remaining, can't remove admin role",
-                                                                  nick=user.name)}]))
+                                                                  nick=user.name)}]), mimetype='application/json')
                             user.role &= ~value
                         else:
                             raise Exception(_("Value has to be true or false"))
@@ -601,8 +628,8 @@ def update_view_configuration():
         config.config_default_show |= constants.DETAIL_RANDOM
 
     config.save()
-    flash(_("Autocaliweb configuration updated"), category="success")
-    log.debug("Autocaliweb configuration updated")
+    flash(_("Calibre-Web configuration updated"), category="success")
+    log.debug("Calibre-Web configuration updated")
     before_request()
 
     return view_configuration()
@@ -636,10 +663,10 @@ def load_dialogtexts(element_id):
     elif element_id == "db_submit":
         texts["main"] = _('Are you sure you want to change Calibre library location?')
     elif element_id == "admin_refresh_cover_cache":
-        texts["main"] = _('Autocaliweb will search for updated Covers '
+        texts["main"] = _('Calibre-Web will search for updated Covers '
                           'and update Cover Thumbnails, this may take a while?')
     elif element_id == "btnfullsync":
-        texts["main"] = _("Are you sure you want delete Autocaliweb's sync database "
+        texts["main"] = _("Are you sure you want delete Calibre-Web's sync database "
                           "to force a full sync with your Kobo Reader?")
     return json.dumps(texts)
 
@@ -945,7 +972,7 @@ def do_full_kobo_sync(userid):
     count = ub.session.query(ub.KoboSyncedBooks).filter(userid == ub.KoboSyncedBooks.user_id).delete()
     message = _("{} sync entries deleted").format(count)
     ub.session_commit(message)
-    return make_response(jsonify(type="success", message=message))
+    return Response(json.dumps([{"type": "success", "message": message}]), mimetype='application/json')
 
 
 def check_valid_read_column(column):
@@ -1262,7 +1289,7 @@ def _configuration_ldap_helper(to_save):
 @admin_required
 def simulatedbchange():
     db_change, db_valid = _db_simulate_change()
-    return make_response(jsonify(change=db_change, valid=db_valid))
+    return Response(json.dumps({"change": db_change, "valid": db_valid}), mimetype='application/json')
 
 
 @admi.route("/admin/user/new", methods=["GET", "POST"])
@@ -1582,13 +1609,6 @@ def ldap_import_create_user(user, user_data):
         log.warning("LDAP User  %s Already in Database", user_data)
         return 0, None
 
-    user, error = ldap_create_user(username, user_data, config.config_default_role)
-    if user:
-        return 1, error
-    else:
-        return 0, error
-
-def ldap_create_user(username, user_data, role):
     ereader_mail = ''
     if 'mail' in user_data:
         useremail = user_data['mail'][0].decode('utf-8')
@@ -1603,8 +1623,8 @@ def ldap_create_user(username, user_data, role):
         # check for duplicate email
         useremail = check_email(useremail)
     except Exception as ex:
-        log.warning("LDAP Email Error: {}, {}".format(username, ex))
-        return None, None
+        log.warning("LDAP Email Error: {}, {}".format(user_data, ex))
+        return 0, None
     content = ub.User()
     content.name = username
     content.password = ''  # dummy password which will be replaced by ldap one
@@ -1612,7 +1632,7 @@ def ldap_create_user(username, user_data, role):
     content.kindle_mail = ereader_mail
     content.default_language = config.config_default_language
     content.locale = config.config_default_locale
-    content.role = role
+    content.role = config.config_default_role
     content.sidebar_view = config.config_default_show
     content.allowed_tags = config.config_allowed_tags
     content.denied_tags = config.config_denied_tags
@@ -1621,12 +1641,12 @@ def ldap_create_user(username, user_data, role):
     ub.session.add(content)
     try:
         ub.session.commit()
-        return content, None  # increase no of users
+        return 1, None  # increase no of users
     except Exception as ex:
-        log.warning("Failed to create LDAP user: %s - %s", username, ex)
+        log.warning("Failed to create LDAP user: %s - %s", user, ex)
         ub.session.rollback()
         message = _(u'Failed to Create at Least One LDAP User')
-        return None, message
+        return 0, message
 
 
 @admi.route('/import_ldap_users', methods=["POST"])
@@ -1741,15 +1761,17 @@ def _db_configuration_update_helper():
             return _db_configuration_result(_("Books path not valid"), gdrive_error)
         else:
             _config_string(to_save, "config_calibre_split_dir")
-    if (db_change or not db_valid or not config.db_configured
-           or config.config_calibre_dir != to_save["config_calibre_dir"]):
+
+    if db_change or not db_valid or not config.db_configured \
+      or config.config_calibre_dir != to_save["config_calibre_dir"]:
         if not os.path.exists(metadata_db) or not to_save['config_calibre_dir']:
             return _db_configuration_result(_('DB Location is not Valid, Please Enter Correct Path'), gdrive_error)
         else:
             calibre_db.setup_db(to_save['config_calibre_dir'], ub.app_DB_path)
+        config.store_calibre_uuid(calibre_db, db.Library_Id)
         # if db changed -> delete shelfs, delete download books, delete read books, kobo sync...
         if db_change:
-            log.info("Calibre Database changed, all Autocaliweb info related to old Database gets deleted")
+            log.info("Calibre Database changed, all Calibre-Web info related to old Database gets deleted")
             ub.session.query(ub.Downloads).delete()
             ub.session.query(ub.ArchivedBook).delete()
             ub.session.query(ub.ReadBook).delete()
@@ -1769,11 +1791,10 @@ def _db_configuration_update_helper():
             config.config_allowed_column_value = ""
             config.config_read_column = 0
         _config_string(to_save, "config_calibre_dir")
-        calibre_db.update_config(config, config.config_calibre_dir, ub.app_DB_path)
-        config.store_calibre_uuid(calibre_db, db.Library_Id)
+        calibre_db.update_config(config)
         if not os.access(os.path.join(config.config_calibre_dir, "metadata.db"), os.W_OK):
             flash(_("DB is not Writeable"), category="warning")
-    calibre_db.update_config(config, config.config_calibre_dir, ub.app_DB_path)
+    calibre_db.update_config(config)
     config.save()
     return _db_configuration_result(None, gdrive_error)
 
@@ -1898,10 +1919,10 @@ def _configuration_result(error_flash=None, reboot=False):
         config.load()
         resp['result'] = [{'type': "danger", 'message': error_flash}]
     else:
-        resp['result'] = [{'type': "success", 'message': _("Autocaliweb configuration updated")}]
+        resp['result'] = [{'type': "success", 'message': _("Calibre-Web configuration updated")}]
     resp['reboot'] = reboot
     resp['config_upload'] = config.config_upload_formats
-    return make_response(jsonify(resp))
+    return Response(json.dumps(resp), mimetype='application/json')
 
 
 def _db_configuration_result(error_flash=None, gdrive_error=None):

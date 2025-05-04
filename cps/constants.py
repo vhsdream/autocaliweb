@@ -27,7 +27,7 @@ APP_MODE             = os.environ.get('APP_MODE', 'production')
 HOME_CONFIG = os.path.isfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), '.HOMEDIR'))
 
 # In executables updater is not available, so variable is set to False there
-UPDATER_AVAILABLE = True
+UPDATER_AVAILABLE = False
 
 # Base dir is parent of current file, necessary if called from different folder
 BASE_DIR            = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir))
@@ -130,7 +130,7 @@ LOGIN_OAUTH         = 2
 
 LDAP_AUTH_ANONYMOUS      = 0
 LDAP_AUTH_UNAUTHENTICATE = 1
-LDAP_AUTH_SIMPLE         = 2
+LDAP_AUTH_SIMPLE         = 0
 
 DEFAULT_MAIL_SERVER = "mail.example.org"
 
@@ -172,11 +172,11 @@ BookMeta = namedtuple('BookMeta', 'file_path, extension, title, author, cover, d
                                   'series_id, languages, publisher, pubdate, identifiers')
 
 # python build process likes to have x.y.zbw -> b for beta and w a counting number
-STABLE_VERSION =  '0.6.25b'
+STABLE_VERSION =  '0.6.24'
 
 NIGHTLY_VERSION = dict()
-NIGHTLY_VERSION[0] = '$Format:%H$'
-NIGHTLY_VERSION[1] = '$Format:%cI$'
+NIGHTLY_VERSION[0] = '0af52f205358b0147ee3430f9e6c8fe007c0ea77'
+NIGHTLY_VERSION[1] = '2024-11-16T07:21:28+01:00'
 
 # CACHE
 CACHE_TYPE_THUMBNAILS    = 'thumbnails'

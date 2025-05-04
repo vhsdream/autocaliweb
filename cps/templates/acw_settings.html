@@ -1,0 +1,209 @@
+{% extends "layout.html" %}
+{% block flash %}
+<div id="spinning_success" class="row-fluid text-center" style="display:none;">
+    <div class="alert alert-info"><img id="img-spinner" src="{{ url_for('static', filename='css/libs/images/loading-icon.gif') }}"/></div>
+</div>
+{% endblock %}
+
+{% block header %}
+<style></style>
+{% endblock %}
+
+{% block body %}
+<div class="discover">
+  <h2>{{title}}</h2>
+  <form action="{{ url_for('acw_settings.set_acw_settings')}}" method="post">
+    <div class="settings-container">
+      <h4 class="settings-section-header">Enable/Disable Calibre-Web Automated Services</h4>
+      
+      {% if acw_settings['auto_convert'] %}
+      <input type="checkbox" id="auto_convert" name="auto_convert" value="True" checked style="accent-color: var(--color-secondary);" data-toggle="tooltip"data-placement="right" data-html="true" title="Placeholder">
+      {% else %}
+      <input type="checkbox" id="auto_convert" name="auto_convert" value="True" style="accent-color: var(--color-secondary);" data-toggle="tooltip" data-placement="right" data-html="true" title="Placeholder">
+      {% endif %}
+      <label for="auto_convert" style="padding-left: 10px;">Enable ACW Auto-Convert</label><br>
+      <p class="acw-settings-tooltip">
+        On by default, when active all ingested books will automatically be converted to the target format specified below (epub by default) 
+        <em>EXCEPT</em> those you have specifically told ACW to ignore below.
+      </p>
+
+      {% if acw_settings['auto_metadata_enforcement'] %}
+      <input type="checkbox" id="auto_metadata_enforcement" name="auto_metadata_enforcement" value="True" checked style="accent-color: var(--color-secondary);" data-toggle="tooltip" data-placement="right" data-html="true" title="Placeholder">
+      {% else %}
+      <input type="checkbox" id="auto_metadata_enforcement" name="auto_metadata_enforcement" value="True" style="accent-color: var(--color-secondary);" data-toggle="tooltip" data-placement="right" data-html="true" title="Placeholder">
+      {% endif %}
+      <label for="auto_metadata_enforcement" style="padding-left: 10px;">Enable ACW Automatic Cover & Metadata Enforcement Service</label><br>
+      <p class="acw-settings-tooltip">
+        On by default, when active, whenever the Metadata and/or Cover Image is edited in the Web UI, the ACW Metadata Enforcement service 
+        will then apply those changes the ebook files themselves. Normally in Stock CW or when this setting is disabled, the changes made 
+        are only applied to what you see in the Web UI, not the ebook files themselves. This feature currently only supports files in EPUB 
+        or AZW3 format.
+      </p>
+
+      {% if acw_settings['kindle_epub_fixer'] %}
+      <input type="checkbox" id="kindle_epub_fixer" name="kindle_epub_fixer" value="True" checked style="accent-color: var(--color-secondary);" data-toggle="tooltip" data-placement="right" title="Does NOT require restart for changes to take effect">
+      {% else %}
+      <input type="checkbox" id="kindle_epub_fixer" name="kindle_epub_fixer" value="True" style="accent-color: var(--color-secondary);" data-toggle="tooltip" data-placement="right" title="Does NOT require restart for changes to take effect">
+      {% endif %}
+      <label for="kindle_epub_fixer" style="padding-left: 10px;">Enable ACW Kindle EPUB Fixer</label><br>
+      <p class="acw-settings-tooltip">
+        When active, the encoding among other attributes of all EPUB files processed by ACW will be checked and fixed to ensure maximum 
+        compatibility with Amazon's Send-to-Kindle Service.
+        <br><br>
+        <i>(TLDR: if you've ever had EPUB files that Amazon just constantly rejects for seemingly no reason, this should prevent that 
+          from happening again). This tool was adapted from the <a href="https://kindle-epub-fix.netlify.app/">kindle-epub-fix.netlify.app</a> 
+          tool made by <a href="https://github.com/innocenat">innocenat</a>.</i>
+      </p>
+    </div>
+
+    <div class="settings-container">
+        <h4 class="settings-section-header">Web UI Settings</h4>
+
+      {% if acw_settings['acw_update_notifications'] %}
+      <input type="checkbox" id="acw_update_notifications" name="acw_update_notifications" value="True" checked style="accent-color: var(--color-secondary);" data-toggle="tooltip" data-placement="right" title="Does NOT require restart for changes to take effect">
+      {% else %}
+      <input type="checkbox" id="acw_update_notifications" name="acw_update_notifications" value="True" style="accent-color: var(--color-secondary);" data-toggle="tooltip" data-placement="right" title="Does NOT require restart for changes to take effect">
+      {% endif %}
+      <label for="acw_update_notifications" style="padding-left: 10px;">Enable ACW Update Notifications</label><br>
+      <p class="acw-settings-tooltip">
+        When active, you will no longer receive notifications in the Web UI when a new version of ACW is released
+      </p>
+    </div>
+
+    <div class="settings-container">
+      <h4 class="settings-section-header">Automatic Backup Settings</h4>
+
+      {% if acw_settings['auto_backup_imports'] %}
+      <input type="checkbox" id="auto_backup_imports" name="auto_backup_imports" value="True" checked style="accent-color: var(--color-secondary);" data-toggle="tooltip" data-placement="right" title="If deactivated, imported files can only be found in your Calibre Library" >
+      {% else %}
+      <input type="checkbox" id="auto_backup_imports" name="auto_backup_imports" value="True" style="accent-color: var(--color-secondary);" data-toggle="tooltip" data-placement="right" title="If deactivated, imported files can only be found in your Calibre Library" >
+      {% endif %}
+      <label for="auto_backup_imports" style="padding-left: 10px;">Enable ACW Import Auto-Backup</label><br>
+      <p class="acw-settings-tooltip">
+        When active, a copy of all imported files will be stored in <i>/config/processed_books/imported</i>
+      </p>
+
+      {% if acw_settings['auto_backup_conversions'] %}
+      <input type="checkbox" id="auto_backup_conversions" name="auto_backup_conversions" value="True" checked style="accent-color: var(--color-secondary);" data-toggle="tooltip" data-placement="right" title="If deactivated, the originals of converted files will not be stored (except in the case of a failed conversion)">
+      {% else %}
+      <input type="checkbox" id="auto_backup_conversions" name="auto_backup_conversions" value="True" style="accent-color: var(--color-secondary);" data-toggle="tooltip" data-placement="right" title="If deactivated, the originals of converted files will not be stored (except in the case of a failed conversion)">
+      {% endif %}
+      <label for="auto_backup_conversions" style="padding-left: 10px;">Enable ACW Conversion Auto-Backup</label><br>
+      <p class="acw-settings-tooltip">
+        When active, the originals of ingested files that undergo conversion will be stored in /config/processed_books/converted
+      </p>
+
+      {% if acw_settings['auto_backup_epub_fixes'] %}
+      <input type="checkbox" id="auto_backup_epub_fixes" name="auto_backup_epub_fixes" value="True" checked style="accent-color: var(--color-secondary);" data-toggle="tooltip" data-placement="right" title="If deactivated, the originals of EPUB's that have been fixed will not be stored (except in the case of a process failure)">
+      {% else %}
+      <input type="checkbox" id="auto_backup_epub_fixes" name="auto_backup_epub_fixes" value="True" style="accent-color: var(--color-secondary);" data-toggle="tooltip" data-placement="right" title="If deactivated, the originals of EPUB's that have been fixed will not be stored (except in the case of a process failure)">
+      {% endif %}
+      <label for="auto_backup_epub_fixes" style="padding-left: 10px;">Enable ACW EPUB Fixer Auto-Backup</label><br>
+      <p class="acw-settings-tooltip">
+        When active, the originals of EPUBs processed by the ACW Kindle EPUB Fixer service will be stored in /config/processed_books/fixed_originals
+      </p>
+
+      <hr class="settings-divider">
+
+      {% if acw_settings['auto_zip_backups'] %}
+      <input type="checkbox" id="auto_zip_backups" name="auto_zip_backups" value="True" checked style="accent-color: var(--color-secondary);" data-toggle="tooltip" data-placement="right" data-html="true" title="If deactivated, backed up files will be left alone in their respective folders">
+      {% else %}
+      <input type="checkbox" id="auto_zip_backups" name="auto_zip_backups" value="True" style="accent-color: var(--color-secondary);" data-toggle="tooltip" data-placement="right" data-html="true" title="If deactivated, backed up files will be left alone in their respective folders">
+      {% endif %}
+      <label for="auto_zip_backups" style="padding-left: 10px;">Enable ACW Auto Zip Backups</label><br>
+      <p class="acw-settings-tooltip">
+        When active, just before midnight each day, the acw-auto-zipper service will make zip archives of all the backed up converted, imported 
+        and failed files from that day. This is to help keep the subdirectories of /config/processed_books organised and to minimise disk space 
+        usage.
+      </p>
+    </div>
+    
+    <div class="settings-container">
+      <h4 class="settings-section-header">ACW Auto-Conversion Target Format - EPUB by Default</h4>
+
+      <p class="acw-settings-explanation settings-explanation">
+        When the Auto-Convert feature is active, all ingested books will be automatically converted to the format chosen here (except those 
+        formats selected in the ignore list below)
+      </p>
+      <label for="auto_convert_target_format" style="padding-right: 10px; margin-bottom: 16px !important;">Choose a target format:</label>
+      <select class="acw-settings-select" name="auto_convert_target_format" id="auto_convert_target_format">
+        {% for format in target_formats -%}
+          {% if acw_settings['auto_convert_target_format'] == format %}
+            <option value="{{ format }}" selected>{{ format }}</option>
+          {% else %}
+            <option value="{{ format }}">{{ format }}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
+      <p class="acw-settings-disclaimer settings-disclaimer" style="margin-bottom: 2rem !important;">
+        * ACW's Metadata Enforcement service can currently only support file in either EPUB and AZW3 format. Files in other formats will simply 
+        be ignored by the service
+      </p>
+    </div>
+
+    <div class="settings-container">
+      <h4 class="settings-section-header">ACW Auto-Convert - Ignored Formats</h4>
+      <p class="acw-settings-explanation settings-explanation">
+        The formats selected here will be ignored by ACW's Auto-Conversion feature when it's active, meaning they will be imported as is.
+      </p>
+      <div style="max-width: 90rem; padding-left: 30px;">
+        {% for format in ignorable_formats -%}
+          <label for="ignore_convert_{{ format }}" style="width: 75px; padding-right: 6px;">
+            {% if format in acw_settings['auto_convert_ignored_formats'] %}
+              {% if format == acw_settings['auto_convert_target_format'] %}
+                <input type="checkbox" id="ignore_convert_{{ format }}" name="ignore_convert_{{ format }}" value="{{ format }}" disabled style="vertical-align: middle; accent-color: var(--color-secondary);">
+              {% else %}
+                <input type="checkbox" id="ignore_convert_{{ format }}" name="ignore_convert_{{ format }}" value="{{ format }}" checked style="vertical-align: middle; accent-color: var(--color-secondary);">
+              {% endif %}
+            {% else %}
+              {% if format == acw_settings['auto_convert_target_format'] %}
+                <input type="checkbox" id="ignore_convert_{{ format }}" name="ignore_convert_{{ format }}" value="{{ format }}" disabled style="vertical-align: middle; accent-color: var(--color-secondary);">
+              {% else %}
+                <input type="checkbox" id="ignore_convert_{{ format }}" name="ignore_convert_{{ format }}" value="{{ format }}" style="vertical-align: middle; accent-color: var(--color-secondary);">
+              {% endif %}
+            {% endif %}
+            <span style="padding-left: 4px; vertical-align: middle;">{{ format }}</span>
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="settings-container" style="margin-bottom: 0.8rem !important;">
+      <h4 class="settings-section-header">ACW Auto-Ingest - Ignored Formats</h4>
+      <p class="acw-settings-explanation settings-explanation">
+        The formats selected here will be ignored by ACW's Auto-Ingest feature, meaning files in these formats won't be added to the 
+        library by ACW during the ingest process
+      </p>
+      <div style="max-width: 90rem; padding-left: 30px;">
+        {% for format in ignorable_formats -%}
+          <label for="ignore_ingest_{{ format }}" style="width: 75px; padding-right: 6px;">
+            {% if format in acw_settings['auto_ingest_ignored_formats'] %}
+              {% if format == acw_settings['auto_convert_target_format'] %}
+                <input type="checkbox" id="ignore_ingest_{{ format }}" name="ignore_ingest_{{ format }}" value="{{ format }}" disabled style="vertical-align: middle; accent-color: var(--color-secondary);">
+              {% else %}
+                <input type="checkbox" id="ignore_ingest_{{ format }}" name="ignore_ingest_{{ format }}" value="{{ format }}" checked style="vertical-align: middle; accent-color: var(--color-secondary);">
+              {% endif %}
+            {% else %}
+              {% if format == acw_settings['auto_convert_target_format'] %}
+                <input type="checkbox" id="ignore_ingest_{{ format }}" name="ignore_ingest_{{ format }}" value="{{ format }}" disabled style="vertical-align: middle; accent-color: var(--color-secondary);">
+              {% else %}
+                <input type="checkbox" id="ignore_ingest_{{ format }}" name="ignore_ingest_{{ format }}" value="{{ format }}" style="vertical-align: middle; accent-color: var(--color-secondary);">
+              {% endif %}
+            {% endif %}
+            <span style="padding-left: 4px; vertical-align: middle;">{{ format }}</span>
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <br>
+    <div class="row form-group" style="text-align-last: justify;">
+      <input type="submit" name="submit_button" value="Submit" class="btn btn-default">
+      <input type="submit" style="margin-right: 2rem;" name="submit_button" value="Apply Default Settings" class="btn btn-default">
+    </div>
+    <br>
+
+    </div>
+  </form>
+</div>
+{% endblock %}
