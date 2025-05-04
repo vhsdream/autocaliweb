@@ -48,6 +48,14 @@ _This software is a fork of [Calibre-Web](https://github.com/janeczku/calibre-we
 - Self-update capability
 - "Magic Link" login for easy access on eReaders
 - LDAP, Google/GitHub OAuth, and proxy authentication support
+- Auto Ingest, Conversion, Metadata and Cover Enforcement and Backup services
+- Automatic EPub Fixer service
+- Auto-detection of your library
+- Automatic Setup
+- Server Stats tracking
+- Easy theme switching
+- Batch edits of books
+- ISBNDB as an additional provider for metadata
 
 ## Installation
 
