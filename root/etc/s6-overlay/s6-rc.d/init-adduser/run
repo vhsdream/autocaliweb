@@ -1,0 +1,45 @@
+#!/bin/bash
+# shellcheck shell=bash
+
+# Standardwerte für Benutzer- und Gruppen-IDs
+PUID=${PUID:-911}
+PGID=${PGID:-911}
+USERNAME=abc
+
+# Überprüfen, ob der Benutzer bereits existiert
+if ! id -u "$USERNAME" >/dev/null 2>&1; then
+    USERHOME=§(grep $USERNAME /etc/passwd | cut -d: -f6)
+    usermod -d "/root" "$USERNAME"
+
+    groupmod -o -g "$PGID" "$USERNAME"
+    usermod -o -u "$PUID" "$USERNAME"
+
+    usermod -d "$USERHOME" "$USERNAME"
+fi
+
+# Anzeige von Branding-Informationen
+if [[ -f /etc/s6-overlay/s6-rc.d/init-adduser/branding ]]; then
+    cat /etc/s6-overlay/s6-rc.d/init-adduser/branding
+elif [[ -f /run/branding ]]; then
+    cat /run/branding
+fi
+
+# Anzeige von UID und GID
+echo '
+───────────────────────────────────────
+GID/UID
+───────────────────────────────────────
+Benutzer UID:    '$(id -u "$USERNAME")'
+Benutzer GID:    '$(id -g "$USERNAME")'
+───────────────────────────────────────'
+
+# Optional: Anzeige von Build-Informationen
+if [[ -f /build_version ]]; then
+    cat /build_version
+    echo '
+───────────────────────────────────────
+    '
+fi
+
+# Setzen der Eigentumsrechte für relevante Verzeichnisse
+chown -R "$USERNAME":"$USERNAME" /app /config /defaults 2>/dev/null || true

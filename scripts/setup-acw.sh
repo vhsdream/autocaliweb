@@ -37,7 +37,7 @@ add_aliases () {
     convert-library () {
         python3 /app/autocaliweb/scripts/convert_library.py "$@"
     }
-    EOF
+EOF
 
     source ~/.bashrc
 }
