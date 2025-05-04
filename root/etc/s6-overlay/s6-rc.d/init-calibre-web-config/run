@@ -19,7 +19,7 @@ fi
 mkdir -p /app/autocaliweb/cps/cache
 
 # permissions
-lsiown -R abc:abc \
+chown -R abc:abc \
     /config \
     /app/autocaliweb/cps/cache
 
