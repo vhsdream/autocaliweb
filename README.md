@@ -22,7 +22,7 @@ Autocaliweb is a web app that offers a clean and intuitive interface for browsin
 
 </details>
 
-_This software is a fork of [Calibre-Web](https://github.com/janeczku/calibre-web) and licensed under the GPL v3 License._
+_This software is a fork of [Calibre-Web](https://github.com/janeczku/calibre-web) and [Calibre-Web Automated](https://github.com/crocodilestick/Calibre-Web-Automated) and licensed under the GPL v3 License._
 
 ## Features
 
