@@ -13,7 +13,7 @@ Autocaliweb is a web app that offers a clean and intuitive interface for browsin
 2. [Features](#features)
 3. [Installation](#installation)
    - [Installation via Docker (recommended)](#installation-via-docker-recommended)
-   - [Quick start](#quick-start)
+   - [After Installation](#after-installation)
    - [Deploy Requirements](#deploy-requirements)
 4. [Troubleshooting](#troubleshooting)
 5. [Contributor Recognition](#contributor-recognition)
@@ -61,7 +61,25 @@ _This software is a fork of [Calibre-Web](https://github.com/janeczku/calibre-we
 
 ### Installation via Docker (recommended)
 
-#### Docker compose:
+#### Quick Install
+
+1. Download the Docker Compose template file to the folder where Autocaliweb should have it's data (e.g. /opt/autocaliweb) using the command below:
+
+```
+curl -Lo ./docker-compose.yml https://raw.githubusercontent.com/gelbphoenix/autocaliweb/main/docker-compose.yml
+```
+
+2.  Edit the compose file using the comments to help, filling in your Timezone and desired binds
+
+3.  Navigate to where you downloaded the Compose file and run:
+
+```
+docker compose up -d
+```
+
+And that's you off to the races! Continue with the [things after installation](#after-installation).
+
+#### Using Docker compose:
 
 ```yml
 services:
@@ -83,7 +101,7 @@ services:
     stop_grace_period: 15s
 ```
 
-## Quick Start
+## After Installation
 
 1. **Access Autocaliweb**: Open your browser and navigate to: http://localhost:8083 or http://localhost:8083/opds for the OPDS catalog.
 2. **Log in with the default admin credentials**:
