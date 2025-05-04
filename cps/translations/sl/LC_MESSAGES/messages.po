@@ -1,12 +1,12 @@
-# Slovenian translations for Calibre-Web.
+# Slovenian translations for Autocaliweb.
 # Copyright (C) 2024 Andrej Kralj
-# This file is distributed under the same license as the Calibre-Web
+# This file is distributed under the same license as the Autocaliweb
 # project.
 # FIRST AUTHOR Andrej Kralj, 2024.
 msgid ""
 msgstr ""
-"Project-Id-Version:  Calibre-Web\n"
-"Report-Msgid-Bugs-To: https://github.com/janeczku/Calibre-Web\n"
+"Project-Id-Version:  Autocaliweb\n"
+"Report-Msgid-Bugs-To: https://github.com/janeczku/Autocaliweb\n"
 "POT-Creation-Date: 2025-03-30 15:55+0200\n"
 "PO-Revision-Date: 2024-09-18 19:45+0200\n"
 "Last-Translator: Andrej Kralj\n"
@@ -145,8 +145,8 @@ msgid "Invalid Restricted Column"
 msgstr "Neveljavni stolpec za omejitev"
 
 #: cps/admin.py:604 cps/admin.py:1894
-msgid "Calibre-Web configuration updated"
-msgstr "Posodobljena nastavitev Calibre-Web"
+msgid "Autocaliweb configuration updated"
+msgstr "Posodobljena nastavitev Autocaliweb"
 
 #: cps/admin.py:616
 msgid "Do you really want to delete the Kobo Token?"
@@ -193,12 +193,12 @@ msgid "Are you sure you want to change Calibre library location?"
 msgstr "Ste prepričani, da želite spremeniti lokacijo knjižnice Calibre?"
 
 #: cps/admin.py:639
-msgid "Calibre-Web will search for updated Covers and update Cover Thumbnails, this may take a while?"
-msgstr "Calibre-Web bo poiskal posodobljene naslovnice in posodobil sličice naslovnic, kar lahko traja nekaj časa."
+msgid "Autocaliweb will search for updated Covers and update Cover Thumbnails, this may take a while?"
+msgstr "Autocaliweb bo poiskal posodobljene naslovnice in posodobil sličice naslovnic, kar lahko traja nekaj časa."
 
 #: cps/admin.py:642
-msgid "Are you sure you want delete Calibre-Web's sync database to force a full sync with your Kobo Reader?"
-msgstr "Ali ste prepričani, da želite izbrisati sinhronizacijsko podatkovno bazo Calibre-Web, da bi vsilili popolno sinhronizacijo z bralnikom Kobo?"
+msgid "Are you sure you want delete Autocaliweb's sync database to force a full sync with your Kobo Reader?"
+msgstr "Ali ste prepričani, da želite izbrisati sinhronizacijsko podatkovno bazo Autocaliweb, da bi vsilili popolno sinhronizacijo z bralnikom Kobo?"
 
 #: cps/admin.py:885 cps/admin.py:891 cps/admin.py:901 cps/admin.py:911
 #: cps/templates/modal_dialogs.html:29 cps/templates/user_table.html:41
@@ -681,20 +681,20 @@ msgid "Send to eReader"
 msgstr "Pošlji v e-bralnik"
 
 #: cps/helper.py:105 cps/helper.py:125 cps/helper.py:235
-msgid "This Email has been sent via Calibre-Web."
-msgstr "To e-poštno sporočilo je bilo poslano prek programa Calibre-Web."
+msgid "This Email has been sent via Autocaliweb."
+msgstr "To e-poštno sporočilo je bilo poslano prek programa Autocaliweb."
 
 #: cps/helper.py:123
-msgid "Calibre-Web Test Email"
-msgstr "Testna e-pošta Calibre-Web"
+msgid "Autocaliweb Test Email"
+msgstr "Testna e-pošta Autocaliweb"
 
 #: cps/helper.py:124
 msgid "Test Email"
 msgstr "Testna e-pošta"
 
 #: cps/helper.py:141
-msgid "Get Started with Calibre-Web"
-msgstr "Začnite s programom Calibre-Web"
+msgid "Get Started with Autocaliweb"
+msgstr "Začnite s programom Autocaliweb"
 
 #: cps/helper.py:146
 #, python-format
@@ -854,8 +854,8 @@ msgid "Queue all books for metadata backup"
 msgstr "Vse knjige v vrsti za varnostno kopiranje metapodatkov"
 
 #: cps/kobo_auth.py:92
-msgid "Please access Calibre-Web from non localhost to get valid api_endpoint for kobo device"
-msgstr "Dostopajte do Calibre-Web z nelokalnega gostitelja, da pridobite veljavno api_endpoint za napravo kobo"
+msgid "Please access Autocaliweb from non localhost to get valid api_endpoint for kobo device"
+msgstr "Dostopajte do Autocaliweb z nelokalnega gostitelja, da pridobite veljavno api_endpoint za napravo kobo"
 
 #: cps/kobo_auth.py:118
 msgid "Kobo Setup"
@@ -1112,8 +1112,8 @@ msgid "Read Status = '%(status)s'"
 msgstr "Prebrani status = '%(status)s'"
 
 #: cps/search.py:351
-msgid "Error on search for custom columns, please restart Calibre-Web"
-msgstr "Napaka pri iskanju stolpcev po meri, ponovno zaženite Calibre-Web"
+msgid "Error on search for custom columns, please restart Autocaliweb"
+msgstr "Napaka pri iskanju stolpcev po meri, ponovno zaženite Autocaliweb"
 
 #: cps/search.py:370 cps/search.py:402 cps/templates/layout.html:58
 msgid "Advanced Search"
@@ -2264,8 +2264,8 @@ msgid "Logfile Configuration"
 msgstr "Nastavitev dnevniške datoteke"
 
 #: cps/templates/config_edit.html:77
-msgid "Location and name of logfile (calibre-web.log for no entry)"
-msgstr "Lokacija in ime dnevniške datoteke (calibre-web.log, če ni vneseno)"
+msgid "Location and name of logfile (autocaliweb.log for no entry)"
+msgstr "Lokacija in ime dnevniške datoteke (autocaliweb.log, če ni vneseno)"
 
 #: cps/templates/config_edit.html:82
 msgid "Enable Access Log"
@@ -2684,8 +2684,8 @@ msgid "Add to archive"
 msgstr "Dodaj v arhiv"
 
 #: cps/templates/detail.html:275
-msgid "Mark Book as archived or not, to hide it in Calibre-Web and delete it from Kobo Reader"
-msgstr "Označi knjigo kot arhivirano ali ne, da se skrije v Calibre-Web in izbriše iz Kobo bralnika"
+msgid "Mark Book as archived or not, to hide it in Autocaliweb and delete it from Kobo Reader"
+msgstr "Označi knjigo kot arhivirano ali ne, da se skrije v Autocaliweb in izbriše iz Kobo bralnika"
 
 #: cps/templates/detail.html:275
 msgid "Archive"
@@ -2786,8 +2786,8 @@ msgid "List"
 msgstr "Seznam"
 
 #: cps/templates/http_error.html:34
-msgid "Calibre-Web Instance is unconfigured, please contact your administrator"
-msgstr "Instanca Calibre-Web ni nastavljena, obrni se na skrbnika"
+msgid "Autocaliweb Instance is unconfigured, please contact your administrator"
+msgstr "Instanca Autocaliweb ni nastavljena, obrni se na skrbnika"
 
 #: cps/templates/http_error.html:44
 msgid "Create Issue"
@@ -2956,12 +2956,12 @@ msgid "Log in with Magic Link"
 msgstr "Prijavi se s povezavo Magic Link"
 
 #: cps/templates/logviewer.html:6
-msgid "Show Calibre-Web Log: "
-msgstr "Prikaži dnevnik Calibre-Web:"
+msgid "Show Autocaliweb Log: "
+msgstr "Prikaži dnevnik Autocaliweb:"
 
 #: cps/templates/logviewer.html:8
-msgid "Calibre-Web Log: "
-msgstr "Dnevnik Calibre-Web:"
+msgid "Autocaliweb Log: "
+msgstr "Dnevnik Autocaliweb:"
 
 #: cps/templates/logviewer.html:8
 msgid "Stream output, can't be displayed"
@@ -2972,8 +2972,8 @@ msgid "Show Access Log: "
 msgstr "Prikaži dnevnik dostopa: "
 
 #: cps/templates/logviewer.html:18
-msgid "Download Calibre-Web Log"
-msgstr "Prenos Calibre-Web Log"
+msgid "Download Autocaliweb Log"
+msgstr "Prenos Autocaliweb Log"
 
 #: cps/templates/logviewer.html:21
 msgid "Download Access Log"
@@ -3052,8 +3052,8 @@ msgid "Ok"
 msgstr "V redu"
 
 #: cps/templates/osd.xml:5
-msgid "Calibre-Web eBook Catalog"
-msgstr "Katalog e-knjig Calibre-Web"
+msgid "Autocaliweb eBook Catalog"
+msgstr "Katalog e-knjig Autocaliweb"
 
 #: cps/templates/read.html:7
 msgid "epub Reader"

@@ -8,7 +8,7 @@ Please report security issues [here](https://github.com/gelbphoenix/autocaliweb/
 
 To receive fixes for security vulnerabilities it is required to always upgrade to the latest version of Autocaliweb. See [Autocaliweb releases](https://github.com/gelbphoenix/autocaliweb/releases/latest) for the latest release.
 
-## History
+## History (continued from Calibre-Web)
 
 | Fixed in      | Description                                                                                                                      | CVE number     |
 | ------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------- |

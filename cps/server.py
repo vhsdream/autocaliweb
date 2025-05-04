@@ -125,7 +125,7 @@ class WebServer(object):
                 unix_sock = WSGIServer.get_listener(unix_socket_file, family=socket.AF_UNIX)
                 # ensure current user and group have r/w permissions, no permissions for other users
                 # this way the socket can be shared in a semi-secure manner
-                # between the user running calibre-web and the user running the fronting webserver
+                # between the user running autocaliweb and the user running the fronting webserver
                 os.chmod(unix_socket_file, 0o660)
 
                 return unix_sock, "unix:" + unix_socket_file
@@ -260,7 +260,7 @@ class WebServer(object):
                 http_server.add_socket(unix_socket)
                 # ensure current user and group have r/w permissions, no permissions for other users
                 # this way the socket can be shared in a semi-secure manner
-                # between the user running calibre-web and the user running the fronting webserver
+                # between the user running autocaliweb and the user running the fronting webserver
                 os.chmod(self.unix_socket_file, 0o660)
             else:
                 output = _readable_listen_address(self.listen_address, self.listen_port)
@@ -295,10 +295,10 @@ class WebServer(object):
         logger.get('asyncio').setLevel(logger.logging.CRITICAL)
 
         if not self.restart:
-            log.info("Performing shutdown of Calibre-Web")
+            log.info("Performing shutdown of Autocaliweb")
             return True
 
-        log.info("Performing restart of Calibre-Web")
+        log.info("Performing restart of Autocaliweb")
         args = self._get_args_for_reloading()
         os.execv(args[0].lstrip('"').rstrip('"'), args)
 

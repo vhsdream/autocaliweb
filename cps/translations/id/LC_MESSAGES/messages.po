@@ -1,12 +1,12 @@
-# Indonesian translations for Calibre-Web.
-# Copyright (C) 2017 Calibre-Web
-# This file is distributed under the same license as the Calibre-Web
+# Indonesian translations for Autocaliweb.
+# Copyright (C) 2017 Autocaliweb
+# This file is distributed under the same license as the Autocaliweb
 # project.
 # FIRST AUTHOR Arief Hidayat<arihid95@gmail.com>, 2021-2023.
 msgid ""
 msgstr ""
-"Project-Id-Version:  Calibre-Web\n"
-"Report-Msgid-Bugs-To: https://github.com/janeczku/Calibre-Web\n"
+"Project-Id-Version:  Autocaliweb\n"
+"Report-Msgid-Bugs-To: https://github.com/janeczku/Autocaliweb\n"
 "POT-Creation-Date: 2025-03-30 15:55+0200\n"
 "PO-Revision-Date: 2023-01-21 10:00+0700\n"
 "Last-Translator: Arief Hidayat<arihid95@gmail.com>\n"
@@ -148,8 +148,8 @@ msgid "Invalid Restricted Column"
 msgstr "Kolom Dibatasi Tidak Valid"
 
 #: cps/admin.py:604 cps/admin.py:1894
-msgid "Calibre-Web configuration updated"
-msgstr "Pengaturan Calibre-Web telah diperbarui"
+msgid "Autocaliweb configuration updated"
+msgstr "Pengaturan Autocaliweb telah diperbarui"
 
 #: cps/admin.py:616
 msgid "Do you really want to delete the Kobo Token?"
@@ -196,12 +196,12 @@ msgid "Are you sure you want to change Calibre library location?"
 msgstr "Apakah Anda yakin ingin mengubah lokasi perpustakaan Calibre?"
 
 #: cps/admin.py:639
-msgid "Calibre-Web will search for updated Covers and update Cover Thumbnails, this may take a while?"
-msgstr "Calibre-Web akan mencari Sampul yang diperbarui dan memperbarui Thumbnail Sampul, ini mungkin memakan waktu cukup lama?"
+msgid "Autocaliweb will search for updated Covers and update Cover Thumbnails, this may take a while?"
+msgstr "Autocaliweb akan mencari Sampul yang diperbarui dan memperbarui Thumbnail Sampul, ini mungkin memakan waktu cukup lama?"
 
 #: cps/admin.py:642
-msgid "Are you sure you want delete Calibre-Web's sync database to force a full sync with your Kobo Reader?"
-msgstr "Apakah Anda yakin ingin menghapus database sinkronisasi Calibre-Web untuk memaksakan sinkronisasi penuh dengan Kobo Reader Anda?"
+msgid "Are you sure you want delete Autocaliweb's sync database to force a full sync with your Kobo Reader?"
+msgstr "Apakah Anda yakin ingin menghapus database sinkronisasi Autocaliweb untuk memaksakan sinkronisasi penuh dengan Kobo Reader Anda?"
 
 #: cps/admin.py:885 cps/admin.py:891 cps/admin.py:901 cps/admin.py:911
 #: cps/templates/modal_dialogs.html:29 cps/templates/user_table.html:41
@@ -687,13 +687,13 @@ msgstr "Kirim ke E-Reader"
 
 #: cps/helper.py:105 cps/helper.py:125 cps/helper.py:235
 #, fuzzy
-msgid "This Email has been sent via Calibre-Web."
-msgstr "Email ini telah dikirim melalui Calibre-Web."
+msgid "This Email has been sent via Autocaliweb."
+msgstr "Email ini telah dikirim melalui Autocaliweb."
 
 #: cps/helper.py:123
 #, fuzzy
-msgid "Calibre-Web Test Email"
-msgstr "Email tes Calibre-Web"
+msgid "Autocaliweb Test Email"
+msgstr "Email tes Autocaliweb"
 
 #: cps/helper.py:124
 #, fuzzy
@@ -701,8 +701,8 @@ msgid "Test Email"
 msgstr "Email tes"
 
 #: cps/helper.py:141
-msgid "Get Started with Calibre-Web"
-msgstr "Memulai dengan Calibre-Web"
+msgid "Get Started with Autocaliweb"
+msgstr "Memulai dengan Autocaliweb"
 
 #: cps/helper.py:146
 #, fuzzy, python-format
@@ -867,8 +867,8 @@ msgid "Queue all books for metadata backup"
 msgstr "Antrian semua buku untuk cadangan metadata"
 
 #: cps/kobo_auth.py:92
-msgid "Please access Calibre-Web from non localhost to get valid api_endpoint for kobo device"
-msgstr "Mohon akses calibre-web dari non localhost untuk mendapatkan api_endpoint yang valid untuk perangkat kobo"
+msgid "Please access Autocaliweb from non localhost to get valid api_endpoint for kobo device"
+msgstr "Mohon akses Autocaliweb dari non localhost untuk mendapatkan api_endpoint yang valid untuk perangkat kobo"
 
 #: cps/kobo_auth.py:118
 msgid "Kobo Setup"
@@ -1134,8 +1134,8 @@ msgid "Read Status = '%(status)s'"
 msgstr "Status Baca = %(status)s"
 
 #: cps/search.py:351
-msgid "Error on search for custom columns, please restart Calibre-Web"
-msgstr "Terjadi kesalahan saat mencari kolom khusus, harap mulai ulang Calibre-Web"
+msgid "Error on search for custom columns, please restart Autocaliweb"
+msgstr "Terjadi kesalahan saat mencari kolom khusus, harap mulai ulang Autocaliweb"
 
 #: cps/search.py:370 cps/search.py:402 cps/templates/layout.html:58
 msgid "Advanced Search"
@@ -2297,7 +2297,7 @@ msgid "Logfile Configuration"
 msgstr "Pengaturan Logfile"
 
 #: cps/templates/config_edit.html:77
-msgid "Location and name of logfile (calibre-web.log for no entry)"
+msgid "Location and name of logfile (autocaliweb.log for no entry)"
 msgstr "Lokasi dan nama logfile (caliber-web.log jika tanpa entri)"
 
 #: cps/templates/config_edit.html:82
@@ -2722,7 +2722,7 @@ msgid "Add to archive"
 msgstr "Tambahkan ke Arsip"
 
 #: cps/templates/detail.html:275
-msgid "Mark Book as archived or not, to hide it in Calibre-Web and delete it from Kobo Reader"
+msgid "Mark Book as archived or not, to hide it in Autocaliweb and delete it from Kobo Reader"
 msgstr ""
 
 #: cps/templates/detail.html:275
@@ -2828,8 +2828,8 @@ msgid "List"
 msgstr "Daftar"
 
 #: cps/templates/http_error.html:34
-msgid "Calibre-Web Instance is unconfigured, please contact your administrator"
-msgstr "Instans Calibre-Web belum diatur, harap hubungi administrator Anda"
+msgid "Autocaliweb Instance is unconfigured, please contact your administrator"
+msgstr "Instans Autocaliweb belum diatur, harap hubungi administrator Anda"
 
 #: cps/templates/http_error.html:44
 msgid "Create Issue"
@@ -2998,12 +2998,12 @@ msgid "Log in with Magic Link"
 msgstr "Masuk dengan Magic Link"
 
 #: cps/templates/logviewer.html:6
-msgid "Show Calibre-Web Log: "
+msgid "Show Autocaliweb Log: "
 msgstr "Tampilkan Log Caliber-Web:"
 
 #: cps/templates/logviewer.html:8
-msgid "Calibre-Web Log: "
-msgstr "Log Calibre-Web: "
+msgid "Autocaliweb Log: "
+msgstr "Log Autocaliweb: "
 
 #: cps/templates/logviewer.html:8
 msgid "Stream output, can't be displayed"
@@ -3014,8 +3014,8 @@ msgid "Show Access Log: "
 msgstr "Tampilkan Log Akses:"
 
 #: cps/templates/logviewer.html:18
-msgid "Download Calibre-Web Log"
-msgstr "Unduh Calibre-Web Log"
+msgid "Download Autocaliweb Log"
+msgstr "Unduh Autocaliweb Log"
 
 #: cps/templates/logviewer.html:21
 msgid "Download Access Log"
@@ -3094,8 +3094,8 @@ msgid "Ok"
 msgstr "Ok"
 
 #: cps/templates/osd.xml:5
-msgid "Calibre-Web eBook Catalog"
-msgstr "Katalog eBook Calibre-Web"
+msgid "Autocaliweb eBook Catalog"
+msgstr "Katalog eBook Autocaliweb"
 
 #: cps/templates/read.html:7
 msgid "epub Reader"

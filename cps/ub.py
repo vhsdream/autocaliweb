@@ -233,7 +233,7 @@ class UserBase:
         return '<User %r>' % self.name
 
 
-# Baseclass for Users in Calibre-Web, settings which depend on certain users are stored here. It is derived from
+# Baseclass for Users in Autocaliweb, settings which depend on certain users are stored here. It is derived from
 # User Base (all access methods are declared there)
 class User(UserBase, Base):
     __tablename__ = 'user'
@@ -358,7 +358,7 @@ class User_Sessions(Base):
         self.expiry = expiry
 
 
-# Baseclass representing Shelfs in calibre-web in app.db
+# Baseclass representing Shelfs in autocaliweb in app.db
 class Shelf(Base):
     __tablename__ = 'shelf'
 
@@ -376,7 +376,7 @@ class Shelf(Base):
         return '<Shelf %d:%r>' % (self.id, self.name)
 
 
-# Baseclass representing Relationship between books and Shelfs in Calibre-Web in app.db (N:M)
+# Baseclass representing Relationship between books and Shelfs in Autocaliweb in app.db (N:M)
 class BookShelf(Base):
     __tablename__ = 'book_shelf_link'
 
@@ -501,7 +501,7 @@ def receive_before_flush(session, flush_context, instances):
             change.ub_shelf.last_modified = datetime.now(timezone.utc)
 
 
-# Baseclass representing Downloads from calibre-web in app.db
+# Baseclass representing Downloads from autocaliweb in app.db
 class Downloads(Base):
     __tablename__ = 'downloads'
 
@@ -623,7 +623,7 @@ def clean_database(_session):
         sys.exit(2)
 
 
-# Save downloaded books per user in calibre-web's own database
+# Save downloaded books per user in autocaliweb's own database
 def update_download(book_id, user_id):
     check = session.query(Downloads).filter(Downloads.user_id == user_id).filter(Downloads.book_id == book_id).first()
 
@@ -636,7 +636,7 @@ def update_download(book_id, user_id):
             session.rollback()
 
 
-# Delete non-existing downloaded books in calibre-web's own database
+# Delete non-existing downloaded books in autocaliweb's own database
 def delete_download(book_id):
     session.query(Downloads).filter(book_id == Downloads.book_id).delete()
     try:

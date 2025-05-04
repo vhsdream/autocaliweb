@@ -1,0 +1,11 @@
+#!/bin/bash
+
+python3 /app/autocaliweb/scripts/auto_library.py
+
+if [[ $? == 1 ]]
+then
+    echo "[acw-auto-library] Service did not complete successfully (see errors above). Ending service..."
+elif [[ $? == 0 ]]
+then
+    echo "[acw-auto-library] Service completed successfully! Ending service..."
+fi

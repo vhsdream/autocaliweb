@@ -1,12 +1,12 @@
-# Japanese translations for Calibre-Web.
-# Copyright (C) 2017 Calibre-Web
-# This file is distributed under the same license as the Calibre-Web
+# Japanese translations for Autocaliweb.
+# Copyright (C) 2017 Autocaliweb
+# This file is distributed under the same license as the Autocaliweb
 # project.
 # FIRST AUTHOR white<space_white@yahoo.com>, 2017.
 msgid ""
 msgstr ""
-"Project-Id-Version:  Calibre-Web\n"
-"Report-Msgid-Bugs-To: https://github.com/janeczku/Calibre-Web\n"
+"Project-Id-Version:  Autocaliweb\n"
+"Report-Msgid-Bugs-To: https://github.com/janeczku/Autocaliweb\n"
 "POT-Creation-Date: 2025-03-30 15:55+0200\n"
 "PO-Revision-Date: 2018-02-07 02:20-0500\n"
 "Last-Translator: subdiox <subdiox@gmail.com>\n"
@@ -148,8 +148,8 @@ msgid "Invalid Restricted Column"
 msgstr "無効な制限列"
 
 #: cps/admin.py:604 cps/admin.py:1894
-msgid "Calibre-Web configuration updated"
-msgstr "Calibre-Webの設定を更新しました"
+msgid "Autocaliweb configuration updated"
+msgstr "Autocaliwebの設定を更新しました"
 
 #: cps/admin.py:616
 msgid "Do you really want to delete the Kobo Token?"
@@ -196,12 +196,12 @@ msgid "Are you sure you want to change Calibre library location?"
 msgstr "Calibreライブラリのパスを変更してもよろしいですか？"
 
 #: cps/admin.py:639
-msgid "Calibre-Web will search for updated Covers and update Cover Thumbnails, this may take a while?"
-msgstr "Calibre-Webは新しい表紙を検索してそのサムネイルを更新しますが、これにはしばらく時間がかかるかもしれません"
+msgid "Autocaliweb will search for updated Covers and update Cover Thumbnails, this may take a while?"
+msgstr "Autocaliwebは新しい表紙を検索してそのサムネイルを更新しますが、これにはしばらく時間がかかるかもしれません"
 
 #: cps/admin.py:642
-msgid "Are you sure you want delete Calibre-Web's sync database to force a full sync with your Kobo Reader?"
-msgstr "Calibre-Webの同期DBを削除して強制的にKoboリーダーと同期してもよろしいですか？"
+msgid "Are you sure you want delete Autocaliweb's sync database to force a full sync with your Kobo Reader?"
+msgstr "Autocaliwebの同期DBを削除して強制的にKoboリーダーと同期してもよろしいですか？"
 
 #: cps/admin.py:885 cps/admin.py:891 cps/admin.py:901 cps/admin.py:911
 #: cps/templates/modal_dialogs.html:29 cps/templates/user_table.html:41
@@ -687,13 +687,13 @@ msgstr "E-Readerに送信"
 
 #: cps/helper.py:105 cps/helper.py:125 cps/helper.py:235
 #, fuzzy
-msgid "This Email has been sent via Calibre-Web."
-msgstr "このメールはCalibre-Web経由で送信されました。"
+msgid "This Email has been sent via Autocaliweb."
+msgstr "このメールはAutocaliweb経由で送信されました。"
 
 #: cps/helper.py:123
 #, fuzzy
-msgid "Calibre-Web Test Email"
-msgstr "Calibre-Web テストメール"
+msgid "Autocaliweb Test Email"
+msgstr "Autocaliweb テストメール"
 
 #: cps/helper.py:124
 #, fuzzy
@@ -701,8 +701,8 @@ msgid "Test Email"
 msgstr "テストメール"
 
 #: cps/helper.py:141
-msgid "Get Started with Calibre-Web"
-msgstr "Calibre-Webを始める"
+msgid "Get Started with Autocaliweb"
+msgstr "Autocaliwebを始める"
 
 #: cps/helper.py:146
 #, fuzzy, python-format
@@ -867,8 +867,8 @@ msgid "Queue all books for metadata backup"
 msgstr ""
 
 #: cps/kobo_auth.py:92
-msgid "Please access Calibre-Web from non localhost to get valid api_endpoint for kobo device"
-msgstr "localhost以外からCalibre-Webにアクセスし、有効なKobo端末用APIエンドポイントを取得してください"
+msgid "Please access Autocaliweb from non localhost to get valid api_endpoint for kobo device"
+msgstr "localhost以外からAutocaliwebにアクセスし、有効なKobo端末用APIエンドポイントを取得してください"
 
 #: cps/kobo_auth.py:118
 msgid "Kobo Setup"
@@ -1134,8 +1134,8 @@ msgid "Read Status = '%(status)s'"
 msgstr "既読/未読状況 = %(status)s"
 
 #: cps/search.py:351
-msgid "Error on search for custom columns, please restart Calibre-Web"
-msgstr "カスタムカラムの検索でエラーが発生しました。Calibre-Webを再起動してください"
+msgid "Error on search for custom columns, please restart Autocaliweb"
+msgstr "カスタムカラムの検索でエラーが発生しました。Autocaliwebを再起動してください"
 
 #: cps/search.py:370 cps/search.py:402 cps/templates/layout.html:58
 msgid "Advanced Search"
@@ -2297,8 +2297,8 @@ msgid "Logfile Configuration"
 msgstr "ログファイル設定"
 
 #: cps/templates/config_edit.html:77
-msgid "Location and name of logfile (calibre-web.log for no entry)"
-msgstr "ログファイル名 (空欄の場合はcalibre-web.log)"
+msgid "Location and name of logfile (autocaliweb.log for no entry)"
+msgstr "ログファイル名 (空欄の場合はautocaliweb.log)"
 
 #: cps/templates/config_edit.html:82
 msgid "Enable Access Log"
@@ -2722,7 +2722,7 @@ msgid "Add to archive"
 msgstr "アーカイブに追加"
 
 #: cps/templates/detail.html:275
-msgid "Mark Book as archived or not, to hide it in Calibre-Web and delete it from Kobo Reader"
+msgid "Mark Book as archived or not, to hide it in Autocaliweb and delete it from Kobo Reader"
 msgstr ""
 
 #: cps/templates/detail.html:275
@@ -2828,8 +2828,8 @@ msgid "List"
 msgstr "一覧"
 
 #: cps/templates/http_error.html:34
-msgid "Calibre-Web Instance is unconfigured, please contact your administrator"
-msgstr "Calibre-Webインスタンスが未設定です。管理者に連絡してください"
+msgid "Autocaliweb Instance is unconfigured, please contact your administrator"
+msgstr "Autocaliwebインスタンスが未設定です。管理者に連絡してください"
 
 #: cps/templates/http_error.html:44
 msgid "Create Issue"
@@ -2998,12 +2998,12 @@ msgid "Log in with Magic Link"
 msgstr "マジックリンクでログイン"
 
 #: cps/templates/logviewer.html:6
-msgid "Show Calibre-Web Log: "
-msgstr "Calibre-Webのログを表示: "
+msgid "Show Autocaliweb Log: "
+msgstr "Autocaliwebのログを表示: "
 
 #: cps/templates/logviewer.html:8
-msgid "Calibre-Web Log: "
-msgstr "Calibre-Webのログ: "
+msgid "Autocaliweb Log: "
+msgstr "Autocaliwebのログ: "
 
 #: cps/templates/logviewer.html:8
 msgid "Stream output, can't be displayed"
@@ -3014,8 +3014,8 @@ msgid "Show Access Log: "
 msgstr "アクセスログを表示: "
 
 #: cps/templates/logviewer.html:18
-msgid "Download Calibre-Web Log"
-msgstr "Calibre-Webのログをダウンロード"
+msgid "Download Autocaliweb Log"
+msgstr "Autocaliwebのログをダウンロード"
 
 #: cps/templates/logviewer.html:21
 msgid "Download Access Log"
@@ -3094,8 +3094,8 @@ msgid "Ok"
 msgstr "OK"
 
 #: cps/templates/osd.xml:5
-msgid "Calibre-Web eBook Catalog"
-msgstr "Calibre-WebのeBookカタログ"
+msgid "Autocaliweb eBook Catalog"
+msgstr "AutocaliwebのeBookカタログ"
 
 #: cps/templates/read.html:7
 msgid "epub Reader"

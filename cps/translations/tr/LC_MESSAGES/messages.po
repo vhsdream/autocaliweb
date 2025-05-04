@@ -1,11 +1,11 @@
-# Turkish translations for Calibre-Web.
+# Turkish translations for Autocaliweb.
 # Copyright (C) 2016 iz7iz7iz
-# This file is distributed under the same license as the Calibre-Web
+# This file is distributed under the same license as the Autocaliweb
 # project.
 # FIRST AUTHOR iz7iz7iz, 2020.
 msgid ""
 msgstr ""
-"Project-Id-Version:  Calibre-Web\n"
+"Project-Id-Version:  Autocaliweb\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2025-03-30 15:55+0200\n"
 "PO-Revision-Date: 2020-04-23 22:47+0300\n"
@@ -148,8 +148,8 @@ msgid "Invalid Restricted Column"
 msgstr ""
 
 #: cps/admin.py:604 cps/admin.py:1894
-msgid "Calibre-Web configuration updated"
-msgstr "Calibre-Web yapılandırması güncellendi"
+msgid "Autocaliweb configuration updated"
+msgstr "Autocaliweb yapılandırması güncellendi"
 
 #: cps/admin.py:616
 msgid "Do you really want to delete the Kobo Token?"
@@ -196,11 +196,11 @@ msgid "Are you sure you want to change Calibre library location?"
 msgstr ""
 
 #: cps/admin.py:639
-msgid "Calibre-Web will search for updated Covers and update Cover Thumbnails, this may take a while?"
+msgid "Autocaliweb will search for updated Covers and update Cover Thumbnails, this may take a while?"
 msgstr ""
 
 #: cps/admin.py:642
-msgid "Are you sure you want delete Calibre-Web's sync database to force a full sync with your Kobo Reader?"
+msgid "Are you sure you want delete Autocaliweb's sync database to force a full sync with your Kobo Reader?"
 msgstr ""
 
 #: cps/admin.py:885 cps/admin.py:891 cps/admin.py:901 cps/admin.py:911
@@ -693,13 +693,13 @@ msgstr "Kindle'a gönder"
 
 #: cps/helper.py:105 cps/helper.py:125 cps/helper.py:235
 #, fuzzy
-msgid "This Email has been sent via Calibre-Web."
-msgstr "Bu e-Posta Calibre-Web ile gönderilmiştir."
+msgid "This Email has been sent via Autocaliweb."
+msgstr "Bu e-Posta Autocaliweb ile gönderilmiştir."
 
 #: cps/helper.py:123
 #, fuzzy
-msgid "Calibre-Web Test Email"
-msgstr "Calibre-Web deneme e-Postası"
+msgid "Autocaliweb Test Email"
+msgstr "Autocaliweb deneme e-Postası"
 
 #: cps/helper.py:124
 #, fuzzy
@@ -707,8 +707,8 @@ msgid "Test Email"
 msgstr "Deneme e-Postası"
 
 #: cps/helper.py:141
-msgid "Get Started with Calibre-Web"
-msgstr "Calibre-Web'i Kullanmaya Başlayın"
+msgid "Get Started with Autocaliweb"
+msgstr "Autocaliweb'i Kullanmaya Başlayın"
 
 #: cps/helper.py:146
 #, fuzzy, python-format
@@ -869,7 +869,7 @@ msgid "Queue all books for metadata backup"
 msgstr ""
 
 #: cps/kobo_auth.py:92
-msgid "Please access Calibre-Web from non localhost to get valid api_endpoint for kobo device"
+msgid "Please access Autocaliweb from non localhost to get valid api_endpoint for kobo device"
 msgstr ""
 
 #: cps/kobo_auth.py:118
@@ -1136,7 +1136,7 @@ msgid "Read Status = '%(status)s'"
 msgstr ""
 
 #: cps/search.py:351
-msgid "Error on search for custom columns, please restart Calibre-Web"
+msgid "Error on search for custom columns, please restart Autocaliweb"
 msgstr ""
 
 #: cps/search.py:370 cps/search.py:402 cps/templates/layout.html:58
@@ -1727,7 +1727,7 @@ msgstr "Ters Proxy Header Adı"
 #: cps/templates/admin.html:159
 #, fuzzy
 msgid "Edit Calibre Database Configuration"
-msgstr "Calibre-Web yapılandırması güncellendi"
+msgstr "Autocaliweb yapılandırması güncellendi"
 
 #: cps/templates/admin.html:160
 msgid "Edit Basic Configuration"
@@ -2306,8 +2306,8 @@ msgid "Logfile Configuration"
 msgstr "Log Dosyası Ayarları"
 
 #: cps/templates/config_edit.html:77
-msgid "Location and name of logfile (calibre-web.log for no entry)"
-msgstr "Log dosyası konumu ve adı (girilmemişse calibre-web.log)"
+msgid "Location and name of logfile (autocaliweb.log for no entry)"
+msgstr "Log dosyası konumu ve adı (girilmemişse autocaliweb.log)"
 
 #: cps/templates/config_edit.html:82
 msgid "Enable Access Log"
@@ -2731,7 +2731,7 @@ msgid "Add to archive"
 msgstr ""
 
 #: cps/templates/detail.html:275
-msgid "Mark Book as archived or not, to hide it in Calibre-Web and delete it from Kobo Reader"
+msgid "Mark Book as archived or not, to hide it in Autocaliweb and delete it from Kobo Reader"
 msgstr ""
 
 #: cps/templates/detail.html:275
@@ -2836,7 +2836,7 @@ msgstr ""
 
 #: cps/templates/http_error.html:34
 #, fuzzy
-msgid "Calibre-Web Instance is unconfigured, please contact your administrator"
+msgid "Autocaliweb Instance is unconfigured, please contact your administrator"
 msgstr "E-Posta sunucusu ayarlanmadı, lütfen yöneticinizle iletişime geçin!"
 
 #: cps/templates/http_error.html:44
@@ -3005,11 +3005,11 @@ msgid "Log in with Magic Link"
 msgstr ""
 
 #: cps/templates/logviewer.html:6
-msgid "Show Calibre-Web Log: "
+msgid "Show Autocaliweb Log: "
 msgstr ""
 
 #: cps/templates/logviewer.html:8
-msgid "Calibre-Web Log: "
+msgid "Autocaliweb Log: "
 msgstr ""
 
 #: cps/templates/logviewer.html:8
@@ -3021,7 +3021,7 @@ msgid "Show Access Log: "
 msgstr ""
 
 #: cps/templates/logviewer.html:18
-msgid "Download Calibre-Web Log"
+msgid "Download Autocaliweb Log"
 msgstr ""
 
 #: cps/templates/logviewer.html:21
@@ -3102,7 +3102,7 @@ msgid "Ok"
 msgstr "Kitap"
 
 #: cps/templates/osd.xml:5
-msgid "Calibre-Web eBook Catalog"
+msgid "Autocaliweb eBook Catalog"
 msgstr ""
 
 #: cps/templates/read.html:7

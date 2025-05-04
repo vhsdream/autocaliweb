@@ -3,10 +3,9 @@ requires = ["setuptools>=61.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "calibreweb"
-description = "Web app for browsing, reading and downloading eBooks stored in a Calibre database."
-authors = [{name = "@OzzieIsaacs", email = "Ozzie.Fernandez.Isaacs@googlemail.com"}]
-maintainers = [{name = "@OzzieIsaacs"}]
+name = "autocaliweb"
+description = "Web managing platform for eBooks, eComics and PDFs"
+maintainers = [{name = "@gelbphoenix"}]
 license = {text = "GPLv3+"}
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -22,7 +21,6 @@ classifiers = [
 ]
 keywords = [
     "calibre",
-    "calibre-web",
     "library",
 ]
 requires-python = ">=3.6"
@@ -57,11 +55,10 @@ dependencies = [
 dynamic = ["version"]
 
 [project.urls]
-Homepage = "https://github.com/janeczku/calibre-web"
-"Bug Tracker" = "https://github.com/janeczku/calibre-web/issues"
-"Release Management" = "https://github.com/janeczku/calibre-web/releases"
-Documentation = "https://github.com/janeczku/calibre-web/wiki"
-"Source Code" = "https://github.com/janeczku/calibre-web"
+Homepage = "https://github.com/gelbphoenix/autocaliweb"
+"Bug Tracker" = "https://github.com/gelbphoenix/autocaliweb/issues"
+"Release Management" = "https://github.com/gelbphoenix/autocaliweb/releases"
+"Source Code" = "https://github.com/gelbphoenix/autocaliweb"
 
 [project.readme]
 file = "README.md"
@@ -118,12 +115,12 @@ kobo = [
 ]
 
 [project.scripts]
-cps = "calibreweb:main"
+cps = "autocaliweb:main"
 
 [tool.setuptools]
 include-package-data = true
 license-files = ["LICENSE"]
 
 [tool.setuptools.dynamic]
-version = {attr = "calibreweb.cps.constants.STABLE_VERSION"}
+version = {attr = "autocaliweb.cps.constants.STABLE_VERSION"}
 

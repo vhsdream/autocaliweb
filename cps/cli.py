@@ -29,8 +29,8 @@ from .constants import DEFAULT_SETTINGS_FILE, DEFAULT_GDRIVE_FILE
 
 def version_info():
     if _NIGHTLY_VERSION[1].startswith('$Format'):
-        return "Calibre-Web version: %s - unknown git-clone" % _STABLE_VERSION.replace("b", " Beta")
-    return "Calibre-Web version: %s -%s" % (_STABLE_VERSION.replace("b", " Beta"), _NIGHTLY_VERSION[1])
+        return "Autocaliweb version: %s - unknown git-clone" % _STABLE_VERSION.replace("b", " Beta")
+    return "Autocaliweb version: %s -%s" % (_STABLE_VERSION.replace("b", " Beta"), _NIGHTLY_VERSION[1])
 
 
 class CliParameter(object):
@@ -61,19 +61,19 @@ class CliParameter(object):
                                                        'e.g. /opt/test.cert, works only in combination with keyfile')
         parser.add_argument('-k', metavar='path', help='path and name to SSL keyfile, e.g. /opt/test.key, '
                                                        'works only in combination with certfile')
-        parser.add_argument('-o', metavar='path', help='path and name Calibre-Web logfile')
+        parser.add_argument('-o', metavar='path', help='path and name Autocaliweb logfile')
         parser.add_argument('-v', '--version', action='version', help='Shows version number '
-                                                                      'and exits Calibre-Web',
+                                                                      'and exits Autocaliweb',
                             version=version_info())
         parser.add_argument('-i', metavar='ip-address', help='Server IP-Address to listen')
         parser.add_argument('-m', action='store_true',
                             help='Use Memory-backend as limiter backend, use this parameter '
                                  'in case of miss configured backend')
         parser.add_argument('-s', metavar='user:pass',
-                            help='Sets specific username to new password and exits Calibre-Web')
+                            help='Sets specific username to new password and exits Autocaliweb')
         parser.add_argument('-l', action='store_true', help='Allow loading covers from localhost')
         parser.add_argument('-d', action='store_true', help='Dry run of updater to check file permissions '
-                                                            'in advance and exits Calibre-Web')
+                                                            'in advance and exits Autocaliweb')
         parser.add_argument('-r', action='store_true', help='Enable public database reconnect '
                                                             'route under /reconnect')
         args = parser.parse_args()

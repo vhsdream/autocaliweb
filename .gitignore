@@ -21,7 +21,7 @@ vendor/
 *.egg
 .pylint.d
 
-# calibre-web
+# autocaliweb
 *.db
 *.log
 cps/cache

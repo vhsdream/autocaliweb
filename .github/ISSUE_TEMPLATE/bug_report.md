@@ -23,7 +23,7 @@ Steps to reproduce the behavior:
 
 **Logfile**
 
-Add content of calibre-web.log file or the relevant error, try to reproduce your problem with "debug" log-level to get more output.
+Add content of autocaliweb.log file or the relevant error, try to reproduce your problem with "debug" log-level to get more output.
 
 **Expected behavior**
 

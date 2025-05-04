@@ -133,7 +133,7 @@ class TaskEmail(CalibreTask):
             msgid_domain = strip_whitespaces(msgid_domain.rstrip('>'))
         except Exception:
             msgid_domain = ''
-        return msgid_domain or 'calibre-web.com'
+        return msgid_domain or 'autocaliweb.com'
 
     def prepare_message(self):
         message = EmailMessage()

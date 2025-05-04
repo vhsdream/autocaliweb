@@ -77,8 +77,8 @@ def send_debug():
     if int(version.split('.')[0]) < 2:
         return send_file(memory_zip,
                          as_attachment=True,
-                         attachment_filename="Calibre-Web-debug-pack.zip")
+                         attachment_filename="Autocaliweb-debug-pack.zip")
     else:
         return send_file(memory_zip,
                          as_attachment=True,
-                         download_name="Calibre-Web-debug-pack.zip")
+                         download_name="Autocaliweb-debug-pack.zip")

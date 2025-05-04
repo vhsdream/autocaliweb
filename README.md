@@ -9,7 +9,7 @@ Autocaliweb is a web app that offers a clean and intuitive interface for browsin
 <details>
 <summary><strong>Table of Contents</strong> (click to expand)</summary>
 
-1. [About](#calibre-web)
+1. [About](#autocaliweb)
 2. [Features](#features)
 3. [Installation](#installation)
    - [Installation via Docker (recommended)](#installation-via-docker-recommended)

@@ -2,9 +2,9 @@
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
    <LongName>{{instance}}</LongName>
    <ShortName>{{instance}}</ShortName>
-   <Description>{{_('Calibre-Web eBook Catalog')}}</Description>
+   <Description>{{_('Autocaliweb eBook Catalog')}}</Description>
    <Developer>Janeczku</Developer>
-   <Contact>https://github.com/janeczku/calibre-web</Contact>
+   <Contact>https://github.com/gelbphoenix/autocaliweb</Contact>
    <Url type="text/html"
         template="{{url_for('opds.feed_normal_search')}}/{searchTerms}"/>
    <Url type="application/atom+xml"

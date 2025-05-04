@@ -42,7 +42,7 @@ DEFAULT_CACHE_DIR   = os.path.join(BASE_DIR, 'cps', 'cache')
 CACHE_DIR           = os.environ.get('CACHE_DIR', DEFAULT_CACHE_DIR)
 
 if HOME_CONFIG:
-    home_dir = os.path.join(os.path.expanduser("~"), ".calibre-web")
+    home_dir = os.path.join(os.path.expanduser("~"), ".autocaliweb")
     if not os.path.exists(home_dir):
         os.makedirs(home_dir)
     CONFIG_DIR = os.environ.get('CALIBRE_DBPATH', home_dir)

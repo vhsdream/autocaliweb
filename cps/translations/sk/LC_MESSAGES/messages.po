@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version:  Calibre-Web\n"
-"Report-Msgid-Bugs-To: https://github.com/janeczku/Calibre-Web\n"
+"Project-Id-Version:  Autocaliweb\n"
+"Report-Msgid-Bugs-To: https://github.com/janeczku/Autocaliweb\n"
 "POT-Creation-Date: 2025-03-30 15:55+0200\n"
 "PO-Revision-Date: 2023-11-01 06:12+0100\n"
 "Last-Translator: Branislav Hanáček <brango@brango.sk>\n"
@@ -145,8 +145,8 @@ msgid "Invalid Restricted Column"
 msgstr "Neplatný stĺpec na obmedzenie"
 
 #: cps/admin.py:604 cps/admin.py:1894
-msgid "Calibre-Web configuration updated"
-msgstr "Konfigurácia Calibre-Web bola aktualizovaná"
+msgid "Autocaliweb configuration updated"
+msgstr "Konfigurácia Autocaliweb bola aktualizovaná"
 
 #: cps/admin.py:616
 msgid "Do you really want to delete the Kobo Token?"
@@ -193,12 +193,12 @@ msgid "Are you sure you want to change Calibre library location?"
 msgstr "Naozaj chcete zmenit umiestnenie pre knižnicu Calibre?"
 
 #: cps/admin.py:639
-msgid "Calibre-Web will search for updated Covers and update Cover Thumbnails, this may take a while?"
+msgid "Autocaliweb will search for updated Covers and update Cover Thumbnails, this may take a while?"
 msgstr "Calilbre-Web vyhľadá aktualizované obálky a aktualizuje ich náhľady, môže to chvíľu trvať?"
 
 #: cps/admin.py:642
-msgid "Are you sure you want delete Calibre-Web's sync database to force a full sync with your Kobo Reader?"
-msgstr "Naozaj chcete zmazať synchronizačnú databázu Calibre-Web aby ste vynútili úplnú synchronizáciu s vašou Kobo čítačkou?"
+msgid "Are you sure you want delete Autocaliweb's sync database to force a full sync with your Kobo Reader?"
+msgstr "Naozaj chcete zmazať synchronizačnú databázu Autocaliweb aby ste vynútili úplnú synchronizáciu s vašou Kobo čítačkou?"
 
 #: cps/admin.py:885 cps/admin.py:891 cps/admin.py:901 cps/admin.py:911
 #: cps/templates/modal_dialogs.html:29 cps/templates/user_table.html:41
@@ -682,20 +682,20 @@ msgid "Send to eReader"
 msgstr "Poslať do čítačky"
 
 #: cps/helper.py:105 cps/helper.py:125 cps/helper.py:235
-msgid "This Email has been sent via Calibre-Web."
-msgstr "Tento e-mail bol odoslaný skrz Calibre-Web."
+msgid "This Email has been sent via Autocaliweb."
+msgstr "Tento e-mail bol odoslaný skrz Autocaliweb."
 
 #: cps/helper.py:123
-msgid "Calibre-Web Test Email"
-msgstr "Testovací e-mail Calibre-Web"
+msgid "Autocaliweb Test Email"
+msgstr "Testovací e-mail Autocaliweb"
 
 #: cps/helper.py:124
 msgid "Test Email"
 msgstr "Testovací e-mail"
 
 #: cps/helper.py:141
-msgid "Get Started with Calibre-Web"
-msgstr "Začnite s aplikáciu Calibre-Web"
+msgid "Get Started with Autocaliweb"
+msgstr "Začnite s aplikáciu Autocaliweb"
 
 #: cps/helper.py:146
 #, python-format
@@ -857,8 +857,8 @@ msgid "Queue all books for metadata backup"
 msgstr "Zaradiť všetky knihy na zálohovanie metadát"
 
 #: cps/kobo_auth.py:92
-msgid "Please access Calibre-Web from non localhost to get valid api_endpoint for kobo device"
-msgstr "Prosím, pristupujte k Calibre-Web z nie lokálneho hostiteľa aby ste získali platný API koncový bod pre Kobo zariadenie"
+msgid "Please access Autocaliweb from non localhost to get valid api_endpoint for kobo device"
+msgstr "Prosím, pristupujte k Autocaliweb z nie lokálneho hostiteľa aby ste získali platný API koncový bod pre Kobo zariadenie"
 
 #: cps/kobo_auth.py:118
 msgid "Kobo Setup"
@@ -1115,8 +1115,8 @@ msgid "Read Status = '%(status)s'"
 msgstr "Status čítania = %(status)s"
 
 #: cps/search.py:351
-msgid "Error on search for custom columns, please restart Calibre-Web"
-msgstr "Chyba pri čítaní používateľom definovaných stĺpcov, reštartujte prosím Calibre-Web"
+msgid "Error on search for custom columns, please restart Autocaliweb"
+msgstr "Chyba pri čítaní používateľom definovaných stĺpcov, reštartujte prosím Autocaliweb"
 
 #: cps/search.py:370 cps/search.py:402 cps/templates/layout.html:58
 msgid "Advanced Search"
@@ -2268,8 +2268,8 @@ msgid "Logfile Configuration"
 msgstr "Konfigurácia súboru denníka"
 
 #: cps/templates/config_edit.html:77
-msgid "Location and name of logfile (calibre-web.log for no entry)"
-msgstr "Umiestnenie a meno denníkového súboru (calibre-web.log keď nezadané)"
+msgid "Location and name of logfile (autocaliweb.log for no entry)"
+msgstr "Umiestnenie a meno denníkového súboru (autocaliweb.log keď nezadané)"
 
 #: cps/templates/config_edit.html:82
 msgid "Enable Access Log"
@@ -2691,7 +2691,7 @@ msgid "Add to archive"
 msgstr "Pridať do archívu"
 
 #: cps/templates/detail.html:275
-msgid "Mark Book as archived or not, to hide it in Calibre-Web and delete it from Kobo Reader"
+msgid "Mark Book as archived or not, to hide it in Autocaliweb and delete it from Kobo Reader"
 msgstr ""
 
 #: cps/templates/detail.html:275
@@ -2794,8 +2794,8 @@ msgid "List"
 msgstr "Zoznam"
 
 #: cps/templates/http_error.html:34
-msgid "Calibre-Web Instance is unconfigured, please contact your administrator"
-msgstr "Inštancia Calibre-Web nie je nastavené, kontaktujte prosím vašeho správcu"
+msgid "Autocaliweb Instance is unconfigured, please contact your administrator"
+msgstr "Inštancia Autocaliweb nie je nastavené, kontaktujte prosím vašeho správcu"
 
 #: cps/templates/http_error.html:44
 msgid "Create Issue"
@@ -2964,12 +2964,12 @@ msgid "Log in with Magic Link"
 msgstr "Prihlásiť sa cez Magic Link"
 
 #: cps/templates/logviewer.html:6
-msgid "Show Calibre-Web Log: "
-msgstr "Ukázať Calibre-Web denník "
+msgid "Show Autocaliweb Log: "
+msgstr "Ukázať Autocaliweb denník "
 
 #: cps/templates/logviewer.html:8
-msgid "Calibre-Web Log: "
-msgstr "Calibre-Web denník: "
+msgid "Autocaliweb Log: "
+msgstr "Autocaliweb denník: "
 
 #: cps/templates/logviewer.html:8
 msgid "Stream output, can't be displayed"
@@ -2980,8 +2980,8 @@ msgid "Show Access Log: "
 msgstr "Ukázať denník prístupu: "
 
 #: cps/templates/logviewer.html:18
-msgid "Download Calibre-Web Log"
-msgstr "Stiahnuť Calibre-Web denník"
+msgid "Download Autocaliweb Log"
+msgstr "Stiahnuť Autocaliweb denník"
 
 #: cps/templates/logviewer.html:21
 msgid "Download Access Log"
@@ -3060,8 +3060,8 @@ msgid "Ok"
 msgstr "Ok"
 
 #: cps/templates/osd.xml:5
-msgid "Calibre-Web eBook Catalog"
-msgstr "Katalóg e-kníh Calibre-Web"
+msgid "Autocaliweb eBook Catalog"
+msgstr "Katalóg e-kníh Autocaliweb"
 
 #: cps/templates/read.html:7
 msgid "epub Reader"

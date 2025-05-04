@@ -148,8 +148,8 @@ msgid "Invalid Restricted Column"
 msgstr ""
 
 #: cps/admin.py:604 cps/admin.py:1894
-msgid "Calibre-Web configuration updated"
-msgstr "A Calibre-Web konfigurációja frissítve."
+msgid "Autocaliweb configuration updated"
+msgstr "A Autocaliweb konfigurációja frissítve."
 
 #: cps/admin.py:616
 msgid "Do you really want to delete the Kobo Token?"
@@ -197,14 +197,14 @@ msgstr "Valóban törölni akarod a polcot?"
 #: cps/admin.py:637
 #, fuzzy
 msgid "Are you sure you want to change Calibre library location?"
-msgstr "Valóban le akarod állítani a Calibre-Web-et?"
+msgstr "Valóban le akarod állítani a Autocaliweb-et?"
 
 #: cps/admin.py:639
-msgid "Calibre-Web will search for updated Covers and update Cover Thumbnails, this may take a while?"
+msgid "Autocaliweb will search for updated Covers and update Cover Thumbnails, this may take a while?"
 msgstr ""
 
 #: cps/admin.py:642
-msgid "Are you sure you want delete Calibre-Web's sync database to force a full sync with your Kobo Reader?"
+msgid "Are you sure you want delete Autocaliweb's sync database to force a full sync with your Kobo Reader?"
 msgstr ""
 
 #: cps/admin.py:885 cps/admin.py:891 cps/admin.py:901 cps/admin.py:911
@@ -695,13 +695,13 @@ msgstr "Küldés Kindle-re"
 
 #: cps/helper.py:105 cps/helper.py:125 cps/helper.py:235
 #, fuzzy
-msgid "This Email has been sent via Calibre-Web."
-msgstr "Ez az e-mail a Calibre-Web-en keresztül lett küldve."
+msgid "This Email has been sent via Autocaliweb."
+msgstr "Ez az e-mail a Autocaliweb-en keresztül lett küldve."
 
 #: cps/helper.py:123
 #, fuzzy
-msgid "Calibre-Web Test Email"
-msgstr "Calibre-Web teszt e-mail"
+msgid "Autocaliweb Test Email"
+msgstr "Autocaliweb teszt e-mail"
 
 #: cps/helper.py:124
 #, fuzzy
@@ -709,8 +709,8 @@ msgid "Test Email"
 msgstr "Teszt e-mail"
 
 #: cps/helper.py:141
-msgid "Get Started with Calibre-Web"
-msgstr "Kezdő lépések a Calibre-Web-bel"
+msgid "Get Started with Autocaliweb"
+msgstr "Kezdő lépések a Autocaliweb-bel"
 
 #: cps/helper.py:146
 #, fuzzy, python-format
@@ -871,7 +871,7 @@ msgid "Queue all books for metadata backup"
 msgstr ""
 
 #: cps/kobo_auth.py:92
-msgid "Please access Calibre-Web from non localhost to get valid api_endpoint for kobo device"
+msgid "Please access Autocaliweb from non localhost to get valid api_endpoint for kobo device"
 msgstr ""
 
 #: cps/kobo_auth.py:118
@@ -1138,7 +1138,7 @@ msgid "Read Status = '%(status)s'"
 msgstr ""
 
 #: cps/search.py:351
-msgid "Error on search for custom columns, please restart Calibre-Web"
+msgid "Error on search for custom columns, please restart Autocaliweb"
 msgstr ""
 
 #: cps/search.py:370 cps/search.py:402 cps/templates/layout.html:58
@@ -1817,7 +1817,7 @@ msgstr "Frissítés elkezdése"
 
 #: cps/templates/admin.html:253
 msgid "Are you sure you want to restart?"
-msgstr "Valóban újra akarod indítani a Calibre-Web-et?"
+msgstr "Valóban újra akarod indítani a Autocaliweb-et?"
 
 #: cps/templates/admin.html:258 cps/templates/admin.html:272
 #: cps/templates/admin.html:292 cps/templates/config_db.html:82
@@ -1837,7 +1837,7 @@ msgstr ""
 
 #: cps/templates/admin.html:271
 msgid "Are you sure you want to shutdown?"
-msgstr "Valóban le akarod állítani a Calibre-Web-et?"
+msgstr "Valóban le akarod állítani a Autocaliweb-et?"
 
 #: cps/templates/admin.html:283
 msgid "Updating, please do not reload this page"
@@ -2306,8 +2306,8 @@ msgid "Logfile Configuration"
 msgstr "Naplózási beállítások"
 
 #: cps/templates/config_edit.html:77
-msgid "Location and name of logfile (calibre-web.log for no entry)"
-msgstr "Naplófájl helye és neve (üresen hagyva calibre-web.log)"
+msgid "Location and name of logfile (autocaliweb.log for no entry)"
+msgstr "Naplófájl helye és neve (üresen hagyva autocaliweb.log)"
 
 #: cps/templates/config_edit.html:82
 msgid "Enable Access Log"
@@ -2731,7 +2731,7 @@ msgid "Add to archive"
 msgstr ""
 
 #: cps/templates/detail.html:275
-msgid "Mark Book as archived or not, to hide it in Calibre-Web and delete it from Kobo Reader"
+msgid "Mark Book as archived or not, to hide it in Autocaliweb and delete it from Kobo Reader"
 msgstr ""
 
 #: cps/templates/detail.html:275
@@ -2836,7 +2836,7 @@ msgid "List"
 msgstr ""
 
 #: cps/templates/http_error.html:34
-msgid "Calibre-Web Instance is unconfigured, please contact your administrator"
+msgid "Autocaliweb Instance is unconfigured, please contact your administrator"
 msgstr ""
 
 #: cps/templates/http_error.html:44
@@ -3005,11 +3005,11 @@ msgid "Log in with Magic Link"
 msgstr "Belépés varázshivatkozással"
 
 #: cps/templates/logviewer.html:6
-msgid "Show Calibre-Web Log: "
+msgid "Show Autocaliweb Log: "
 msgstr ""
 
 #: cps/templates/logviewer.html:8
-msgid "Calibre-Web Log: "
+msgid "Autocaliweb Log: "
 msgstr ""
 
 #: cps/templates/logviewer.html:8
@@ -3021,7 +3021,7 @@ msgid "Show Access Log: "
 msgstr ""
 
 #: cps/templates/logviewer.html:18
-msgid "Download Calibre-Web Log"
+msgid "Download Autocaliweb Log"
 msgstr ""
 
 #: cps/templates/logviewer.html:21
@@ -3102,8 +3102,8 @@ msgid "Ok"
 msgstr " "
 
 #: cps/templates/osd.xml:5
-msgid "Calibre-Web eBook Catalog"
-msgstr "Calibre-Web e-könyv katalógus"
+msgid "Autocaliweb eBook Catalog"
+msgstr "Autocaliweb e-könyv katalógus"
 
 #: cps/templates/read.html:7
 msgid "epub Reader"

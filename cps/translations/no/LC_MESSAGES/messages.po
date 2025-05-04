@@ -1,12 +1,12 @@
-# Norwegian translations for Calibre-Web.
+# Norwegian translations for Autocaliweb.
 # Copyright (C) 2022 Vegard Fladby
-# This file is distributed under the same license as the Calibre-Web
+# This file is distributed under the same license as the Autocaliweb
 # project.
 # FIRST AUTHOR Vegard Fladby, 2022.
 msgid ""
 msgstr ""
-"Project-Id-Version:  Calibre-Web\n"
-"Report-Msgid-Bugs-To: https://github.com/janeczku/Calibre-Web\n"
+"Project-Id-Version:  Autocaliweb\n"
+"Report-Msgid-Bugs-To: https://github.com/janeczku/Autocaliweb\n"
 "POT-Creation-Date: 2025-03-30 15:55+0200\n"
 "PO-Revision-Date: 2023-01-06 11:00+0000\n"
 "Last-Translator: Vegard Fladby <vegard.fladby@gmail.com>\n"
@@ -148,8 +148,8 @@ msgid "Invalid Restricted Column"
 msgstr "Ugyldig begrenset kolonne"
 
 #: cps/admin.py:604 cps/admin.py:1894
-msgid "Calibre-Web configuration updated"
-msgstr "Calibre-Web-konfigurasjonen er oppdatert"
+msgid "Autocaliweb configuration updated"
+msgstr "Autocaliweb-konfigurasjonen er oppdatert"
 
 #: cps/admin.py:616
 msgid "Do you really want to delete the Kobo Token?"
@@ -196,12 +196,12 @@ msgid "Are you sure you want to change Calibre library location?"
 msgstr "Er du sikker på at du vil endre plassering av Caliber-biblioteket?"
 
 #: cps/admin.py:639
-msgid "Calibre-Web will search for updated Covers and update Cover Thumbnails, this may take a while?"
-msgstr "Calibre-Web vil søke etter oppdaterte omslag og oppdatere omslagsminiatyrbilder, kan dette ta litt tid?"
+msgid "Autocaliweb will search for updated Covers and update Cover Thumbnails, this may take a while?"
+msgstr "Autocaliweb vil søke etter oppdaterte omslag og oppdatere omslagsminiatyrbilder, kan dette ta litt tid?"
 
 #: cps/admin.py:642
-msgid "Are you sure you want delete Calibre-Web's sync database to force a full sync with your Kobo Reader?"
-msgstr "Er du sikker på at du vil slette Calibre-Webs synkroniseringsdatabase for å tvinge frem en full synkronisering med Kobo Reader?"
+msgid "Are you sure you want delete Autocaliweb's sync database to force a full sync with your Kobo Reader?"
+msgstr "Er du sikker på at du vil slette Autocaliwebs synkroniseringsdatabase for å tvinge frem en full synkronisering med Kobo Reader?"
 
 #: cps/admin.py:885 cps/admin.py:891 cps/admin.py:901 cps/admin.py:911
 #: cps/templates/modal_dialogs.html:29 cps/templates/user_table.html:41
@@ -695,13 +695,13 @@ msgstr "Send til E-Reader"
 
 #: cps/helper.py:105 cps/helper.py:125 cps/helper.py:235
 #, fuzzy
-msgid "This Email has been sent via Calibre-Web."
-msgstr "Denne e-posten er sendt via Calibre-Web."
+msgid "This Email has been sent via Autocaliweb."
+msgstr "Denne e-posten er sendt via Autocaliweb."
 
 #: cps/helper.py:123
 #, fuzzy
-msgid "Calibre-Web Test Email"
-msgstr "Calibre-Web test e-post"
+msgid "Autocaliweb Test Email"
+msgstr "Autocaliweb test e-post"
 
 #: cps/helper.py:124
 #, fuzzy
@@ -709,8 +709,8 @@ msgid "Test Email"
 msgstr "Test e-post"
 
 #: cps/helper.py:141
-msgid "Get Started with Calibre-Web"
-msgstr "Kom i gang med Calibre-Web"
+msgid "Get Started with Autocaliweb"
+msgstr "Kom i gang med Autocaliweb"
 
 #: cps/helper.py:146
 #, fuzzy, python-format
@@ -874,8 +874,8 @@ msgid "Queue all books for metadata backup"
 msgstr "Sett alle bøker i kø for sikkerhetskopiering av metadata"
 
 #: cps/kobo_auth.py:92
-msgid "Please access Calibre-Web from non localhost to get valid api_endpoint for kobo device"
-msgstr "Gå til Calibre-Web fra ikke-lokale vert for å få gyldig api_endpoint for kobo-enhet"
+msgid "Please access Autocaliweb from non localhost to get valid api_endpoint for kobo device"
+msgstr "Gå til Autocaliweb fra ikke-lokale vert for å få gyldig api_endpoint for kobo-enhet"
 
 #: cps/kobo_auth.py:118
 msgid "Kobo Setup"
@@ -1141,8 +1141,8 @@ msgid "Read Status = '%(status)s'"
 msgstr "Lesestatus = %(status)s"
 
 #: cps/search.py:351
-msgid "Error on search for custom columns, please restart Calibre-Web"
-msgstr "Feil ved søk etter egendefinerte kolonner. Start Calibre-Web på nytt"
+msgid "Error on search for custom columns, please restart Autocaliweb"
+msgstr "Feil ved søk etter egendefinerte kolonner. Start Autocaliweb på nytt"
 
 #: cps/search.py:370 cps/search.py:402 cps/templates/layout.html:58
 msgid "Advanced Search"
@@ -2318,8 +2318,8 @@ msgid "Logfile Configuration"
 msgstr "Loggfilkonfigurasjon"
 
 #: cps/templates/config_edit.html:77
-msgid "Location and name of logfile (calibre-web.log for no entry)"
-msgstr "Plassering og navn på loggfil (calibre-web.log for ingen oppføring)"
+msgid "Location and name of logfile (autocaliweb.log for no entry)"
+msgstr "Plassering og navn på loggfil (autocaliweb.log for ingen oppføring)"
 
 #: cps/templates/config_edit.html:82
 msgid "Enable Access Log"
@@ -2748,7 +2748,7 @@ msgid "Add to archive"
 msgstr ""
 
 #: cps/templates/detail.html:275
-msgid "Mark Book as archived or not, to hide it in Calibre-Web and delete it from Kobo Reader"
+msgid "Mark Book as archived or not, to hide it in Autocaliweb and delete it from Kobo Reader"
 msgstr ""
 
 #: cps/templates/detail.html:275
@@ -2857,7 +2857,7 @@ msgstr ""
 
 #: cps/templates/http_error.html:34
 #, fuzzy
-msgid "Calibre-Web Instance is unconfigured, please contact your administrator"
+msgid "Autocaliweb Instance is unconfigured, please contact your administrator"
 msgstr "E-postserveren er ikke konfigurert, kontakt administratoren din!"
 
 #: cps/templates/http_error.html:44
@@ -3038,11 +3038,11 @@ msgid "Log in with Magic Link"
 msgstr ""
 
 #: cps/templates/logviewer.html:6
-msgid "Show Calibre-Web Log: "
+msgid "Show Autocaliweb Log: "
 msgstr ""
 
 #: cps/templates/logviewer.html:8
-msgid "Calibre-Web Log: "
+msgid "Autocaliweb Log: "
 msgstr ""
 
 #: cps/templates/logviewer.html:8
@@ -3054,7 +3054,7 @@ msgid "Show Access Log: "
 msgstr ""
 
 #: cps/templates/logviewer.html:18
-msgid "Download Calibre-Web Log"
+msgid "Download Autocaliweb Log"
 msgstr ""
 
 #: cps/templates/logviewer.html:21
@@ -3138,7 +3138,7 @@ msgid "Ok"
 msgstr ""
 
 #: cps/templates/osd.xml:5
-msgid "Calibre-Web eBook Catalog"
+msgid "Autocaliweb eBook Catalog"
 msgstr ""
 
 #: cps/templates/read.html:7

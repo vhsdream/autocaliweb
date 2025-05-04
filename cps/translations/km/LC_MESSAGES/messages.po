@@ -1,13 +1,13 @@
-# Khmer translations for Calibre-Web.
-# Copyright (C) 2017 Calibre-Web
-# This file is distributed under the same license as the Calibre-Web
+# Khmer translations for Autocaliweb.
+# Copyright (C) 2017 Autocaliweb
+# This file is distributed under the same license as the Autocaliweb
 # project.
 # FIRST AUTHOR manuthchek, 2018.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version:  Calibre-Web\n"
-"Report-Msgid-Bugs-To: https://github.com/janeczku/Calibre-Web\n"
+"Project-Id-Version:  Autocaliweb\n"
+"Report-Msgid-Bugs-To: https://github.com/janeczku/Autocaliweb\n"
 "POT-Creation-Date: 2025-03-30 15:55+0200\n"
 "PO-Revision-Date: 2018-08-27 17:06+0700\n"
 "Last-Translator: \n"
@@ -150,7 +150,7 @@ msgid "Invalid Restricted Column"
 msgstr ""
 
 #: cps/admin.py:604 cps/admin.py:1894
-msgid "Calibre-Web configuration updated"
+msgid "Autocaliweb configuration updated"
 msgstr ""
 
 #: cps/admin.py:616
@@ -202,11 +202,11 @@ msgid "Are you sure you want to change Calibre library location?"
 msgstr "តើអ្នកពិតជាចង់លុបធ្នើនេះមែនទេ?"
 
 #: cps/admin.py:639
-msgid "Calibre-Web will search for updated Covers and update Cover Thumbnails, this may take a while?"
+msgid "Autocaliweb will search for updated Covers and update Cover Thumbnails, this may take a while?"
 msgstr ""
 
 #: cps/admin.py:642
-msgid "Are you sure you want delete Calibre-Web's sync database to force a full sync with your Kobo Reader?"
+msgid "Are you sure you want delete Autocaliweb's sync database to force a full sync with your Kobo Reader?"
 msgstr ""
 
 #: cps/admin.py:885 cps/admin.py:891 cps/admin.py:901 cps/admin.py:911
@@ -695,11 +695,11 @@ msgid "Send to eReader"
 msgstr "ផ្ញើទៅ Kindle"
 
 #: cps/helper.py:105 cps/helper.py:125 cps/helper.py:235
-msgid "This Email has been sent via Calibre-Web."
+msgid "This Email has been sent via Autocaliweb."
 msgstr ""
 
 #: cps/helper.py:123
-msgid "Calibre-Web Test Email"
+msgid "Autocaliweb Test Email"
 msgstr ""
 
 #: cps/helper.py:124
@@ -707,7 +707,7 @@ msgid "Test Email"
 msgstr ""
 
 #: cps/helper.py:141
-msgid "Get Started with Calibre-Web"
+msgid "Get Started with Autocaliweb"
 msgstr ""
 
 #: cps/helper.py:146
@@ -869,7 +869,7 @@ msgid "Queue all books for metadata backup"
 msgstr ""
 
 #: cps/kobo_auth.py:92
-msgid "Please access Calibre-Web from non localhost to get valid api_endpoint for kobo device"
+msgid "Please access Autocaliweb from non localhost to get valid api_endpoint for kobo device"
 msgstr ""
 
 #: cps/kobo_auth.py:118
@@ -1136,7 +1136,7 @@ msgid "Read Status = '%(status)s'"
 msgstr ""
 
 #: cps/search.py:351
-msgid "Error on search for custom columns, please restart Calibre-Web"
+msgid "Error on search for custom columns, please restart Autocaliweb"
 msgstr ""
 
 #: cps/search.py:370 cps/search.py:402 cps/templates/layout.html:58
@@ -2299,8 +2299,8 @@ msgid "Logfile Configuration"
 msgstr "ការកំណត់ logfile"
 
 #: cps/templates/config_edit.html:77
-msgid "Location and name of logfile (calibre-web.log for no entry)"
-msgstr "ទីតាំង និងឈ្មោះ logfile (calibre-web.log ប្រសិនបើទទេ)"
+msgid "Location and name of logfile (autocaliweb.log for no entry)"
+msgstr "ទីតាំង និងឈ្មោះ logfile (autocaliweb.log ប្រសិនបើទទេ)"
 
 #: cps/templates/config_edit.html:82
 msgid "Enable Access Log"
@@ -2721,7 +2721,7 @@ msgid "Add to archive"
 msgstr ""
 
 #: cps/templates/detail.html:275
-msgid "Mark Book as archived or not, to hide it in Calibre-Web and delete it from Kobo Reader"
+msgid "Mark Book as archived or not, to hide it in Autocaliweb and delete it from Kobo Reader"
 msgstr ""
 
 #: cps/templates/detail.html:275
@@ -2825,7 +2825,7 @@ msgid "List"
 msgstr ""
 
 #: cps/templates/http_error.html:34
-msgid "Calibre-Web Instance is unconfigured, please contact your administrator"
+msgid "Autocaliweb Instance is unconfigured, please contact your administrator"
 msgstr ""
 
 #: cps/templates/http_error.html:44
@@ -2994,11 +2994,11 @@ msgid "Log in with Magic Link"
 msgstr "ចូលប្រើប្រាស់ដោយ magic link"
 
 #: cps/templates/logviewer.html:6
-msgid "Show Calibre-Web Log: "
+msgid "Show Autocaliweb Log: "
 msgstr ""
 
 #: cps/templates/logviewer.html:8
-msgid "Calibre-Web Log: "
+msgid "Autocaliweb Log: "
 msgstr ""
 
 #: cps/templates/logviewer.html:8
@@ -3010,7 +3010,7 @@ msgid "Show Access Log: "
 msgstr ""
 
 #: cps/templates/logviewer.html:18
-msgid "Download Calibre-Web Log"
+msgid "Download Autocaliweb Log"
 msgstr ""
 
 #: cps/templates/logviewer.html:21
@@ -3091,7 +3091,7 @@ msgid "Ok"
 msgstr "សៀវភៅ"
 
 #: cps/templates/osd.xml:5
-msgid "Calibre-Web eBook Catalog"
+msgid "Autocaliweb eBook Catalog"
 msgstr ""
 
 #: cps/templates/read.html:7

@@ -1,0 +1,5 @@
+{
+  "ingest_folder": "/acw-book-ingest",
+  "calibre_library_dir": "/calibre-library",
+  "tmp_conversion_dir": "/config/.acw_conversion_tmp"
+}

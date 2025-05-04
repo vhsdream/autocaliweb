@@ -405,7 +405,7 @@ def feed_shelf(book_id):
                                                            [ub.BookShelf.order.asc()],
                                                            True, config.config_read_column,
                                                            ub.BookShelf, ub.BookShelf.book_id == db.Books.id)
-        # delete shelf entries where book is not existent anymore, can happen if book is deleted outside calibre-web
+        # delete shelf entries where book is not existent anymore, can happen if book is deleted outside autocaliweb
         wrong_entries = calibre_db.session.query(ub.BookShelf) \
             .join(db.Books, ub.BookShelf.book_id == db.Books.id, isouter=True) \
             .filter(db.Books.id == None).all()
