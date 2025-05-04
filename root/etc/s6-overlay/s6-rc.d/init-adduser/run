@@ -8,7 +8,7 @@ USERNAME=abc
 
 # Überprüfen, ob der Benutzer bereits existiert
 if ! id -u "$USERNAME" >/dev/null 2>&1; then
-    USERHOME=§(grep $USERNAME /etc/passwd | cut -d: -f6)
+    USERHOME=$(grep $USERNAME /etc/passwd | cut -d: -f6)
     usermod -d "/root" "$USERNAME"
 
     groupmod -o -g "$PGID" "$USERNAME"
