@@ -44,9 +44,9 @@ RUN apt-get update && \
       netcat-openbsd
 
 # Install S6-Overlay
-RUN curl -Lo /tmp/s6-overlay-$(uname -m | sed 's/x86_64/x86_64/;s/arm64/aarch64/').tar.xz https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-$(uname -m | sed 's/x86_64/x86_64/;s/arm64/aarch64/').tar.xz && \
+RUN curl -Lo /tmp/s6-overlay-$(uname -m | sed 's/x86_64/x86_64/;s/aarch64/aarch64/').tar.xz https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-$(uname -m | sed 's/x86_64/x86_64/;s/aarch64/aarch64/').tar.xz && \
     curl -Lo /tmp/s6-overlay-noarch.tar.xz https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz && \
-    tar -C / -Jxpf /tmp/s6-overlay-$(uname -m | sed 's/x86_64/x86_64/;s/arm64/aarch64/').tar.xz && \
+    tar -C / -Jxpf /tmp/s6-overlay-$(uname -m | sed 's/x86_64/x86_64/;s/aarch64/aarch64/').tar.xz && \
     tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz
 
 # Install Autocaliweb
@@ -77,7 +77,7 @@ RUN export KEPUBIFY_RELEASE=$(curl -s https://api.github.com/repos/pgaskin/kepub
 
 # Install Calibre binaries
 RUN mkdir -p /app/calibre && \
-    curl -o /tmp/calibre.txz -L https://download.calibre-ebook.com/${UNIVERSAL_CALIBRE_VERSION}/calibre-${UNIVERSAL_CALIBRE_VERSION}-$(uname -m | sed 's/x86_64/x86_64/;s/arm64/arm64/').txz && \
+    curl -o /tmp/calibre.txz -L https://download.calibre-ebook.com/${UNIVERSAL_CALIBRE_VERSION}/calibre-${UNIVERSAL_CALIBRE_VERSION}-$(uname -m | sed 's/x86_64/x86_64/;s/aarch64/arm64/').txz && \
     tar xf /tmp/calibre.txz -C /app/calibre && \
     rm /tmp/calibre.txz && \
     /app/calibre/calibre_postinstall 
