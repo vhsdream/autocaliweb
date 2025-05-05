@@ -2,9 +2,9 @@
 
 Autocaliweb is a web app that offers a clean and intuitive interface for browsing, reading, and downloading eBooks using a valid [Calibre](https://calibre-ebook.com) database.
 
-[![License](https://img.shields.io/github/license/gelbphoenix/autocaliweb?style=flat-square)](https://github.com/janeczku/calibre-web/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/gelbphoenix/autocaliweb?style=flat-square)](https://github.com/gelbphoenix/autocaliweb/blob/master/LICENSE)
 ![Commit Activity](https://img.shields.io/github/commit-activity/w/gelbphoenix/autocaliweb?logo=github&style=flat-square&label=commits)
-[![All Releases](https://img.shields.io/github/downloads/gelbphoenix/autocaliweb/total?logo=github&style=flat-square)](https://github.com/janeczku/calibre-web/releases)
+[![Docker Pulls](https://img.shields.io/docker/pulls/gelbphoenix/autocaliweb?style=flat-square&logo=docker)](https://hub.docker.com/r/gelbphoenix/autocaliweb)
 
 <details>
 <summary><strong>Table of Contents</strong> (click to expand)</summary>
