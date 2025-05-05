@@ -116,10 +116,13 @@ services:
 
 4. **Google Drive Integration**: For hosting your Calibre library on Google Drive, refer to the [Google Drive integration guide of Calibre-Web](https://github.com/janeczku/calibre-web/wiki/G-Drive-Setup#using-google-drive-integration).
 
+> [!IMPORTANT]
+> **If you are migrating from Calibre-Web Automated please ensure that your cwa.db is renamed acw.db before start to load your existing settings**
+
 ## Deploy Requirements
 
-- Docker version 27.5.1
-- Docker Compose version 2.33.1
+- Docker version 27.5.1 (minimum)
+- Docker Compose version 2.33.1 (minimum)
 
 ## Troubleshooting
 
