@@ -49,6 +49,11 @@ RUN curl -Lo /tmp/s6-overlay-$(uname -m | sed 's/x86_64/x86_64/;s/aarch64/aarch6
     tar -C / -Jxpf /tmp/s6-overlay-$(uname -m | sed 's/x86_64/x86_64/;s/aarch64/aarch64/').tar.xz && \
     tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz
 
+ADD --chmod=755 https://raw.githubusercontent.com/linuxserver/docker-mods/mod-scripts/with-contenv.v1 "/usr/bin/with-contenv"
+ADD --chmod=755 https://raw.githubusercontent.com/linuxserver/docker-mods/mod-scripts/docker-mods.v3 "/docker-mods"
+
+ENV S6_STAGE2_HOOK=/docker-mods
+
 # Install Autocaliweb
 COPY requirements.txt optional-requirements.txt /app/autocaliweb/
 
