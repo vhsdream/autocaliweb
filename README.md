@@ -66,7 +66,7 @@ _This software is a fork of [Calibre-Web](https://github.com/janeczku/calibre-we
 1. Download the Docker Compose template file to the folder where Autocaliweb should have it's data (e.g. /opt/autocaliweb) using the command below:
 
 ```
-curl -Lo ./docker-compose.yml https://raw.githubusercontent.com/gelbphoenix/autocaliweb/main/docker-compose.yml
+curl -Lo ./docker-compose.yml https://raw.githubusercontent.com/gelbphoenix/autocaliweb/master/docker-compose.yml
 ```
 
 2.  Edit the compose file using the comments to help, filling in your Timezone and desired binds
@@ -116,8 +116,7 @@ services:
 
 4. **Google Drive Integration**: For hosting your Calibre library on Google Drive, refer to the [Google Drive integration guide of Calibre-Web](https://github.com/janeczku/calibre-web/wiki/G-Drive-Setup#using-google-drive-integration).
 
-> [!IMPORTANT]
-> **If you are migrating from Calibre-Web Automated please ensure that your cwa.db is renamed acw.db before start to load your existing settings**
+> [!IMPORTANT] > **If you are migrating from Calibre-Web Automated please ensure that your cwa.db is renamed acw.db before start to load your existing settings**
 
 ## Deploy Requirements
 
