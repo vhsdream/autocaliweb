@@ -1546,7 +1546,7 @@ msgid "Upload"
 msgstr ""
 
 #: cps/templates/admin.html:9
-msgid "Users"
+msgid "Users 👤"
 msgstr ""
 
 #: cps/templates/admin.html:13 cps/templates/login.html:9
@@ -1604,8 +1604,8 @@ msgstr ""
 msgid "Import LDAP Users"
 msgstr ""
 
-#: cps/templates/admin.html:62
-msgid "Email Server Settings"
+#: cps/templates/admin.html:99
+msgid "Email Server Settings 📬"
 msgstr ""
 
 #: cps/templates/admin.html:67 cps/templates/email_edit.html:31
@@ -1637,8 +1637,8 @@ msgstr ""
 msgid "Gmail via Oauth2"
 msgstr ""
 
-#: cps/templates/admin.html:106
-msgid "Configuration"
+#: cps/templates/admin.html:151
+msgid "Configuration ⚙️"
 msgstr ""
 
 #: cps/templates/admin.html:109
@@ -1697,8 +1697,8 @@ msgstr ""
 msgid "Edit UI Configuration"
 msgstr ""
 
-#: cps/templates/admin.html:167
-msgid "Scheduled Tasks"
+#: cps/templates/admin.html:246
+msgid "Scheduled Tasks ⌛"
 msgstr ""
 
 #: cps/templates/admin.html:170 cps/templates/schedule_edit.html:12
@@ -3610,3 +3610,26 @@ msgstr ""
 msgid "Show Read/Unread Section"
 msgstr ""
 
+#: cps/templates/admin.html:299
+msgid "Autocaliweb Admin Functions⚡"
+msgstr ""
+
+#: cps/templates/admin.html:304
+msgid "ACW Settings"
+msgstr ""
+
+#: cps/templates/admin.html:310
+msgid "Show ACW Stats"
+msgstr ""
+
+#: cps/templates/admin.html:316
+msgid "Check ACW Status"
+msgstr ""
+
+#: cps/templates/admin.html:324
+msgid "Library Conversion Service"
+msgstr ""
+
+#: cps/templates/admin.html:330
+msgid "Send-to-Kindle EPUB Fixer Service"
+msgstr ""
