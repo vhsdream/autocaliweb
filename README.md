@@ -56,7 +56,7 @@ _This software is a fork of [Calibre-Web](https://github.com/janeczku/calibre-we
 - Easy theme switching
 - Batch edits of books
 - ISBNDB as an additional provider for metadata
-- Usage of `DOCKER_MODS` from linuxserver.io and other sources
+- Usage of `DOCKER_MODS` from sources like linuxserver.io and others
 
 ## Installation
 
