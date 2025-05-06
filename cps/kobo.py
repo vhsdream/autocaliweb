@@ -182,9 +182,14 @@ def HandleSyncRequest():
                                                                           ub.ArchivedBook.user_id == current_user.id))
                            .filter(db.Books.id.notin_(calibre_db.session.query(ub.KoboSyncedBooks.book_id)
                                                       .filter(ub.KoboSyncedBooks.user_id == current_user.id)))
+                           .filter(or_(
+                                ub.BookShelf.date_added > sync_token.books_last_modified,
+                                db.Books.last_modified > sync_token.books_last_modified,
+                           ))
                            .filter(ub.BookShelf.date_added > sync_token.books_last_modified)
                            .filter(db.Data.format.in_(KOBO_FORMATS))
                            .filter(calibre_db.common_filters(allow_show_archived=True))
+                           .order_by(db.Books.last_modified)
                            .order_by(db.Books.id)
                            .order_by(ub.ArchivedBook.last_modified)
                            .join(ub.BookShelf, db.Books.id == ub.BookShelf.book_id)
@@ -272,10 +277,8 @@ def HandleSyncRequest():
             .join(ub.Shelf)\
             .filter(current_user.id == ub.Shelf.user_id)\
             .filter(ub.Shelf.kobo_sync,
-                    or_(
-                        ub.KoboReadingState.last_modified > sync_token.reading_state_last_modified,
-                        func.datetime(ub.BookShelf.date_added) > sync_token.books_last_modified
-                    )).distinct()
+                    ub.KoboReadingState.last_modified > sync_token.reading_state_last_modified)\
+            .distinct()
     else:
         changed_reading_states = changed_reading_states.filter(
             ub.KoboReadingState.last_modified > sync_token.reading_state_last_modified)
