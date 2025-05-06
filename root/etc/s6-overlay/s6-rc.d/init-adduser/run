@@ -24,19 +24,28 @@ elif [[ -f /run/branding ]]; then
     cat /run/branding
 fi
 
-# Displaying UID and GID information
+# Optional: Display debug information
+if [[ -f /app/ACW_RELEASE ]]; then
 echo '
 ───────────────────────────────────────
 GID/UID
 ───────────────────────────────────────
 User UID:    '$(id -u "$USERNAME")'
 User GID:    '$(id -g "$USERNAME")'
+───────────────────────────────────────
+Version Information
+───────────────────────────────────────
+Build version:    '$(cat /app/ACW_RELEASE)'
+kepubify version: '$(cat /app/KEPUBIFY_RELEASE)'
+Calibre version:  '$(cat /app/CALIBRE_RELEASE)'
 ───────────────────────────────────────'
-
-# Optional: Display version if available
-if [[ -f /app/ACW_RELEASE ]]; then
+else
 echo '
-Build Version: '$(cat /app/ACW_RELEASE)'
+───────────────────────────────────────
+GID/UID
+───────────────────────────────────────
+User UID:    '$(id -u "$USERNAME")'
+User GID:    '$(id -g "$USERNAME")'
 ───────────────────────────────────────'
 fi
 
