@@ -1547,8 +1547,8 @@ msgid "Upload"
 msgstr "Upload"
 
 #: cps/templates/admin.html:9
-msgid "Users"
-msgstr "Benutzerliste"
+msgid "Users 👤"
+msgstr "Benutzerliste 👤"
 
 #: cps/templates/admin.html:13 cps/templates/login.html:9
 #: cps/templates/login.html:10 cps/templates/register.html:9
@@ -1605,9 +1605,9 @@ msgstr "Öffentliches Bücherregal"
 msgid "Import LDAP Users"
 msgstr "LDAP Benutzer importieren"
 
-#: cps/templates/admin.html:62
-msgid "Email Server Settings"
-msgstr "Einstellungen des SMTP-Servers"
+#: cps/templates/admin.html:99
+msgid "Email Server Settings 📬"
+msgstr "Einstellungen des SMTP-Servers 📬"
 
 #: cps/templates/admin.html:67 cps/templates/email_edit.html:31
 msgid "SMTP Hostname"
@@ -1638,9 +1638,9 @@ msgstr "E-Mail Service"
 msgid "Gmail via Oauth2"
 msgstr "Gmail via OAuth2"
 
-#: cps/templates/admin.html:106
-msgid "Configuration"
-msgstr "Konfiguration"
+#: cps/templates/admin.html:151
+msgid "Configuration ⚙️"
+msgstr "Konfiguration ⚙️"
 
 #: cps/templates/admin.html:109
 msgid "Calibre Database Directory"
@@ -1698,9 +1698,9 @@ msgstr "Basiskonfiguration"
 msgid "Edit UI Configuration"
 msgstr "Benutzeroberflächenkonfiguration"
 
-#: cps/templates/admin.html:167
-msgid "Scheduled Tasks"
-msgstr "Geplante Aufgabe"
+#: cps/templates/admin.html:246
+msgid "Scheduled Tasks ⌛"
+msgstr "Geplante Aufgaben ⌛"
 
 #: cps/templates/admin.html:170 cps/templates/schedule_edit.html:12
 #: cps/templates/tasks.html:18
@@ -3613,3 +3613,26 @@ msgstr "Ausgesuchte Bücherregale mit Kobo synchronisieren"
 msgid "Show Read/Unread Section"
 msgstr "Zeige Gelesen/Ungelesen"
 
+#: cps/templates/admin.html:299
+msgid "Autocaliweb Admin Functions⚡"
+msgstr "Adminfunktionen von Autocaliweb⚡"
+
+#: cps/templates/admin.html:304
+msgid "ACW Settings"
+msgstr "ACW Einstellungen"
+
+#: cps/templates/admin.html:310
+msgid "Show ACW Stats"
+msgstr "ACW-Statistiken anzeigen"
+
+#: cps/templates/admin.html:316
+msgid "Check ACW Status"
+msgstr "ACW-Status prüfen"
+
+#: cps/templates/admin.html:324
+msgid "Library Conversion Service"
+msgstr "Bibliotheksumwandlungsservice"
+
+#: cps/templates/admin.html:330
+msgid "Send-to-Kindle EPUB Fixer Service"
+msgstr "Send-to-Kindle EPUB-Fixierservice"
