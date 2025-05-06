@@ -23,6 +23,7 @@ change_script_permissions () {
     chmod +x /etc/s6-overlay/s6-rc.d/init-*/run
     chmod 775 /app/autocaliweb/cps/editbooks.py
     chmod 775 /app/autocaliweb/cps/admin.py
+    chmod 755 /docker-mods
 }
 
 # Add aliases to .bashrc

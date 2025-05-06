@@ -7,7 +7,7 @@ PGID=${PGID:-911}
 USERNAME=abc
 
 # Check if the user already exists
-if ! id -u "$USERNAME" >/dev/null 2>&1; then
+if id -u "$USERNAME" >/dev/null 2>&1; then
     USERHOME=$(grep $USERNAME /etc/passwd | cut -d: -f6)
     usermod -d "/root" "$USERNAME"
 

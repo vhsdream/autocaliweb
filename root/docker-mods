@@ -463,9 +463,31 @@ run_mods() {
                     echo $FD_MAX > "${FD}"
                 done <   <(find /tmp/mod/etc/s6-overlay/s6-rc.d -type f -name 'notification-fd' -print0)
             fi
-            shopt -s dotglob
-            cp -R /tmp/mod/* /
-            shopt -u dotglob
+            shopt -s globstar
+            for LINK in /tmp/mod/**; do
+                if [ -e "$LINK" ]; then
+                    TARGET="/$(echo "$LINK" | cut -d'/' -f4-)"
+
+                    # Auflösen des Zielpfads, falls er existiert
+                    if [ -e "$TARGET" ]; then
+                    RESOLVED_TARGET=$(readlink -f "$TARGET")
+                    else
+                    # Wenn der Zielpfad nicht existiert, verwenden wir den berechneten Pfad
+                    RESOLVED_TARGET="$TARGET"
+                    fi
+
+                    # Zielverzeichnis erstellen, falls erforderlich
+                    mkdir -p "$(dirname "$RESOLVED_TARGET")"
+
+                    # Kopieren der Datei oder des Verzeichnisses
+                    if [ -d "$LINK" ]; then
+                    cp -R "$LINK" "$RESOLVED_TARGET/"
+                    else
+                    cp "$LINK" "$RESOLVED_TARGET"
+                fi
+            fi
+            done
+            shopt -u globstar
             rm -rf /tmp/mod
             echo "${SHALAYER}" >"/${FILENAME}"
         else
@@ -530,9 +552,31 @@ run_mods_local() {
                 if [[ -d "/tmp/mod/${DOCKER_MOD}/etc/services.d" ]]; then
                     rm -rf "/tmp/mod/${DOCKER_MOD}/etc/services.d"
                 fi
-                shopt -s dotglob
-                cp -R "/tmp/mod/${DOCKER_MOD}"/* /
-                shopt -u dotglob
+                shopt -s globstar
+                for LINK in /tmp/mod/**; do
+                    if [ -e "$LINK" ]; then
+                        TARGET="/$(echo "$LINK" | cut -d'/' -f4-)"
+
+                        # Auflösen des Zielpfads, falls er existiert
+                        if [ -e "$TARGET" ]; then
+                        RESOLVED_TARGET=$(readlink -f "$TARGET")
+                        else
+                        # Wenn der Zielpfad nicht existiert, verwenden wir den berechneten Pfad
+                        RESOLVED_TARGET="$TARGET"
+                        fi
+
+                        # Zielverzeichnis erstellen, falls erforderlich
+                        mkdir -p "$(dirname "$RESOLVED_TARGET")"
+
+                        # Kopieren der Datei oder des Verzeichnisses
+                        if [ -d "$LINK" ]; then
+                        cp -R "$LINK" "$RESOLVED_TARGET/"
+                        else
+                        cp "$LINK" "$RESOLVED_TARGET"
+                    fi
+                fi
+                done
+                shopt -u globstar
                 rm -rf "/tmp/mod/${DOCKER_MOD}"
                 echo "${SHALAYER}" >"/${FILENAME}"
                 write_mod_info "${DOCKER_MOD} applied to container"
