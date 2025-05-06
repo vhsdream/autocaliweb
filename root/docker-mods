@@ -466,24 +466,25 @@ run_mods() {
             shopt -s globstar
             for LINK in /tmp/mod/**; do
                 if [ -e "$LINK" ]; then
-                    TARGET="/$(echo "$LINK" | cut -d'/' -f4-)"
-
-                    # Auflösen des Zielpfads, falls er existiert
-                    if [ -e "$TARGET" ]; then
-                    RESOLVED_TARGET=$(readlink -f "$TARGET")
+                    if [[ $LINK != /tmp/mod/root/* ]]; then
+                        TARGET="/$(echo "$LINK" | cut -d'/' -f4-)"
                     else
-                    # Wenn der Zielpfad nicht existiert, verwenden wir den berechneten Pfad
-                    RESOLVED_TARGET="$TARGET"
+                        TARGET="/$(echo "$LINK" | cut -d'/' -f5-)"
                     fi
 
-                    # Zielverzeichnis erstellen, falls erforderlich
-                    mkdir -p "$(dirname "$RESOLVED_TARGET")"
-
-                    # Kopieren der Datei oder des Verzeichnisses
-                    if [ -d "$LINK" ]; then
-                    cp -R "$LINK" "$RESOLVED_TARGET/"
+                    if [ -e "$TARGET" ]; then
+                        RESOLVED_TARGET=$(readlink -f "$TARGET")
                     else
-                    cp "$LINK" "$RESOLVED_TARGET"
+                        RESOLVED_TARGET="$TARGET"
+                    fi
+
+                    if [ -d "$LINK" ]; then
+                        mkdir -p "$RESOLVED_TARGET"
+                        cp -a "$LINK/." "$RESOLVED_TARGET/"
+                    else
+                        mkdir -p "$(dirname "$RESOLVED_TARGET")"
+                        cp "$LINK" "$RESOLVED_TARGET"
+                    fi
                 fi
             fi
             done
