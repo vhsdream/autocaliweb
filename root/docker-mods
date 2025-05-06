@@ -466,7 +466,7 @@ run_mods() {
             shopt -s globstar
             for LINK in /tmp/mod/**; do
                 if [ -e "$LINK" ]; then
-                    if [[ $LINK != /tmp/mod/root/* ]]; then
+                    if [[ "$LINK" != /tmp/mod/root/* ]]; then
                         TARGET="/$(echo "$LINK" | cut -d'/' -f4-)"
                     else
                         TARGET="/$(echo "$LINK" | cut -d'/' -f5-)"
@@ -486,7 +486,6 @@ run_mods() {
                         cp "$LINK" "$RESOLVED_TARGET"
                     fi
                 fi
-            fi
             done
             shopt -u globstar
             rm -rf /tmp/mod
