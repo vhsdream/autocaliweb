@@ -40,5 +40,5 @@ Build Version: '$(cat /app/ACW_RELEASE)'
 ───────────────────────────────────────'
 fi
 
-# Setzen der Eigentumsrechte für relevante Verzeichnisse
+# Setting ownership rights for relevant directories
 chown -R "$USERNAME":"$USERNAME" /app /config /defaults 2>/dev/null || true
