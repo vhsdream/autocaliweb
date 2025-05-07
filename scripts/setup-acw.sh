@@ -2,14 +2,10 @@
 
 # Make required directories and files for metadata enforcement
 make_dirs () {
-    mkdir /app/autocaliweb/metadata_change_logs
-    chown -R abc:abc /app/autocaliweb/metadata_change_logs
-    mkdir /app/autocaliweb/metadata_temp
-    chown -R abc:abc /app/autocaliweb/metadata_temp
-    mkdir /acw-book-ingest
-    chown abc:abc /acw-book-ingest
-    mkdir /calibre-library
-    chown -R abc:abc /calibre-library
+    sudo -S -u abc mkdir /app/autocaliweb/metadata_change_logs
+    sudo -S -u abc mkdir /app/autocaliweb/metadata_temp
+    sudo -S -u abc mkdir /acw-book-ingest
+    sudo -S -u abc mkdir /calibre-library
 }
 
 # Change ownership & permissions as required
