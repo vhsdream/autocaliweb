@@ -174,7 +174,7 @@ def create_app():
 
     if os.environ.get('FLASK_DEBUG'):
         cache_buster.init_cache_busting(app)
-    log.info('Starting Calibre Web...')
+    log.info('Starting Autocaliweb...')
     Principal(app)
     lm.init_app(app)
     app.secret_key = os.getenv('SECRET_KEY', config_sql.get_flask_session_key(ub.session))
