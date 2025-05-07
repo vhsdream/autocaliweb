@@ -84,8 +84,9 @@ RUN export KEPUBIFY_RELEASE=$(curl -s https://api.github.com/repos/pgaskin/kepub
 RUN mkdir -p /app/calibre && \
     curl -o /tmp/calibre.txz -L https://download.calibre-ebook.com/${UNIVERSAL_CALIBRE_VERSION}/calibre-${UNIVERSAL_CALIBRE_VERSION}-$(uname -m | sed 's/x86_64/x86_64/;s/aarch64/arm64/').txz && \
     tar xf /tmp/calibre.txz -C /app/calibre && \
+    strip --remove-section=.note.ABI-tag /app/calibre/lib/libQt6* && \
     rm /tmp/calibre.txz && \
-    strip --remove-section=.note.ABI-tag /app/calibre/libQt6*
+    /app/calibre/calibre_postinstall 
 
 # Clean up
 RUN apt-get purge -y \
