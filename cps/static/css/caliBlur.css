@@ -1616,6 +1616,10 @@ body > div.container-fluid > div > div.col-sm-10 > div > form > a:hover {
   color: #fff;
 }
 
+.navigation li a[href*="stats"] {
+  display: none;
+}
+
 #nav_hot .glyphicon-fire::before {
   content: "\1F525";
   font-family: glyphicons regular, serif;
