@@ -628,8 +628,8 @@ def update_view_configuration():
         config.config_default_show |= constants.DETAIL_RANDOM
 
     config.save()
-    flash(_("Calibre-Web configuration updated"), category="success")
-    log.debug("Calibre-Web configuration updated")
+    flash(_("Autocaliweb configuration updated"), category="success")
+    log.debug("Autocaliweb configuration updated")
     before_request()
 
     return view_configuration()
@@ -1919,7 +1919,7 @@ def _configuration_result(error_flash=None, reboot=False):
         config.load()
         resp['result'] = [{'type': "danger", 'message': error_flash}]
     else:
-        resp['result'] = [{'type': "success", 'message': _("Calibre-Web configuration updated")}]
+        resp['result'] = [{'type': "success", 'message': _("Autocaliweb configuration updated")}]
     resp['reboot'] = reboot
     resp['config_upload'] = config.config_upload_formats
     return Response(json.dumps(resp), mimetype='application/json')
