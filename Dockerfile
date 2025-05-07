@@ -76,7 +76,7 @@ RUN ln -s /app/autocaliweb /app/calibre-web
 
 # Install kepubify
 RUN export KEPUBIFY_RELEASE=$(curl -s https://api.github.com/repos/pgaskin/kepubify/releases/latest | awk -F'"' '/tag_name/{print $4;exit}') && \
-    curl -Lo /usr/bin/kepubify "https://github.com/pgaskin/kepubify/releases/download/${KEPUBIFY_RELEASE}/kepubify-linux-$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')" && \
+    curl -Lo /usr/bin/kepubify "https://github.com/pgaskin/kepubify/releases/download/${KEPUBIFY_RELEASE}/kepubify-linux-$(uname -m | sed 's/x86_64/64bit/;s/aarch64/arm64/')" && \
     chmod +x /usr/bin/kepubify && \
     echo "$KEPUBIFY_RELEASE" >| /app/KEPUBIFY_RELEASE
 
