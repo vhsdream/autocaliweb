@@ -1,8 +1,8 @@
 ---
 name: Feature request
 about: Suggest an idea for Autocaliweb
-title: ""
-labels: ""
+title: "[FEATURE] ..."
+labels: ["enhancement"]
 assignees: ""
 ---
 

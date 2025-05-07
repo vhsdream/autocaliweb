@@ -1,8 +1,8 @@
 ---
 name: Bug/Problem report
 about: Create a report to help us improve Autocaliweb
-title: ""
-labels: ""
+title: "[BUG] ..."
+labels: ["bug", "triage"]
 assignees: ""
 ---
 
