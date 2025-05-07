@@ -41,7 +41,7 @@ RUN apt-get update && \
       libegl1 libxdamage1 libgl1 \
       libglx-mesa0 xz-utils sqlite3 \
       xdg-utils tzdata inotify-tools \
-      netcat-openbsd
+      netcat-openbsd binutils
 
 # Install S6-Overlay
 RUN curl -Lo /tmp/s6-overlay-$(uname -m | sed 's/x86_64/x86_64/;s/aarch64/aarch64/').tar.xz https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-$(uname -m | sed 's/x86_64/x86_64/;s/aarch64/aarch64/').tar.xz && \
@@ -85,7 +85,7 @@ RUN mkdir -p /app/calibre && \
     curl -o /tmp/calibre.txz -L https://download.calibre-ebook.com/${UNIVERSAL_CALIBRE_VERSION}/calibre-${UNIVERSAL_CALIBRE_VERSION}-$(uname -m | sed 's/x86_64/x86_64/;s/aarch64/arm64/').txz && \
     tar xf /tmp/calibre.txz -C /app/calibre && \
     rm /tmp/calibre.txz && \
-    /app/calibre/calibre_postinstall 
+    strip --remove-section=.note.ABI-tag /app/calibre/libQt6*
 
 # Clean up
 RUN apt-get purge -y \
