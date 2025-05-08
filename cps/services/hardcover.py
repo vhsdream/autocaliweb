@@ -50,10 +50,13 @@ USER_BOOK_FRAGMENT = """
 class HardcoverClient:
     def __init__(self, token):
         self.endpoint = GRAPHQL_ENDPOINT
+
+        version = open("/app/ACW_RELEASE", "r").read()
+
         self.headers = {
             "Content-Type": "application/json",
             "Authorization" : f"Bearer {token}",
-            "User-Agent": f"Autocaliweb/{open("/app/ACW_RELEASE", "r").read()}",
+            "User-Agent": f"Autocaliweb/{version}",
         }
         self.privacy = self.get_privacy()
         
