@@ -1525,7 +1525,8 @@ def change_profile(kobo_support, local_oauth_check, oauth_status, translations, 
         current_user.kobo_only_shelves_sync = int(to_save.get("kobo_only_shelves_sync") == "on") or 0
         if old_state == 0 and current_user.kobo_only_shelves_sync == 1:
             kobo_sync_status.update_on_sync_shelfs(current_user.id)
-
+        current_user.kobo_plus = int(to_save.get("kobo_plus") == "on") or 0
+        current_user.kobo_overdrive = int(to_save.get("kobo_overdrive") == "on") or 0
     except Exception as ex:
         flash(str(ex), category="error")
         return render_title_template("user_edit.html",

@@ -1112,6 +1112,13 @@ def HandleInitRequest():
     if not kobo_resources:
         kobo_resources = NATIVE_KOBO_RESOURCES()
 
+    if current_user is not None:
+        try:
+            plus_enabled = bool(getattr(current_user, "kobo_plus", False))
+            borrow_enabled = bool(getattr(current_user, "kobo_overdrive", False))
+        except AttributeError:
+            pass
+
     if not current_app.wsgi_app.is_proxied:
         log.debug('Kobo: Received unproxied request, changed request port to external server port')
         if ':' in request.host and not request.host.endswith(']'):
@@ -1140,6 +1147,8 @@ def HandleInitRequest():
                                                                width="{width}",
                                                                height="{height}",
                                                                isGreyscale='false'))
+        kobo_resources["kobo_subscriptions_enabled"] = plus_enabled
+        kobo_resources["kobo_nativeborrow_enabled"] = borrow_enabled
     else:
         kobo_resources["image_host"] = url_for("web.index", _external=True).strip("/")
         kobo_resources["image_url_quality_template"] = unquote(url_for("kobo.HandleCoverImageRequest",
@@ -1157,6 +1166,8 @@ def HandleInitRequest():
                                                                height="{height}",
                                                                isGreyscale='false',
                                                                _external=True))
+        kobo_resources["kobo_subscriptions_enabled"] = plus_enabled
+        kobo_resources["kobo_nativeborrow_enabled"] = borrow_enabled
 
     response = make_response(jsonify({"Resources": kobo_resources}))
     response.headers["x-kobo-apitoken"] = "e30="

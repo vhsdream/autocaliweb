@@ -257,7 +257,8 @@ class User(UserBase, Base):
     remote_auth_token = relationship('RemoteAuthToken', backref='user', lazy='dynamic')
     view_settings = Column(JSON, default={})
     kobo_only_shelves_sync = Column(Integer, default=0)
-
+    kobo_plus = Column(Integer, default=0)
+    kobo_overdrive = Column(Integer, default=0)
 
 if oauth_support:
     class OAuth(OAuthConsumerMixin, Base):
@@ -281,6 +282,8 @@ class OAuthProvider(Base):
 class Anonymous(AnonymousUserMixin, UserBase):
     def __init__(self):
         self.kobo_only_shelves_sync = None
+        self.kobo_plus = None
+        self.kobo_overdrive = None
         self.view_settings = None
         self.allowed_column_value = None
         self.allowed_tags = None
@@ -310,6 +313,8 @@ class Anonymous(AnonymousUserMixin, UserBase):
         self.allowed_column_value = data.allowed_column_value
         self.view_settings = data.view_settings
         self.kobo_only_shelves_sync = data.kobo_only_shelves_sync
+        self.kobo_plus = data.kobo_plus
+        self.kobo_overdrive = data.kobo_overdrive
 
     def role_admin(self):
         return False
@@ -600,6 +605,34 @@ def migrate_user_session_table(engine, _session):
             conn.execute(text("ALTER TABLE user_session ADD column 'expiry' Integer"))
             trans.commit()
 
+def migrate_user_table(engine, _session):
+    with engine.connect() as conn:
+        needed = [
+            ('id', "INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT"),
+            ('name', "VARCHAR(64) NOT NULL"),
+            ('email', "VARCHAR(120) NOT NULL DEFAULT ''"),
+            ('role', "SMALLINT NOT NULL DEFAULT 0"),
+            ('password', "VARCHAR(255) NOT NULL"),
+            ('kindle_mail', "VARCHAR(120) NOT NULL DEFAULT ''"),
+            ('shelf', "INTEGER NOT NULL DEFAULT 0"),
+            ('downloads', "INTEGER NOT NULL DEFAULT 0"),
+            ('locale', "VARCHAR(2) NOT NULL DEFAULT 'en'"),
+            ('sidebar_view', "INTEGER NOT NULL DEFAULT 1"),
+            ('default_language', "VARCHAR(3) NOT NULL DEFAULT 'all'"),
+            ('denied_tags', "VARCHAR(255) NOT NULL DEFAULT ''"),
+            ('allowed_tags', "VARCHAR(255) NOT NULL DEFAULT ''"),
+            ('denied_column_value', "VARCHAR(255) NOT NULL DEFAULT ''"),
+            ('allowed_column_value', "VARCHAR(255) NOT NULL DEFAULT ''"),
+            ('remote_auth_token', "INTEGER NOT NULL DEFAULT 0"),
+            ('view_settings', "JSON NOT NULL DEFAULT '{}'"),
+            ('kobo_only_shelves_sync', "INTEGER NOT NULL DEFAULT 0"),
+            ('kobo_plus', "INTEGER NOT NULL DEFAULT 0"),
+            ('kobo_overdrive', "INTEGER NOT NULL DEFAULT 0"),
+        ]
+        for col_name, col_def in needed:
+            exists = conn.execute(text(f"PRAGMA table_info(user)")).fetchall()
+            if not any(row[1] == col_name for row in exists):
+                conn.execute(text(f"ALTER TABLE user ADD COLUMN {col_name} {col_def}"))
 
 # Migrate database to current version, has to be updated after every database change. Currently, migration from
 # maybe 4/5 versions back to current should work.
@@ -609,6 +642,7 @@ def migrate_Database(_session):
     add_missing_tables(engine, _session)
     migrate_registration_table(engine, _session)
     migrate_user_session_table(engine, _session)
+    migrate_user_table(engine, _session)
 
 
 def clean_database(_session):

@@ -507,6 +507,10 @@ def edit_list_user(param):
                     user.email = check_email(vals['value'])
                 elif param == 'kobo_only_shelves_sync':
                     user.kobo_only_shelves_sync = int(vals['value'] == 'true')
+                elif param == 'kobo_plus':
+                    user.kobo_plus = int(vals['value'] == 'true')
+                elif param == 'kobo_overdrive':
+                    user.kobo_overdrive = int(vals['value'] == 'true')
                 elif param == 'kindle_mail':
                     user.kindle_mail = valid_email(vals['value']) if vals['value'] else ""
                 elif param.endswith('role'):
@@ -660,6 +664,10 @@ def load_dialogtexts(element_id):
                           'for the selected user(s)?')
     elif element_id == "kobo_only_shelves_sync":
         texts["main"] = _('Are you sure you want to change shelf sync behavior for the selected user(s)?')
+    elif element_id == "kobo_plus":
+        texts["main"] = _('Are you sure you want to change Kobo Plus behavior for the selected user(s)?')
+    elif element_id == "kobo_overdrive":
+        texts["main"] = _('Are you sure you want to change Overdrive behavior for the selected user(s)?')
     elif element_id == "db_submit":
         texts["main"] = _('Are you sure you want to change Calibre library location?')
     elif element_id == "admin_refresh_cover_cache":
@@ -1989,6 +1997,8 @@ def _handle_new_user(to_save, content, languages, translations, kobo_support):
         content.denied_column_value = config.config_denied_column_value
         # No default value for kobo sync shelf setting
         content.kobo_only_shelves_sync = to_save.get("kobo_only_shelves_sync", 0) == "on"
+        content.kobo_plus = to_save.get("kobo_plus", 0) == "on"
+        content.kobo_overdrive = to_save.get("kobo_overdrive", 0) == "on"
         ub.session.add(content)
         ub.session.commit()
         flash(_("User '%(user)s' created", user=content.name), category="success")
@@ -2072,6 +2082,10 @@ def _handle_edit_user(to_save, content, languages, translations, kobo_support):
         # which don't have to be synced have to be removed (added to Shelf archive)
         if old_state == 0 and content.kobo_only_shelves_sync == 1:
             kobo_sync_status.update_on_sync_shelfs(content.id)
+        if to_save.get("kobo_plus"):
+            content.kobo_plus = int(to_save.get("kobo_plus") == "on") or 0
+        if to_save.get("kobo_overdrive"):
+            content.kobo_overdrive = int(to_save.get("kobo_overdrive") == "on") or 0
         if to_save.get("default_language"):
             content.default_language = to_save["default_language"]
         if to_save.get("locale"):
