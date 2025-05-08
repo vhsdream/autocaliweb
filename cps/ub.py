@@ -259,6 +259,7 @@ class User(UserBase, Base):
     kobo_only_shelves_sync = Column(Integer, default=0)
     kobo_plus = Column(Integer, default=0)
     kobo_overdrive = Column(Integer, default=0)
+    hardcover_token = Column(String, unique=true, default="")
 
 if oauth_support:
     class OAuth(OAuthConsumerMixin, Base):
@@ -608,7 +609,6 @@ def migrate_user_session_table(engine, _session):
 def migrate_user_table(engine, _session):
     with engine.connect() as conn:
         needed = [
-            ('id', "INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT"),
             ('name', "VARCHAR(64) NOT NULL"),
             ('email', "VARCHAR(120) NOT NULL DEFAULT ''"),
             ('role', "SMALLINT NOT NULL DEFAULT 0"),
@@ -628,6 +628,7 @@ def migrate_user_table(engine, _session):
             ('kobo_only_shelves_sync', "INTEGER NOT NULL DEFAULT 0"),
             ('kobo_plus', "INTEGER NOT NULL DEFAULT 0"),
             ('kobo_overdrive', "INTEGER NOT NULL DEFAULT 0"),
+            ('hardcover_token', "VARCHAR(255) NOT NULL DEFAULT ''"),
         ]
         for col_name, col_def in needed:
             exists = conn.execute(text(f"PRAGMA table_info(user)")).fetchall()
