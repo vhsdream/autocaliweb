@@ -155,7 +155,7 @@ class Hardcover(Metadata):
         match.tags = result["document"].get("genres",[])
         match.identifiers = {
             "hardcover-id": match.id,
-            "hardcover-slug": result["document"].get("slug", "")
+            "hardcover": result["document"].get("slug", "")
         }
         return match
 
@@ -186,7 +186,7 @@ class Hardcover(Metadata):
             match.languages = self._parse_languages(edition,locale)
             match.identifiers = {
                 "hardcover-id": id,
-                "hardcover-slug": result.get("slug", ""),
+                "hardcover": result.get("slug", ""),
                 "hardcover-edition": edition.get("id",""),
                 "isbn": (edition.get("isbn_13",edition.get("isbn_10")) or "")
             }
