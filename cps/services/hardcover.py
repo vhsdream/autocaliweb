@@ -52,7 +52,8 @@ class HardcoverClient:
         self.endpoint = GRAPHQL_ENDPOINT
         self.headers = {
             "Content-Type": "application/json",
-            "Authorization" : f"Bearer {token}"
+            "Authorization" : f"Bearer {token}",
+            "User-Agent": f"Autocaliweb/{open("/app/ACW_RELEASE", "r").read()}",
         }
         self.privacy = self.get_privacy()
         
