@@ -12015,3 +12015,13 @@ select.acw-settings-select {
   opacity: 1 !important;
   text-shadow: none !important;
 }
+
+body.me .well,
+body.edituser .well {
+  padding: 0 !important;
+}
+
+body.me .modal_content,
+body.edituser .modal_content {
+  top: 60px;
+}
