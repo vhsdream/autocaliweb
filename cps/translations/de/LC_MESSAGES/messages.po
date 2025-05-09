@@ -1686,6 +1686,14 @@ msgstr "Reverse Proxy Login"
 msgid "Reverse Proxy Header Name"
 msgstr "Reverse Proxy Header Name"
 
+#: cps/templates/admin.html:223 cps/templates/config_edit.html:181
+msgid "Create Reverse Proxy Users"
+msgstr "Reverse Proxy Benutzer erstellen"
+
+#: cps/templates/admin.html:231 cps/templates/config_edit.html:184
+msgid "Reverse Proxy Email Header Name"
+msgstr "Reverse Proxy EMail Header Name"
+
 #: cps/templates/admin.html:159
 msgid "Edit Calibre Database Configuration"
 msgstr "Calibre Datenbank Konfiguration editieren"
@@ -3636,3 +3644,27 @@ msgstr "Bibliotheksumwandlungsservice"
 #: cps/templates/admin.html:330
 msgid "Send-to-Kindle EPUB Fixer Service"
 msgstr "Send-to-Kindle EPUB-Fixierservice"
+
+#: cps/templates/config_edit.html:154
+msgid "Sync Kobo read process to Hardcover (Requires an API key per user)"
+msgstr "Kobo-Lesevorgang mit Hardcover synchronisieren (Erfordert einen API-Schlüssel pro Benutzer)"
+
+#: cps/templates/user_edit.html:65
+msgid "Hardcover API Token"
+msgstr "Hardcover API-Schlüssel"
+
+#: cps/templates/config_edit.html:147
+msgid "Show Kobo Plus tab"
+msgstr "Zeige Kobo Plus Tab"
+
+#: cps/templates/config_edit.html:151
+msgid "Show Overdrive tab"
+msgstr "Zeige Overdrive Tab"
+
+#: cps/admin.py:668
+msgid "Are you sure you want to change Kobo Plus behavior for the selected user(s)?"
+msgstr "Sind Sie sicher, dass Sie das Verhalten von Kobo Plus für den/die ausgewählten Benutzer ändern möchten?"
+
+#: cps/admin.py:670
+msgid "Are you sure you want to change Overdrive behavior for the selected user(s)?"
+msgstr "Sind Sie sicher, dass Sie das Verhalten von Overdrive für den/die ausgewählten Benutzer ändern möchten?"
