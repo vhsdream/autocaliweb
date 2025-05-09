@@ -24,8 +24,7 @@ import mimetypes
 import chardet  # dependency of requests
 import copy
 import importlib
-
-# ACW Imports
+import time
 import sqlite3
 import json
 
@@ -94,6 +93,7 @@ except ImportError:
 sql_version = importlib.metadata.version("sqlalchemy")
 sqlalchemy_version2 = ([int(x) for x in sql_version.split('.')] >= [2, 0, 0])
 
+_start_time = time.time()
 
 @app.after_request
 def add_security_headers(resp):
@@ -831,6 +831,27 @@ def render_archived_books(page, sort_param):
     return render_title_template('index.html', random=random, entries=entries, pagination=pagination,
                                  title=name, page=page_name, order=sort_param[1])
 
+@web.route("/health")
+def health_check():
+    uptime = time.time() - _start_time
+
+    version = open("/app/ACW_RELEASE", "r").read()
+
+    try:
+        db_path = acw_get_library_location() + "metadata.db"
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        # Query the number of books
+        cursor.execute("SELECT 1")
+        db_up = True
+    except Exception:
+        db_up = False
+    
+    return jsonify({
+        "status": "ok" if db_up else "degraded",
+        "uptime": round(uptime, 2),
+        "version": version
+    }), 200 if db_up else 503
 
 # ################################### View Books list ##################################################################
 

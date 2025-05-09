@@ -71,8 +71,6 @@ def main():
     app.register_blueprint(acw_check_status)
     app.register_blueprint(acw_settings)
     app.register_blueprint(acw_logs)
-
-    # Stock CW
     app.register_blueprint(search)
     app.register_blueprint(tasks)
     app.register_blueprint(web)
