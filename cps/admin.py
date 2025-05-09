@@ -2084,10 +2084,8 @@ def _handle_edit_user(to_save, content, languages, translations, kobo_support):
         # which don't have to be synced have to be removed (added to Shelf archive)
         if old_state == 0 and content.kobo_only_shelves_sync == 1:
             kobo_sync_status.update_on_sync_shelfs(content.id)
-        if to_save.get("kobo_plus"):
-            content.kobo_plus = int(to_save.get("kobo_plus") == "on") or 0
-        if to_save.get("kobo_overdrive"):
-            content.kobo_overdrive = int(to_save.get("kobo_overdrive") == "on") or 0
+        content.kobo_plus = int(to_save.get("kobo_plus") == "on") or 0
+        content.kobo_overdrive = int(to_save.get("kobo_overdrive") == "on") or 0
         if to_save.get("default_language"):
             content.default_language = to_save["default_language"]
         if to_save.get("locale"):
