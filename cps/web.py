@@ -835,7 +835,7 @@ def render_archived_books(page, sort_param):
 def health_check():
     uptime = time.time() - _start_time
 
-    version = open("/app/ACW_RELEASE", "r").read()
+    version = open("/app/ACW_RELEASE", "r").read().strip()
 
     try:
         db_path = acw_get_library_location() + "metadata.db"
