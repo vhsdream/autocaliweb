@@ -32,6 +32,7 @@ from sqlalchemy.sql.expression import func, true
 from . import calibre_db, config, db, logger, ub
 from .render_template import render_title_template
 from .usermanagement import login_required_if_no_ano, user_login_required
+from .services import hardcover
 
 log = logger.create()
 
@@ -71,6 +72,7 @@ def add_to_shelf(shelf_id, book_id):
     else:
         maxOrder = maxOrder[0]
 
+    book = calibre_db.session.query(db.Books).filter(db.Books.id == book_id).one_or_none()
     if not calibre_db.session.query(db.Books).filter(db.Books.id == book_id).one_or_none():
         log.error("Invalid Book Id: %s. Could not be added to shelf %s", book_id, shelf.name)
         if not xhr:
@@ -99,6 +101,9 @@ def add_to_shelf(shelf_id, book_id):
             return redirect(request.environ["HTTP_REFERER"])
         else:
             return redirect(url_for('web.index'))
+    if shelf.kobo_sync and config.config_hardcover_sync and bool(hardcover):
+        hardcoverClient = hardcover.HardcoverClient(current_user.hardcover_token)
+        hardcoverClient.add_book(book.identifiers)
     return "", 204
 
 
