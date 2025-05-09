@@ -1918,7 +1918,7 @@ msgstr "Logout"
 
 #: cps/templates/basic_layout.html:35
 msgid "Normal Theme"
-msgstr ""
+msgstr "Normales Theme"
 
 #: cps/templates/book_edit.html:11
 msgid "Delete Book"
