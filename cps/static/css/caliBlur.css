@@ -12021,7 +12021,7 @@ body.edituser .well {
   padding: 0 !important;
 }
 
-body.me .modal_content,
-body.edituser .modal_content {
+body.me .modal-content,
+body.edituser .modal-content {
   top: 60px;
 }
