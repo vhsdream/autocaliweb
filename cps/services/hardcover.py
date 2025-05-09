@@ -97,18 +97,16 @@ class HardcoverClient:
             query = """
                 query ($slug: String!) {
                     me {
-                        user_books(where: {book: {slug: {_eq: $query}}}) {
+                        user_books(where: {book: {slug: {_eq: $slug}}}) {
                             ...userBookFragment
                         }
                     }
                 }"""
-            variables["query"] = ids["hardcover"]
+            variables["slug"] = ids["hardcover"]
         query += USER_BOOK_FRAGMENT
         response = self.execute(query,variables)
         return next(iter(response.get("me")[0].get("user_books")),None)
         
-
-    # TODO Add option for autocreate if missing books instead of forcing it.
     def update_reading_progress(self, identifiers, progress_percent):
         ids = self.parse_identifiers(identifiers)
         book = self.get_user_book(ids)
@@ -126,9 +124,7 @@ class HardcoverClient:
             pages_read = round(pages * (progress_percent / 100))
             read = next(iter(book.get("user_book_reads")),None)
             if not read:
-                # read = self.add_read(book, pages_read) 
-                # No read exists for some reason, return since we can't update anything.
-                return
+                read = self.add_read(book, pages_read)
             else:
                 mutation = """
                 mutation ($readId: Int!, $pages: Int, $editionId: Int, $startedAt: date, $finishedAt: date) {
