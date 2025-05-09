@@ -3641,3 +3641,27 @@ msgstr ""
 #: cps/templates/admin.html:330
 msgid "Send-to-Kindle EPUB Fixer Service"
 msgstr ""
+
+#: cps/templates/config_edit.html:154
+msgid "Sync Kobo read process to Hardcover (Requires an API key per user)"
+msgstr ""
+
+#: cps/templates/user_edit.html:65
+msgid "Hardcover API Token"
+msgstr ""
+
+#: cps/templates/config_edit.html:147
+msgid "Show Kobo Plus tab"
+msgstr ""
+
+#: cps/templates/config_edit.html:151
+msgid "Show Overdrive tab"
+msgstr ""
+
+#: cps/admin.py:668
+msgid "Are you sure you want to change Kobo Plus behavior for the selected user(s)?"
+msgstr ""
+
+#: cps/admin.py:670
+msgid "Are you sure you want to change Overdrive behavior for the selected user(s)?"
+msgstr ""
