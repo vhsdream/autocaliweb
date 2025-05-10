@@ -47,7 +47,7 @@ echo "[acw-init] Checking for an existing app.db in /config..."
 
 if [ ! -f /config/app.db ]; then
     echo "[acw-init] No existing app.db found! Creating new one..."
-    cp /app/autocaliweb/empty_library/app.db /config/app.db
+    cp /app/autocaliweb/library/app.db /config/app.db
 else
     echo "[acw-init] Existing app.db found!"
 fi
