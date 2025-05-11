@@ -59,6 +59,7 @@ _This software is a fork of [Calibre-Web](https://github.com/janeczku/calibre-we
 - ISBNDB and Hardcover as additional providers for metadata
 - Usage of `DOCKER_MODS` from sources like linuxserver.io and others
 - Syncing reading process to [Hardcover.app](https://hardcover.app/) (Only with Kobo E-Readers)
+- Listing of Author information and other books from Goodreads or Hardcover
 
 ## Installation
 
