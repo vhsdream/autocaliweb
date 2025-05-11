@@ -1873,7 +1873,8 @@ def _configuration_update_helper():
             
         # Hardcover Author Info configuration
         _config_checkbox(to_save, "config_use_hardcover")
-        _config_string(to_save, "config_hardcover_api_token").replace("Bearer ", "") or ""
+        to_save["config_hardcover_api_token"] = str(to_save.get("config_hardcover_api_token", "")).replace("Bearer ", "")
+        _config_string(to_save, "config_hardcover_api_token")
 
         _config_int(to_save, "config_updatechannel")
 
