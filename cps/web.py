@@ -96,9 +96,6 @@ sqlalchemy_version2 = ([int(x) for x in sql_version.split('.')] >= [2, 0, 0])
 
 _start_time = time.time()
 
-if services.hardcover and config.config_use_hardcover:
-    hardcover = services.hardcover.HardcoverClient(config.config_hardcover_api_token)
-
 @app.after_request
 def add_security_headers(resp):
     default_src = ([host.strip() for host in config.config_trustedhosts.split(',') if host] +
@@ -587,6 +584,7 @@ def render_author_books(page, author_id, order):
         other_books = services.goodreads_support.get_other_books(author_info, book_entries)
         source = "goodreads"
     if services.hardcover and config.config_use_hardcover:
+        hardcover = services.hardcover.HardcoverClient(config.config_hardcover_api_token)
         author_slug = slugify(author_name)
         author_info = hardcover.get_author_info(author_slug)
         book_entries = hardcover.get_existing_slugs(entries)
