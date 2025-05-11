@@ -161,9 +161,21 @@
       <label for="config_use_goodreads">{{_('Use Goodreads')}}</label>
     </div>
     <div data-related="goodreads-settings">
-      <div class="form-group">
+      <div class="form-group" style="margin-left: 10px;">
         <label for="config_goodreads_api_key">{{_('Goodreads API Key')}}</label>
         <input type="text" class="form-control" id="config_goodreads_api_key" name="config_goodreads_api_key" value="{% if config.config_goodreads_api_key != None %}{{ config.config_goodreads_api_key }}{% endif %}" autocomplete="off">
+      </div>
+    </div>
+    {% endif %}
+    {% if feature_support['hardcover'] %}
+    <div class="form-group">
+      <input type="checkbox" id="config_use_hardcover" name="config_use_hardcover" data-control="config_use_hardcover" {% if config.config_use_hardcover %}checked{% endif %}>
+      <label for="hardcover-author">{{_('Use Hardcover to get Author info')}}</label>
+    </div>
+    <div data-related="config_use_hardcover">
+      <div class="form-group" style="margin-left: 10px;">
+        <label for="config_hardcover_api_token">{{_('Hardcover API Key')}}</label>
+        <input type="text" class="form-control" id="config_hardcover_api_token" name="config_hardcover_api_token" value="{% if config.config_hardcover_api_token != None %}{{ config.config_hardcover_api_token }}{% endif %}" autocomplete="off">
       </div>
     </div>
     {% endif %}

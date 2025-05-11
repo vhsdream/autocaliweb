@@ -1870,6 +1870,10 @@ def _configuration_update_helper():
         if services.goodreads_support:
             services.goodreads_support.connect(config.config_goodreads_api_key,
                                                config.config_use_goodreads)
+            
+        # Hardcover Author Info configuration
+        _config_checkbox(to_save, "config_use_hardcover")
+        _config_string(to_save, "config_hardcover_api_token").replace("Bearer ", "") or ""
 
         _config_int(to_save, "config_updatechannel")
 

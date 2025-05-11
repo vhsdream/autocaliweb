@@ -51,7 +51,7 @@ class HardcoverClient:
     def __init__(self, token):
         self.endpoint = GRAPHQL_ENDPOINT
 
-        version = open("/app/ACW_RELEASE", "r").read()
+        version = open("/app/ACW_RELEASE", "r").read().strip()
 
         self.headers = {
             "Content-Type": "application/json",
@@ -220,6 +220,52 @@ class HardcoverClient:
             return {id.type:id.val for id in identifiers if "hardcover" in id.type}
         return identifiers
     
+    def get_author_info(self, author):
+        query = """
+        query GetAuthorInfo($author: String!) {
+            authors(where: {slug: {_eq: $author}}) {
+                bio
+                name
+                cached_image
+                slug
+            }
+        }"""
+        variables = {
+            "author": author
+        }
+        response = self.execute(query, variables)
+        return next(iter(response.get("authors")), None)
+    
+    def get_other_author_books(self, author, library_books):
+        query = """
+        query otherBooksFromAuthor($author: String!) {
+            authors(where: {slug: {_eq: $author}}) {
+                contributions(where: {contributable_type: {_eq: "Book"}}, order_by: {book: {title: asc}}) {
+                    book {
+                        title
+                        slug
+                        image {
+                            url
+                        }
+                    }
+                }
+            }
+        }"""
+        variables = {
+            "author": author
+        }
+        response = self.execute(query, variables)
+        author = response.get("authors", [])
+        if not author:
+            return []
+        
+        books = []
+        for contribution in author[0].get("contributions", []):
+            book = contribution.get("book", {})
+            if book.get("slug") and book["slug"] not in library_books:
+                books.append(book)
+        return books
+    
     def execute(self, query, variables=None):
         payload = {
             "query": query,
@@ -234,3 +280,12 @@ class HardcoverClient:
         if "errors" in result:
             raise Exception(f"GraphQL error: {result['errors']}")
         return result.get("data", {})
+    
+    def get_existing_slugs(self, entries):
+        slugs = []
+        for entry in entries:
+            book = entry.Books if hasattr(entry, "Books") else entry
+            for identifier in getattr(book, "identifiers", []):
+                if identifier.type == "hardcover":
+                    slugs.append(identifier.val)
+        return slugs

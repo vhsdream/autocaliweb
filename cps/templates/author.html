@@ -4,15 +4,29 @@
 
 {% if author is not none %}
 <section class="author-bio">
-  {%if author.image_url is not none %}
-  <img title="{{author.name}}" src="{{author.image_url}}" alt="{{author.name}}" class="author-photo pull-left">
+  {% if source == "goodreads" and author.image_url %}
+    <img title="{{author.name}}" src="{{author.image_url}}" alt="{{author.name}}" class="author-photo pull-left">
+  {% elif source == "hardcover" and author.cached_image and author.cached_image.url %}
+    <img title="{{author.name}}" src="{{author.cached_image.url}}" alt="{{author.name}}" class="author-photo pull-left">
   {% endif %}
 
-  {%if author.safe_about is not none %}
-  <p>{{author.safe_about|safe}}</p>
-  {% endif %}
+  {% if source == "goodreads" %}
+    {%if author.safe_about is not none %}
+      <p>{{author.safe_about|safe}}</p>
+    {% endif %}
 
-  - {{_("via")}} <a href="{{author.link}}" class="author-link" target="_blank" rel="noopener">Goodreads</a>
+    <p>
+      - {{_("via")}} <a href="{{author.link}}" class="author-link" target="_blank" rel="noopener">Goodreads</a>
+    </p>
+    {% elif source == "hardcover" %}
+    {%if author.bio is not none %}
+      <p>{{author.bio}}</p>
+    {% endif %}
+
+    <p>
+      - {{_("via")}} <a href="https://hardcover.app/authors/{{author.slug}}" class="author-link" target="_blank" rel="noopener">Hardcover</a>
+    </p>
+    {% endif %}
 </section>
 
 <div class="clearfix"></div>
@@ -99,25 +113,33 @@
     {% for entry in other_books %}
     <div class="col-sm-3 col-lg-2 col-xs-6 book session">
       <div class="cover">
+        {% if source == "goodreads" %}
         <a href="https://www.goodreads.com/book/show/{{ entry.gid['#text'] }}" target="_blank" rel="noopener">
           <img title="{{entry.title}}" src="{{ entry.image_url }}" />
         </a>
+        {% elif source == "hardcover" %}
+        <a href="https://hardcover.app/books/{{entry.slug}}" target="_blank" rel="noopener">
+          <img title="{{entry.title}}" src="{{ entry.image.url | default('/static/generic_cover.jpg') }}" loading="lazy" />
+        </a>
+        {% endif %}
       </div>
       <div class="meta">
         <p title="{{ entry.title }}" class="title">{{entry.title|shortentitle}}</p>
+        {% if source == "goodreads" %}
         <p class="author">
-		  {% for author in entry.authors %}
-			{% if loop.index > g.config_authors_max and g.config_authors_max != 0 %}
-				<a class="author-name author-hidden" href="https://www.goodreads.com/author/show/{{ author.gid }}" target="_blank" rel="noopener">{{author.name.replace('|',',')}}</a>
-				{% if loop.last %}
-					<a href="#" class="author-expand" data-authors-max="{{g.config_authors_max}}" data-collapse-caption="({{_('reduce')}})">(...)</a>
-				{% endif %}
-			{% else %}
+        {% for author in entry.authors %}
+        {% if loop.index > g.config_authors_max and g.config_authors_max != 0 %}
+          <a class="author-name author-hidden" href="https://www.goodreads.com/author/show/{{ author.gid }}" target="_blank" rel="noopener">{{author.name.replace('|',',')}}</a>
+          {% if loop.last %}
+					  <a href="#" class="author-expand" data-authors-max="{{g.config_authors_max}}" data-collapse-caption="({{_('reduce')}})">(...)</a>
+				  {% endif %}
+			  {% else %}
 				<a class="author-name" href="https://www.goodreads.com/author/show/{{ author.gid }}" target="_blank" rel="noopener">{{author.name.replace('|',',')}}</a>
 		    {% endif %}
-          {% endfor %}
+        {% endfor %}
         </p>
-        {% if entry.series.__len__() > 0 %}
+        {% endif %}
+        {% if source == "goodreads" and entry.series and entry.series|length > 0 %}
         <p class="series">
           <a href="{{url_for('web.books_list', data='series', sort_param='stored', book_id=entry.series[0].id )}}">
             {{entry.series[0].name}}
@@ -125,6 +147,7 @@
           ({{entry.series_index|formatfloat(2)}})
         </p>
         {% endif %}
+        {% if source == "goodreads" and entry.average_rating %}
         <div class="rating">
           {% for number in range((entry.average_rating)|float|round|int(2)) %}
           <span class="glyphicon glyphicon-star good"></span>
@@ -135,14 +158,20 @@
           {% endif %}
           {% endfor %}
         </div>
+        {% endif %}
       </div>
     </div>
     {% endfor %}
   </div>
-
+  {% if source == "goodreads" %}
   <a href="{{author.link}}" class="author-link" target="_blank" rel="noopener">
     <img src="{{ url_for('static', filename='img/goodreads.svg') }}" alt="Goodreads">
   </a>
+  {% elif source == "hardcover" %}
+  <a href="https://hardcover.app/authors/{{author.slug}}" class="author-link" target="_blank" rel="noopener">
+    <img src="{{ url_for('static', filename='img/hardcover.svg') }}" alt="Hardcover">
+  </a>
+  {% endif %}
 </div>
 {% endif %}
 {% endblock %}

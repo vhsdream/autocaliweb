@@ -42,6 +42,7 @@ from sqlalchemy.orm.attributes import flag_modified
 from sqlalchemy.sql.functions import coalesce
 from werkzeug.datastructures import Headers
 from werkzeug.security import generate_password_hash, check_password_hash
+from slugify import slugify
 
 from . import constants, logger, isoLanguages, services
 from . import db, ub, config, app
@@ -95,6 +96,9 @@ sqlalchemy_version2 = ([int(x) for x in sql_version.split('.')] >= [2, 0, 0])
 
 _start_time = time.time()
 
+if services.hardcover and config.config_use_hardcover:
+    hardcover = services.hardcover.HardcoverClient(config.config_hardcover_api_token)
+
 @app.after_request
 def add_security_headers(resp):
     default_src = ([host.strip() for host in config.config_trustedhosts.split(',') if host] +
@@ -108,6 +112,8 @@ def add_security_headers(resp):
     csp += "; img-src 'self'"
     if request.path.startswith("/author/") and config.config_use_goodreads:
         csp += " images.gr-assets.com i.gr-assets.com s.gr-assets.com"
+    if request.path.startswith("/author/") and config.config_use_hardcover:
+        csp += " assets.hardcover.app img.hardcover.app"
     csp += " data:"
     if request.endpoint == "edit-book.show_edit_book" or config.config_use_google_drive:
         csp += " *"
@@ -572,16 +578,23 @@ def render_author_books(page, author_id, order):
         author = calibre_db.session.query(db.Authors).get(author_id)
     author_name = author.name.replace('|', ',')
 
+    source = None
     author_info = None
     other_books = []
     if services.goodreads_support and config.config_use_goodreads:
         author_info = services.goodreads_support.get_author_info(author_name)
         book_entries = [entry.Books for entry in entries]
         other_books = services.goodreads_support.get_other_books(author_info, book_entries)
+        source = "goodreads"
+    if services.hardcover and config.config_use_hardcover:
+        author_slug = slugify(author_name)
+        author_info = hardcover.get_author_info(author_slug)
+        book_entries = hardcover.get_existing_slugs(entries)
+        other_books = hardcover.get_other_author_books(author_slug, book_entries)
+        source = "hardcover"
     return render_title_template('author.html', entries=entries, pagination=pagination, id=author_id,
                                  title=_("Author: %(name)s", name=author_name), author=author_info,
-                                 other_books=other_books, page="author", order=order[1])
-
+                                 other_books=other_books, page="author", order=order[1], source=source)
 
 def render_publisher_books(page, book_id, order):
     if book_id == '-1':

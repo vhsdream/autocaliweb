@@ -98,6 +98,9 @@ class _Settings(_Base):
     config_public_reg = Column(SmallInteger, default=0)
     config_remote_login = Column(Boolean, default=False)
     config_kobo_sync = Column(Boolean, default=False)
+    
+    config_use_hardcover = Column(Boolean, default=False)
+    config_hardcover_api_token = Column(String)
     config_hardcover_sync = Column(Boolean, default=False)
 
     config_default_role = Column(SmallInteger, default=0)
