@@ -216,8 +216,21 @@ class HardcoverClient:
         return response.get("insert_user_book_read").get("user_book_read")
         
     def parse_identifiers(self, identifiers):
-        if type(identifiers) != dict:
-            return {id.type:id.val for id in identifiers if "hardcover" in id.type}
+        if not isinstance(identifiers, dict):
+            identifiers = {id.type:id.val for id in identifiers if id.type.startswith("hardcover") or id.type == "isbn"}
+        else:
+            identifiers = {t:v for t, v in identifiers.items() if t.startswith("hardcover") or t == "isbn"}
+
+        if "hardcover-id" not in identifiers:
+            slug = identifiers.get("hardcover")
+            isbn = identifiers.get("isbn")
+            if not slug:
+                raise ValueError("No hardcover slug")
+            book_id, edition_id = self.get_book_id(slug, isbn)
+            identifiers["hardcover-id"] = book_id
+            if edition_id is not None:
+                identifiers["hardcover-edition"] = edition_id
+
         return identifiers
     
     def get_author_info(self, author):
@@ -265,6 +278,41 @@ class HardcoverClient:
             if book.get("slug") and book["slug"] not in library_books:
                 books.append(book)
         return books
+    
+    def get_book_id(self, slug, isbn=None):
+        if isbn:
+            query = """
+            query ($slug: String!, $isbn: String!) {
+                books(where: {slug: {_eq: $slug}}) {
+                    id
+                    edition(where: {isbn13: {_eq: $isbn}}) {
+                        id
+                    }
+                }
+            }"""
+            variables = {
+                "slug": slug,
+                "isbn": isbn
+            }
+        else:
+            query = """
+            query ($slug: String!) {
+                books(where: {slug: {_eq: $slug}}) {
+                    id
+                }
+            }"""
+            variables = {
+                "slug": slug
+            }
+        response = self.execute(query, variables)
+        books = response.get("books", [])
+        if not books:
+            raise ValueError(f"Book with slug '{slug}' not found.")
+        book = books[0]
+        book_id = book.get("id")
+        edition_list = book.get("edition", [])
+        edition_id = edition_list[0]["id"] if edition_list else None
+        return book_id, edition_id
     
     def execute(self, query, variables=None):
         payload = {
