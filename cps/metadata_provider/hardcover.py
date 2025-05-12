@@ -20,7 +20,7 @@
 from typing import Dict, List, Optional
 
 import requests
-from cps import logger
+from cps import logger, config
 from cps.services.Metadata import MetaRecord, MetaSourceInfo, Metadata
 from cps.isoLanguages import get_language_name
 from ..cw_login import current_user
@@ -100,17 +100,17 @@ class Hardcover(Metadata):
         val = list()
         if self.active:
             try:
-                token = current_user.hardcover_token or getenv("HARDCOVER_TOKEN")
+                token = (current_user.hardcover_token or config.config_hardcover_api_token or getenv("HARDCOVER_TOKEN"))
                 if not token:
                     self.set_status(False)
                     raise Exception("Hardcover token not set for user, and no global token provided.")
-                edition_seach = query.split(":")[0] == "hardcover-id"
+                edition_search = query.split(":")[0] == "hardcover-id"
                 Hardcover.HEADERS["Authorization"] = "Bearer %s" % token.replace("Bearer ","")
                 result = requests.post(
                     Hardcover.BASE_URL,
                     json={
-                        "query":Hardcover.SEARCH_QUERY if not edition_seach else Hardcover.EDITION_QUERY,
-                        "variables":{"query":query if not edition_seach else query.split(":")[1]}
+                        "query":Hardcover.SEARCH_QUERY if not edition_search else Hardcover.EDITION_QUERY,
+                        "variables":{"query":query if not edition_search else query.split(":")[1]}
                     },
                     headers=Hardcover.HEADERS,
                 )
@@ -118,7 +118,7 @@ class Hardcover(Metadata):
             except Exception as e:
                 log.warning(e)
                 return None
-            if edition_seach:
+            if edition_search:
                 result = result.json()["data"]["books"][0]
                 val = self._parse_edition_results(result=result, generic_cover=generic_cover, locale=locale)
             else:
