@@ -280,7 +280,7 @@ class HardcoverClient:
         return books
     
     def get_book_id(self, slug, isbn=None):
-        if isbn:
+        if isbn and len(isbn) == 13:
             query = """
             query ($slug: String!, $isbn: String!) {
                 books(where: {slug: {_eq: $slug}}) {
