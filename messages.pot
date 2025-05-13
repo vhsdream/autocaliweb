@@ -3646,15 +3646,23 @@ msgstr ""
 msgid "Sync Kobo read process to Hardcover (Requires an API key per user)"
 msgstr ""
 
-#: cps/templates/user_edit.html:65
-msgid "Hardcover API Token"
+#: cps/templates/config_edit.html:173
+msgid "Use Hardcover to get Author info"
 msgstr ""
 
-#: cps/templates/config_edit.html:147
+#: cps/templates/config_edit.html:177
+msgid "Hardcover API Token (Also used if users don't have set a own API Token)"
+msgstr ""
+
+#: cps/templates/user_edit.html:65
+msgid "Hardcover API Token (Set if you want to sync your reading progress)"
+msgstr ""
+
+#: cps/templates/user_edit.html:147
 msgid "Show Kobo Plus tab"
 msgstr ""
 
-#: cps/templates/config_edit.html:151
+#: cps/templates/user_edit.html:151
 msgid "Show Overdrive tab"
 msgstr ""
 
