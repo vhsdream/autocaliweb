@@ -43,6 +43,7 @@ def main():
     from .tasks_status import tasks
     from .error_handler import init_errorhandler
     from .remotelogin import remotelogin
+    from .basic import basic
     try:
         from .kobo import kobo, get_kobo_activated
         from .kobo_auth import kobo_auth
@@ -74,6 +75,7 @@ def main():
     app.register_blueprint(search)
     app.register_blueprint(tasks)
     app.register_blueprint(web)
+    app.register_blueprint(basic)
     app.register_blueprint(opds)
     limiter.limit("3/minute", key_func=request_username)(opds)
     app.register_blueprint(jinjia)
