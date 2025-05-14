@@ -10,6 +10,7 @@ from pathlib import Path
 
 from acw_db import ACW_DB
 from kindle_epub_fixer import EPUBFixer
+import audiobook
 
 
 # Creates a lock file unless one already exists meaning an instance of the script is
@@ -50,6 +51,7 @@ class NewBookProcessor:
 
         self.supported_book_formats = {'azw', 'azw3', 'azw4', 'cbz', 'cbr', 'cb7', 'cbc', 'chm', 'djvu', 'docx', 'epub', 'fb2', 'fbz', 'html', 'htmlz', 'lit', 'lrf', 'mobi', 'odt', 'pdf', 'prc', 'pdb', 'pml', 'rb', 'rtf', 'snb', 'tcr', 'txtz', 'txt', 'kepub'}
         self.hierarchy_of_success = {'epub', 'lit', 'mobi', 'azw', 'epub', 'azw3', 'fb2', 'fbz', 'azw4',  'prc', 'odt', 'lrf', 'pdb',  'cbz', 'pml', 'rb', 'cbr', 'cb7', 'cbc', 'chm', 'djvu', 'snb', 'tcr', 'pdf', 'docx', 'rtf', 'html', 'htmlz', 'txtz', 'txt'}
+        self.supported_audiobook_formats = {'m4a', 'm4b', 'mp4'}
         self.ingest_folder, self.library_dir, self.tmp_conversion_dir = self.get_dirs("/app/autocaliweb/dirs.json")
 
         # Create the tmp_conversion_dir if it does not already exist
@@ -81,6 +83,13 @@ class NewBookProcessor:
         if input_format in self.supported_book_formats:
             can_convert = True
         return can_convert, input_format
+    
+    def is_supported_audiobook(self) -> bool:
+        input_format = Path(self.filepath).suffix[1:]
+        if input_format in self.supported_audiobook_formats:
+            return True
+        else:
+            return False
 
     def backup(self, input_file, backup_type):
         try:
@@ -173,7 +182,7 @@ class NewBookProcessor:
             subprocess.run(["find", f"{os.path.dirname(self.filepath)}", "-type", "d", "-empty", "-delete"]) # Removes any now empty folders including the parent directory
 
 
-    def add_book_to_library(self, book_path:str) -> None:
+    def add_book_to_library(self, book_path:str, text: bool=True, format: str="text") -> None:
         if self.target_format == "epub" and self.is_kindle_epub_fixer:
             self.run_kindle_epub_fixer(book_path, dest=self.tmp_conversion_dir)
             fixed_epub_path = str(self.empty_tmp_con_dir) + str(os.path.basename(book_path))
@@ -184,8 +193,31 @@ class NewBookProcessor:
         import_path = Path(book_path)
         import_filename = os.path.basename(book_path)
         try:
-            subprocess.run(["calibredb", "add", book_path, "--automerge", "new_record", f"--library-path={self.library_dir}"], check=True)
-            print(f"[ingest-processor] Added {import_path.stem} to Calibre database", flush=True)
+            if text:
+                subprocess.run(["calibredb", "add", book_path, "--automerge", "new_record", f"--library-path={self.library_dir}"], check=True)
+                print(f"[ingest-processor] Added {import_path.stem} to Calibre database", flush=True)
+            else:
+                meta = audiobook.get_audio_file_info(book_path, format, os.path.basename(book_path), False)
+                identifiers = ""
+                if len(meta[12]) != 0:
+                    for i in meta[12]:
+                        identifiers = identifiers + " " + i
+
+                subprocess.run(
+                    [
+                        "calibredb", "add", book_path, "--automerge", "new_record", 
+                        "--title", meta[2], 
+                        "--authors", meta[3], 
+                        "--cover", meta[4], 
+                        "--tags", meta[6], 
+                        "--series", meta[7], 
+                        "--series_index", meta[8], 
+                        "--language", meta[9], 
+                        "identifiers", identifiers, 
+                        f"--library-path={self.library_dir}"
+                    ], 
+                    check=True
+                )
 
             if self.acw_settings['auto_backup_imports']:
                 self.backup(book_path, backup_type="imported")
@@ -245,6 +277,9 @@ def main(filepath=sys.argv[1]):
         if nbp.is_target_format: # File can just be imported
             print(f"\n[ingest-processor]: No conversion needed for {nbp.filename}, importing now...", flush=True)
             nbp.add_book_to_library(filepath)
+        elif nbp.is_supported_audiobook():
+            print(f"\n[ingest-processor]: No Conversion needed, Audiobook detected, importing now...", flush=True)
+            nbp.add_book_to_library(filepath, False, Path(nbp.filename).suffix)
         else:
             if nbp.auto_convert_on and nbp.can_convert: # File can be converted to target format and Auto-Converter is on
 
