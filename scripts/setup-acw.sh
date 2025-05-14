@@ -16,6 +16,7 @@ change_script_permissions () {
     chmod +x /etc/s6-overlay/s6-rc.d/acw-init/run
     chmod +x /etc/s6-overlay/s6-rc.d/metadata-change-detector/run
     chmod +x /etc/s6-overlay/s6-rc.d/universal-calibre-setup/run
+    chmod +x /app/autocaliweb/scripts/check-acw-services.sh
     chmod +x /etc/s6-overlay/s6-rc.d/init-*/run
     chmod 775 /app/autocaliweb/cps/editbooks.py
     chmod 775 /app/autocaliweb/cps/admin.py
