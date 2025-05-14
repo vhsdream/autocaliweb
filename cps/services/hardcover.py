@@ -285,7 +285,7 @@ class HardcoverClient:
             query ($slug: String!, $isbn: String!) {
                 books(where: {slug: {_eq: $slug}}) {
                     id
-                    edition(where: {isbn13: {_eq: $isbn}}) {
+                    editions(where: {isbn_13: {_eq: $isbn}}) {
                         id
                     }
                 }
@@ -310,8 +310,8 @@ class HardcoverClient:
             raise ValueError(f"Book with slug '{slug}' not found.")
         book = books[0]
         book_id = book.get("id")
-        edition_list = book.get("edition", [])
-        edition_id = edition_list[0]["id"] if edition_list else None
+        editions_list = book.get("editions", [])
+        edition_id = editions_list[0]["id"] if editions_list else None
         return book_id, edition_id
     
     def execute(self, query, variables=None):
