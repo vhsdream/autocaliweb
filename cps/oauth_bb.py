@@ -271,7 +271,7 @@ def generate_oauth_blueprints():
                 oauth_base_url=oauth_ids[2].oauth_base_url,
                 oauth_auth_url=oauth_ids[2].oauth_auth_url,
                 oauth_token_url=oauth_ids[2].oauth_token_url,
-                usermane_mapper=oauth_ids[2].usermane_mapper,
+                username_mapper=oauth_ids[2].username_mapper,
                 email_mapper=oauth_ids[2].email_mapper,
                 login_button=oauth_ids[2].login_button)
     
