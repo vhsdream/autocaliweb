@@ -3651,7 +3651,7 @@ msgid "Use Hardcover to get Author info"
 msgstr ""
 
 #: cps/templates/config_edit.html:177
-msgid "Hardcover API Token (Also used if users don't have set a own API Token)"
+msgid "Hardcover API Token (Also used if users do not have set a own API Token)"
 msgstr ""
 
 #: cps/templates/user_edit.html:65
