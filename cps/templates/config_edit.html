@@ -336,7 +336,7 @@
             <input type="text" class="form-control" id="config_{{ prov['id'] }}_scope" name="config_{{ prov['id'] }}_scope" value="{% if prov['scope']%}{{ prov['scope'] }}{% endif %}" autocomplete="off">
           </div>
         {% endif %}
-        {% if 'metadata_url' in prov %}
+        {% if 'generic' == prov['provider_name'] %}
           <div class="form-group">
             <label for="config_{{ prov['id'] }}_metadata_url">{{_('%(provider)s OAuth Metadata URL', provider=prov['provider_name'])}}</label>
             <input type="text" class="form-control" id="config_{{ prov['id'] }}_metadata_url" name="config_{{ prov['id'] }}_metadata_url" value="{% if prov['metadata_url']%}{{ prov['metadata_url'] }}{% endif %}" autocomplete="off">
