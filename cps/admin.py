@@ -1201,7 +1201,7 @@ def _configuration_oauth_helper(to_save):
             {"oauth_client_id": to_save["config_" + str(element['id']) + "_oauth_client_id"],
              "oauth_client_secret": to_save["config_" + str(element['id']) + "_oauth_client_secret"],
              "active": element["active"]})
-        if element['id'] == 3:
+        if element['id'] == 2:
             ub.session.query(ub.OAuthProvider).filter(ub.OAuthProvider.id == element['id']).update({
                 "oauth_base_url": to_save["config_" + str(element['id']) + "_oauth_base_url"],
                 "oauth_auth_url": to_save["config_" + str(element['id']) + "_oauth_auth_url"],
