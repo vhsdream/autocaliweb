@@ -300,6 +300,7 @@ def generate_oauth_blueprints():
             token_url = element['oauth_token_url'] or ''
             blueprint = blueprint_func(
                 "generic",
+                __name__,
                 client_id=element['oauth_client_id'],
                 client_secret=element['oauth_client_secret'],
                 base_url=base_url,
