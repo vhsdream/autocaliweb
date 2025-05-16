@@ -227,13 +227,14 @@ def fetch_metadata(id):
 def generate_oauth_blueprints():
     global generic
 
-    if not ub.session.query(ub.OAuthProvider).count():
-        for provider in ("github", "google", "generic"):
+    existing_providers = {provider.provider_name for provider in ub.session.query(ub.OAuthProvider).all()}
+    for provider_name in ('github', 'google', 'generic'):
+        if provider_name not in existing_providers:
             oauthProvider = ub.OAuthProvider()
-            oauthProvider.provider_name = provider
+            oauthProvider.provider_name = provider_name
             oauthProvider.active = False
             ub.session.add(oauthProvider)
-            ub.session_commit("{} Blueprint Created".format(provider))
+            ub.session_commit("{} Blueprint Created".format(provider_name))
 
     oauth_ids = ub.session.query(ub.OAuthProvider).all()
     for oauth_provider in oauth_ids:
