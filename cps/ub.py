@@ -643,28 +643,6 @@ def migrate_user_table(engine, _session):
             if not any(row[1] == col_name for row in exists):
                 conn.execute(text(f"ALTER TABLE user ADD COLUMN {col_name} {col_def}"))
 
-def migrate_oauth_table(engine, _session):
-    with engine.connect() as conn:
-        needed = [
-            ('id', "INTEGER PRIMARY KEY AUTOINCREMENT"),
-            ('provider_name', "VARCHAR(255) NOT NULL"),
-            ('oauth_client_id', "VARCHAR(255) NOT NULL"),
-            ('oauth_client_secret', "VARCHAR(255) NOT NULL"),
-            ('oauth_base_url', "VARCHAR(255)"),
-            ('oauth_auth_url', "VARCHAR(255) NOT NULL DEFAULT '/protocol/openid-connect/auth'"),
-            ('oauth_token_url', "VARCHAR(255) NOT NULL DEFAULT '/protocol/openid-connect/token'"),
-            ('scope', "VARCHAR(255) NOT NULL DEFAULT 'openid profile email'"),
-            ('username_mapper', "VARCHAR(255) NOT NULL DEFAULT 'preferred_username'"),
-            ('email_mapper', "VARCHAR(255) NOT NULL DEFAULT 'email'"),
-            ('login_button', "VARCHAR(255)"),
-            ('metadata_url', "VARCHAR(255) NOT NULL DEFAULT '/.well-known/openid-configuration'"),
-            ('active', "BOOLEAN NOT NULL DEFAULT 0")
-        ]
-        for col_name, col_def in needed:
-            exists = conn.execute(text(f"PRAGMA table_info(oauthProvider)")).fetchall()
-            if not any(row[1] == col_name for row in exists):
-                conn.execute(text(f"ALTER TABLE oauthProvider ADD COLUMN {col_name} {col_def}"))
-
 # Migrate database to current version, has to be updated after every database change. Currently, migration from
 # maybe 4/5 versions back to current should work.
 # Migration is done by checking if relevant columns are existing, and then adding rows with SQL commands
@@ -674,7 +652,6 @@ def migrate_Database(_session):
     migrate_registration_table(engine, _session)
     migrate_user_session_table(engine, _session)
     migrate_user_table(engine, _session)
-    migrate_oauth_table(engine, _session)
 
 
 def clean_database(_session):
