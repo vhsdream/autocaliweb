@@ -57,9 +57,13 @@ _This software is a fork of [Calibre-Web](https://github.com/janeczku/calibre-we
 - Easy theme switching
 - Batch edits of books
 - ISBNDB and Hardcover as additional providers for metadata
-- Usage of `DOCKER_MODS` from sources like linuxserver.io and others
 - Syncing reading process to [Hardcover.app](https://hardcover.app/) (Only with Kobo E-Readers)
+
+### Features only in Autocaliweb
+
+- Usage of `DOCKER_MODS` from sources like linuxserver.io and others
 - Listing of Author information and other books from Goodreads or Hardcover
+- User en- or disabling of the Kobo Sync and/or Overdrive tabs when using Kobo sync
 
 ## Installation
 
