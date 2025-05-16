@@ -210,7 +210,7 @@ def unlink_oauth(provider):
     return redirect(url_for('web.profile'))
 
 def fetch_metadata(id):
-    provider = ub.session.query(ub.OAuthProvider).filter_by(id).first()
+    provider = ub.session.query(ub.OAuthProvider).filter_by(id=id).first()
     if provider and provider.metadata_url:
         try:
             response = requests.get(provider.metadata_url)
