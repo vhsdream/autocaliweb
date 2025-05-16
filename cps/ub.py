@@ -275,6 +275,13 @@ class OAuthProvider(Base):
     provider_name = Column(String)
     oauth_client_id = Column(String)
     oauth_client_secret = Column(String)
+    oauth_base_url = Column(String)
+    oauth_auth_url = Column(String, default="/protocol/openid-connect/auth")
+    oauth_token_url = Column(String, default="/protocol/openid-connect/token")
+    scope = Column(String, default="openid profile email")
+    username_mapper = Column(String, default="preferred_username")
+    email_mapper = Column(String, default="email")
+    login_button = Column(String)
     active = Column(Boolean)
 
 

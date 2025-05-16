@@ -102,6 +102,10 @@
         </g>
       </svg>
     </a>
+    {% endif %} {% if 2 in oauth_check %}
+    <a href="{{url_for('oauth.generic_login')}}" class="pull-right generic">
+      Log in with <b>{{ login_button }}</b>
+    </a>
     {% endif %} {% endif %}
   </form>
 </div>
