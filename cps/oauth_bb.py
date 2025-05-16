@@ -21,18 +21,20 @@
 #  along with this program. If not, see <http://www.gnu.org/licenses/>
 
 import json
+import requests
 from functools import wraps
 
 from flask import session, request, make_response, abort
 from flask import Blueprint, flash, redirect, url_for
 from flask_babel import gettext as _
-from flask_dance.consumer import oauth_authorized, oauth_error, OAuthConsumerBlueprint
+from flask_dance.consumer import oauth_authorized, oauth_error
+from flask_dance.consumer.oauth2 import OAuth2ConsumerBlueprint
 from flask_dance.contrib.github import make_github_blueprint, github
 from flask_dance.contrib.google import make_google_blueprint, google
 from oauthlib.oauth2 import TokenExpiredError, InvalidGrantError
 from .cw_login import login_user, current_user
 from sqlalchemy.orm.exc import NoResultFound
-from sqlachemy.sql.expression import func, and_
+from sqlalchemy.sql.expression import func, and_
 
 from .usermanagement import user_login_required
 from . import constants, logger, config, app, ub
@@ -207,6 +209,20 @@ def unlink_oauth(provider):
         flash(_("Not Linked to %(oauth)s", oauth=provider), category="error")
     return redirect(url_for('web.profile'))
 
+def fetch_metadata(provider):
+    provider = ub.session.query(ub.OAuthProvider).filter_by(id=provider.id).first()
+    if provider and provider.metadata_url:
+        try:
+            response = requests.get(provider.metadata_url)
+            if response.status_code == 200:
+                return response.json()
+            else:
+                log.error("Failed to fetch metadata from %s: %s", provider.metadata_url, response.status_code)
+        except requests.RequestException as e:
+            log.error("Error fetching metadata from %s: %s", provider.metadata_url, str(e))
+    else:
+        log.error("No metadata URL found for provider %s", provider.id)
+    return None
 
 def generate_oauth_blueprints():
     global generic
@@ -220,6 +236,15 @@ def generate_oauth_blueprints():
             ub.session_commit("{} Blueprint Created".format(provider))
 
     oauth_ids = ub.session.query(ub.OAuthProvider).all()
+    for oauth_provider in oauth_ids:
+        if oauth_provider.metadata_url:
+            metadata = fetch_metadata(oauth_provider.id)
+            if metadata:
+                oauth_provider.oauth_auth_url = metadata.get('authorization_endpoint')
+                oauth_provider.oauth_token_url = metadata.get('token_endpoint')
+                oauth_provider.oauth_base_url = metadata.get('issuer')
+                ub.session_commit(f"Updated URLs for {oauth_provider.provider_name} from metadata")
+
     ele1 = dict(provider_name='github',
                 id=oauth_ids[0].id,
                 active=oauth_ids[0].active,
@@ -227,6 +252,7 @@ def generate_oauth_blueprints():
                 scope=None,
                 oauth_client_secret=oauth_ids[0].oauth_client_secret,
                 obtain_link='https://github.com/settings/developers')
+    
     ele2 = dict(provider_name='google',
                 id=oauth_ids[1].id,
                 active=oauth_ids[1].active,
@@ -234,6 +260,7 @@ def generate_oauth_blueprints():
                 oauth_client_id=oauth_ids[1].oauth_client_id,
                 oauth_client_secret=oauth_ids[1].oauth_client_secret,
                 obtain_link='https://console.developers.google.com/apis/credentials')
+    
     ele3 = dict(provider_name='generic',
                 id=oauth_ids[2].id,
                 active=oauth_ids[2].active,
@@ -246,6 +273,7 @@ def generate_oauth_blueprints():
                 usermane_mapper=oauth_ids[2].usermane_mapper,
                 email_mapper=oauth_ids[2].email_mapper,
                 login_button=oauth_ids[2].login_button)
+    
     oauthblueprints.append(ele1)
     oauthblueprints.append(ele2)
     oauthblueprints.append(ele3)
@@ -256,7 +284,7 @@ def generate_oauth_blueprints():
         elif element['provider_name'] == 'google':
             blueprint_func = make_google_blueprint
         else:
-            blueprint_func = OAuthConsumerBlueprint
+            blueprint_func = OAuth2ConsumerBlueprint
 
         if element['provider_name'] in ('github', 'google'):
             blueprint = blueprint_func(

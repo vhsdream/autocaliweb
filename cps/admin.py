@@ -1209,6 +1209,7 @@ def _configuration_oauth_helper(to_save):
                 "username_mapper": to_save["config_" + str(element['id']) + "_username_mapper"],
                 "email_mapper": to_save["config_" + str(element['id']) + "_email_mapper"],
                 "login_button": to_save["config_" + str(element['id']) + "_login_button"],
+                "metadata_url": to_save["config_" + str(element['id']) + "_metadata_url"],
                 "scope": to_save["config_" + str(element['id']) + "_scope"],
             })
 
