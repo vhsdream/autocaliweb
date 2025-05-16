@@ -209,8 +209,8 @@ def unlink_oauth(provider):
         flash(_("Not Linked to %(oauth)s", oauth=provider), category="error")
     return redirect(url_for('web.profile'))
 
-def fetch_metadata(provider):
-    provider = ub.session.query(ub.OAuthProvider).filter_by(id=provider.id).first()
+def fetch_metadata(id):
+    provider = ub.session.query(ub.OAuthProvider).filter_by(id).first()
     if provider and provider.metadata_url:
         try:
             response = requests.get(provider.metadata_url)
