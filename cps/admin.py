@@ -271,6 +271,7 @@ def db_configuration():
 @user_login_required
 @admin_required
 def configuration():
+    print(oauthblueprints[2]['metadata_url'])
     return render_title_template("config_edit.html",
                                  config=config,
                                  provider=oauthblueprints,
@@ -1186,31 +1187,37 @@ def _configuration_oauth_helper(to_save):
     active_oauths = 0
     reboot_required = False
     for element in oauthblueprints:
-        if to_save["config_" + str(element['id']) + "_oauth_client_id"] != element['oauth_client_id'] \
-          or to_save["config_" + str(element['id']) + "_oauth_client_secret"] != element['oauth_client_secret']:
+        client_id = "config_" + str(element['id']) + "_oauth_client_id"
+        client_secret = "config_" + str(element['id']) + "_oauth_client_secret"
+
+        if to_save.get(client_id) != element['oauth_client_id'] \
+          or to_save.get(client_secret) != element['oauth_client_secret']:
             reboot_required = True
-            element['oauth_client_id'] = to_save["config_" + str(element['id']) + "_oauth_client_id"]
-            element['oauth_client_secret'] = to_save["config_" + str(element['id']) + "_oauth_client_secret"]
-        if to_save["config_" + str(element['id']) + "_oauth_client_id"] \
-          and to_save["config_" + str(element['id']) + "_oauth_client_secret"]:
+            element['oauth_client_id'] = to_save.get(client_id, "")
+            element['oauth_client_secret'] = to_save.get(client_secret, "")
+
+        if to_save.get(client_id) and to_save.get(client_secret):
             active_oauths += 1
             element["active"] = 1
         else:
             element["active"] = 0
-        ub.session.query(ub.OAuthProvider).filter(ub.OAuthProvider.id == element['id']).update(
-            {"oauth_client_id": to_save["config_" + str(element['id']) + "_oauth_client_id"],
-             "oauth_client_secret": to_save["config_" + str(element['id']) + "_oauth_client_secret"],
-             "active": element["active"]})
-        if element['id'] == 2:
+
+        ub.session.query(ub.OAuthProvider).filter(ub.OAuthProvider.id == element['id']).update({
+            "oauth_client_id": to_save.get("config_" + str(element['id']) + "_oauth_client_id", ""),
+            "oauth_client_secret": to_save.get("config_" + str(element['id']) + "_oauth_client_secret", ""),
+            "active": element["active"],
+        })
+
+        if element['id'] == 3:
             ub.session.query(ub.OAuthProvider).filter(ub.OAuthProvider.id == element['id']).update({
-                "oauth_base_url": to_save["config_" + str(element['id']) + "_oauth_base_url"],
-                "oauth_auth_url": to_save["config_" + str(element['id']) + "_oauth_auth_url"],
-                "oauth_token_url": to_save["config_" + str(element['id']) + "_oauth_token_url"],
-                "username_mapper": to_save["config_" + str(element['id']) + "_username_mapper"],
-                "email_mapper": to_save["config_" + str(element['id']) + "_email_mapper"],
-                "login_button": to_save["config_" + str(element['id']) + "_login_button"],
-                "metadata_url": to_save["config_" + str(element['id']) + "_metadata_url"],
-                "scope": to_save["config_" + str(element['id']) + "_scope"],
+                "oauth_base_url": to_save.get("config_" + str(element['id']) + "_oauth_base_url", ""),
+                "oauth_auth_url": to_save.get("config_" + str(element['id']) + "_oauth_auth_url", ""),
+                "oauth_token_url": to_save.get("config_" + str(element['id']) + "_oauth_token_url", ""),
+                "username_mapper": to_save.get("config_" + str(element['id']) + "_username_mapper", ""),
+                "email_mapper": to_save.get("config_" + str(element['id']) + "_email_mapper", ""),
+                "login_button": to_save.get("config_" + str(element['id']) + "_login_button", ""),
+                "metadata_url": to_save.get("config_" + str(element['id']) + "_metadata_url", ""),
+                "scope": to_save.get("config_" + str(element['id']) + "_scope", ""),
             })
 
     return reboot_required
@@ -1863,6 +1870,7 @@ def _configuration_update_helper():
             _config_string(to_save, "config_converterpath")
 
         reboot_required |= _config_int(to_save, "config_login_type")
+        _config_checkbox(to_save, "config_oauth_manual_urls")
 
         # LDAP configurator
         if config.config_login_type == constants.LOGIN_LDAP:

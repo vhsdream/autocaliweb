@@ -340,26 +340,32 @@
           <div class="form-group">
             <label for="config_{{ prov['id'] }}_metadata_url">{{_('%(provider)s OAuth Metadata URL', provider=prov['provider_name'])}}</label>
             <input type="text" class="form-control" id="config_{{ prov['id'] }}_metadata_url" name="config_{{ prov['id'] }}_metadata_url" value="{% if prov['metadata_url']%}{{ prov['metadata_url'] }}{% endif %}" autocomplete="off">
-          </div>          
-        {% endif %}
-        {% if 'oauth_base_url' in prov %}
+          </div>
           <div class="form-group">
-            <label for="config_{{ prov['id'] }}_oauth_base_url">{{_('%(provider)s OAuth Base URL', provider=prov['provider_name'])}}</label>
-            <input type="text" class="form-control" id="config_{{ prov['id'] }}_oauth_base_url" name="config_{{ prov['id'] }}_oauth_base_url" value="{% if prov['oauth_base_url']%}{{ prov['oauth_base_url'] }}{% endif %}" autocomplete="off">
+            <label for="config_oauth_manual_urls">{{_('Use Manual URLs')}}</label>
+            <input type="checkbox" id="config_oauth_manual_urls" name="config_oauth_manual_urls" data-control="oauth_manual_urls_settings" {% if config.config_oauth_manual_urls %}checked{% endif %}>
           </div>
         {% endif %}
-        {% if 'oauth_auth_url' in prov %}
-          <div class="form-group">
-            <label for="config_{{ prov['id'] }}_oauth_auth_url">{{_('%(provider)s OAuth Auth URL (relative)', provider=prov['provider_name'])}}</label>
-            <input type="text" class="form-control" id="config_{{ prov['id'] }}_oauth_auth_url" name="config_{{ prov['id'] }}_oauth_auth_url" value="{% if prov['oauth_auth_url']%}{{ prov['oauth_auth_url'] }}{% endif %}" autocomplete="off">
-          </div>
-        {% endif %}
-        {% if 'oauth_token_url' in prov %}
-          <div class="form-group">
-            <label for="config_{{ prov['id'] }}_oauth_token_url">{{_('%(provider)s OAuth Token URL (relative)', provider=prov['provider_name'])}}</label>
-            <input type="text" class="form-control" id="config_{{ prov['id'] }}_oauth_token_url" name="config_{{ prov['id'] }}_oauth_token_url" value="{% if prov['oauth_token_url']%}{{ prov['oauth_token_url'] }}{% endif %}" autocomplete="off">
-          </div>
-        {% endif %}
+          <div data-related="oauth_manual_urls_settings">
+          {% if 'oauth_base_url' in prov %}
+            <div class="form-group" style="margin-left: 10px;">
+              <label for="config_{{ prov['id'] }}_oauth_base_url">{{_('%(provider)s OAuth Base URL', provider=prov['provider_name'])}}</label>
+              <input type="text" class="form-control" id="config_{{ prov['id'] }}_oauth_base_url" name="config_{{ prov['id'] }}_oauth_base_url" value="{% if prov['oauth_base_url']%}{{ prov['oauth_base_url'] }}{% endif %}" autocomplete="off">
+            </div>
+          {% endif %}
+          {% if 'oauth_auth_url' in prov %}
+            <div class="form-group" style="margin-left: 10px;">
+              <label for="config_{{ prov['id'] }}_oauth_auth_url">{{_('%(provider)s OAuth Auth URL', provider=prov['provider_name'])}}</label>
+              <input type="text" class="form-control" id="config_{{ prov['id'] }}_oauth_auth_url" name="config_{{ prov['id'] }}_oauth_auth_url" value="{% if prov['oauth_auth_url']%}{{ prov['oauth_auth_url'] }}{% endif %}" autocomplete="off">
+            </div>
+          {% endif %}
+          {% if 'oauth_token_url' in prov %}
+            <div class="form-group"style="margin-left: 10px;">
+              <label for="config_{{ prov['id'] }}_oauth_token_url">{{_('%(provider)s OAuth Token URL', provider=prov['provider_name'])}}</label>
+              <input type="text" class="form-control" id="config_{{ prov['id'] }}_oauth_token_url" name="config_{{ prov['id'] }}_oauth_token_url" value="{% if prov['oauth_token_url']%}{{ prov['oauth_token_url'] }}{% endif %}" autocomplete="off">
+            </div>
+          {% endif %}
+        </div>
         {% if 'username_mapper' in prov %}
           <div class="form-group">
             <label for="config_{{ prov['id'] }}_username_mapper">{{_('%(provider)s OAuth Username mapper', provider=prov['provider_name'])}}</label>

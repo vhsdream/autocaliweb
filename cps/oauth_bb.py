@@ -22,6 +22,7 @@
 
 import json
 import requests
+import os
 from functools import wraps
 
 from flask import session, request, make_response, abort
@@ -50,6 +51,7 @@ oauthblueprints = []
 oauth = Blueprint('oauth', __name__)
 log = logger.create()
 generic = None
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 def oauth_required(f):
     @wraps(f)
@@ -227,23 +229,24 @@ def fetch_metadata(id):
 def generate_oauth_blueprints():
     global generic
 
-    existing_providers = {provider.provider_name for provider in ub.session.query(ub.OAuthProvider).all()}
-    for provider_name in ('github', 'google', 'generic'):
-        if provider_name not in existing_providers:
+    existing = {p.provider_name for p in ub.session.query(ub.OAuthProvider).all()}
+    for provider in ("github", "google", "generic"):
+        if provider not in existing:
             oauthProvider = ub.OAuthProvider()
-            oauthProvider.provider_name = provider_name
+            oauthProvider.provider_name = provider
             oauthProvider.active = False
             ub.session.add(oauthProvider)
-            ub.session_commit("{} Blueprint Created".format(provider_name))
+            ub.session_commit("{} Blueprint Created".format(provider))
 
     oauth_ids = ub.session.query(ub.OAuthProvider).all()
     for oauth_provider in oauth_ids:
         if oauth_provider.metadata_url:
             metadata = fetch_metadata(oauth_provider.id)
             if metadata:
+                oauth_provider.oauth_base_url = metadata.get('issuer')
                 oauth_provider.oauth_auth_url = metadata.get('authorization_endpoint')
                 oauth_provider.oauth_token_url = metadata.get('token_endpoint')
-                oauth_provider.oauth_base_url = metadata.get('issuer')
+                oauth_provider.oauth_userinfo_url = metadata.get('userinfo_endpoint')
                 ub.session_commit(f"Updated URLs for {oauth_provider.provider_name} from metadata")
 
     ele1 = dict(provider_name='github',
@@ -271,10 +274,14 @@ def generate_oauth_blueprints():
                 oauth_base_url=oauth_ids[2].oauth_base_url,
                 oauth_auth_url=oauth_ids[2].oauth_auth_url,
                 oauth_token_url=oauth_ids[2].oauth_token_url,
+                oauth_userinfo_url=oauth_ids[2].oauth_userinfo_url,
                 username_mapper=oauth_ids[2].username_mapper,
                 email_mapper=oauth_ids[2].email_mapper,
+                metadata_url=oauth_ids[2].metadata_url,
                 login_button=oauth_ids[2].login_button)
     
+    log.debug("generic scope: %s", ele3.get('scope'))
+
     oauthblueprints.append(ele1)
     oauthblueprints.append(ele2)
     oauthblueprints.append(ele3)
@@ -298,6 +305,7 @@ def generate_oauth_blueprints():
             base_url = element['oauth_base_url'] or ''
             auth_url = element['oauth_auth_url'] or ''
             token_url = element['oauth_token_url'] or ''
+            userinfo_url = element['oauth_userinfo_url'] or ''
             blueprint = blueprint_func(
                 "generic",
                 __name__,
@@ -306,8 +314,10 @@ def generate_oauth_blueprints():
                 base_url=base_url,
                 authorization_url=auth_url,
                 token_url=token_url,
+                scope=element['scope'],
                 redirect_to="oauth."+element['provider_name']+"_login",
             )
+            blueprint.userinfo_url = userinfo_url
             generic = blueprint
         element['blueprint'] = blueprint
         element['blueprint'].backend = OAuthBackend(ub.OAuth, ub.session, str(element['id']),
@@ -363,33 +373,36 @@ if ub.oauth_support:
         if not token:
             flash(_("Failed to log in with Generic OAuth."), category="error")
             log.error("Failed to log in with Generic OAuth")
-            return False
-        
-        resp = blueprint.session.get(blueprint.base_url + '/protocol/openid-connect/userinfo')
+            return redirect(url_for('web.login'))
+
+        headers= {
+            "Authorization": f"Bearer {token.get('access_token')}"
+        }
+        resp = blueprint.session.get(blueprint.userinfo_url, headers=headers)
         if not resp.ok:
             flash(_("Failed to fetch user info from Generic OAuth."), category="error")
-            log.error("Failed to fetch user info from Generic OAuth")
-            return False
+            log.error("Failed to fetch user info from Generic OAuth: %s", resp.text)
+            return redirect(url_for('web.login'))
         
-        username_mapper = oauthblueprints[2].get('usermane_mapper') or 'username'
+        username_mapper = oauthblueprints[2].get('username_mapper') or 'username'
         email_mapper = oauthblueprints[2].get('email_mapper') or 'email'
 
         generic_info = resp.json()
         generic_user_email = str(generic_info[email_mapper])
-        generic_user_uname = str(generic_info[username_mapper])
+        generic_user_name = str(generic_info[username_mapper])
 
         user = (
             ub.session.query(ub.User)
-            .filter(and_(func.lower(ub.User.uname) == generic_user_uname,
+            .filter(and_(func.lower(ub.User.name) == generic_user_name,
                         func.lower(ub.User.email) == generic_user_email))
         ).first()
 
         if user is None:
             user = ub.User()
-            user.uname = generic_user_uname
+            user.name = generic_user_name
             user.email = generic_user_email
             user.role = constants.ROLE_USER
-            user.session.add(user)
+            ub.session.add(user)
             ub.session.commit()
 
         result = oauth_update_token(str(oauthblueprints[2]['id']), token, user.id)
@@ -497,13 +510,15 @@ def generic_login():
     global generic
 
     if not generic.session.authorized:
+        flash(_("Please login with Generic OAuth"), category="error")
         return redirect(url_for("generic.login"))
+    
     try:
-        resp = generic.session.get(generic.base_url + '/protocol/openid-connect/userinfo')
+        resp = generic.session.get(generic.userinfo_url)
         if resp.ok:
             account_info_json = resp.json()
 
-            username_mapper = oauthblueprints[2].get('usermane_mapper') or 'username'
+            username_mapper = oauthblueprints[2].get('username_mapper') or 'username'
             email_mapper = oauthblueprints[2].get('email_mapper') or 'email'
 
             email = str(account_info_json[email_mapper])
@@ -511,7 +526,7 @@ def generic_login():
 
             user = (
                 ub.session.query(ub.User)
-                .filter(and_(func.lower(ub.User.uname) == username,
+                .filter(and_(func.lower(ub.User.name) == username,
                             func.lower(ub.User.email) == email))
             ).first()
 
@@ -520,6 +535,7 @@ def generic_login():
         log.error("Generic Oauth error, please retry later")
     except (InvalidGrantError, TokenExpiredError) as e:
         log.error(e)
+
     return redirect(url_for('generic.login'))
 
 @oauth.route('/unlink/generic', methods=["GET"])
