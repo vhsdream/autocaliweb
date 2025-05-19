@@ -659,7 +659,7 @@ def migrate_oauth_table(engine, _session):
             ('username_mapper', "VARCHAR(255) NOT NULL DEFAULT 'preferred_username'"),
             ('email_mapper', "VARCHAR(255) NOT NULL DEFAULT 'email'"),
             ('login_button', "VARCHAR(255) NOT NULL DEFAULT 'OpenID Connect'"),
-            ('metadata_url', "VARCHAR(255) NOT NULL"),
+            ('metadata_url', "VARCHAR(255)"),
             ('active', "BOOLEAN NOT NULL DEFAULT 0"),
         ]
         for col_name, col_def in needed:

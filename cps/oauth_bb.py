@@ -51,7 +51,6 @@ oauthblueprints = []
 oauth = Blueprint('oauth', __name__)
 log = logger.create()
 generic = None
-os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 def oauth_required(f):
     @wraps(f)
@@ -279,8 +278,6 @@ def generate_oauth_blueprints():
                 email_mapper=oauth_ids[2].email_mapper,
                 metadata_url=oauth_ids[2].metadata_url,
                 login_button=oauth_ids[2].login_button)
-    
-    log.debug("generic scope: %s", ele3.get('scope'))
 
     oauthblueprints.append(ele1)
     oauthblueprints.append(ele2)
@@ -378,6 +375,7 @@ if ub.oauth_support:
         headers= {
             "Authorization": f"Bearer {token.get('access_token')}"
         }
+
         resp = blueprint.session.get(blueprint.userinfo_url, headers=headers)
         if not resp.ok:
             flash(_("Failed to fetch user info from Generic OAuth."), category="error")
@@ -386,6 +384,7 @@ if ub.oauth_support:
         
         username_mapper = oauthblueprints[2].get('username_mapper') or 'username'
         email_mapper = oauthblueprints[2].get('email_mapper') or 'email'
+        log.debug("Using username mapper %s, email_mapper %s", username_mapper, email_mapper)
 
         generic_info = resp.json()
         generic_user_email = str(generic_info[email_mapper])
@@ -397,11 +396,18 @@ if ub.oauth_support:
                         func.lower(ub.User.email) == generic_user_email))
         ).first()
 
+        log.debug("Checking for user: %s", generic_user_name)
+
         if user is None:
             user = ub.User()
             user.name = generic_user_name
             user.email = generic_user_email
-            user.role = constants.ROLE_USER
+            user.role = constants.ROLE_USER | constants.ROLE_DOWNLOAD | constants.ROLE_UPLOAD | constants.ROLE_VIEWER
+            if generic_info.get('admin'):
+                user.role |= constants.ROLE_ADMIN | constants.ROLE_DELETE_BOOKS | constants.ROLE_EDIT | constants.ROLE_PASSWD | constants.ROLE_EDIT_SHELFS
+            user.sidebar_view = constants.SIDEBAR_ARCHIVED | constants.SIDEBAR_LANGUAGE | constants.SIDEBAR_SERIES | constants.SIDEBAR_CATEGORY | constants.SIDEBAR_HOT | constants.SIDEBAR_RANDOM | constants.SIDEBAR_AUTHOR | constants.SIDEBAR_BEST_RATED | constants.SIDEBAR_RECENT | constants.SIDEBAR_SORTED | constants.SIDEBAR_ARCHIVED | constants.SIDEBAR_PUBLISHER
+            if generic_info.get('admin'):
+                user.sidebar_view |= constants.SIDEBAR_DOWNLOAD | constants.SIDEBAR_LIST
             ub.session.add(user)
             ub.session.commit()
 
@@ -520,6 +526,8 @@ def generic_login():
 
             username_mapper = oauthblueprints[2].get('username_mapper') or 'username'
             email_mapper = oauthblueprints[2].get('email_mapper') or 'email'
+
+            log.debug("Using username mapper %s, email_mapper %s", username_mapper, email_mapper)
 
             email = str(account_info_json[email_mapper])
             username = str(account_info_json[username_mapper])
