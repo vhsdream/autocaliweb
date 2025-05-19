@@ -271,7 +271,6 @@ def db_configuration():
 @user_login_required
 @admin_required
 def configuration():
-    print(oauthblueprints[2]['metadata_url'])
     return render_title_template("config_edit.html",
                                  config=config,
                                  provider=oauthblueprints,
