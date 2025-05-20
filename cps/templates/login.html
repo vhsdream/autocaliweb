@@ -56,7 +56,7 @@
       >{{_('Log in with Magic Link')}}</a
     >
     {% endif %} {% if config.config_login_type == 2 %} {% if 1 in oauth_check %}
-    <a href="{{url_for('oauth.github_login')}}" class="pull-right github">
+    <a href="{{url_for('oauth.github_login')}}" class="btn github">
       <svg
         height="32"
         class="octicon octicon-mark-github"
@@ -72,7 +72,7 @@
       </svg>
     </a>
     {% endif %} {% if 2 in oauth_check %}
-    <a href="{{url_for('oauth.google_login')}}" class="pull-right google">
+    <a href="{{url_for('oauth.google_login')}}" class="btn google">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         x="0px"
@@ -101,6 +101,10 @@
           ></path>
         </g>
       </svg>
+    </a>
+    {% endif %} {% if 3 in oauth_check %}
+    <a href="{{url_for('oauth.generic_login')}}" class="btn generic">
+      Log in with <b>{{ login_button }}</b>
     </a>
     {% endif %} {% endif %}
   </form>
