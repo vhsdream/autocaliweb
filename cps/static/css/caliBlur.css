@@ -10467,12 +10467,11 @@ label[for="theme"] {
     > div.row-fluid
     > div.col-sm-10
     > div.col-sm-3 {
-    max-width: 130px;
-    width: 130px;
-    height: 180px;
-    margin: 0;
+    max-width: unset;
+    width: 100%;
+    height: unset;
     padding: 15px;
-    position: absolute;
+    position: relative;
   }
 
   body.editbook
@@ -10492,7 +10491,7 @@ label[for="theme"] {
     width: 100%;
   }
 
-  body.editbook
+  /* body.editbook
     > div.container-fluid
     > div.row-fluid
     > div.col-sm-10
@@ -10521,7 +10520,7 @@ label[for="theme"] {
     > div.col-sm-9
     > .form-group:nth-child(2) {
     padding-left: 120px;
-  }
+  } */
 
   #deleteButton,
   body.editbook
