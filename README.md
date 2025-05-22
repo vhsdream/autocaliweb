@@ -1,11 +1,10 @@
-# Autocaliweb
+# Autocaliweb-LXC
 
-Autocaliweb is a web app that offers a clean and intuitive interface for browsing, reading, and downloading eBooks using a valid [Calibre](https://calibre-ebook.com) database.
+Autocaliweb-LXC is a web app that offers a clean and intuitive interface for browsing, reading, and downloading eBooks using a valid [Calibre](https://calibre-ebook.com) database. It is meant for installation inside a **Debian 12/13 LXC** running within [Proxmox Virtual Environment](https://proxmox.com).
 
 [![License](https://img.shields.io/github/license/gelbphoenix/autocaliweb?style=flat-square)](https://github.com/gelbphoenix/autocaliweb/blob/master/LICENSE)
 ![Version](https://img.shields.io/github/v/release/gelbphoenix/autocaliweb?display_name=release&style=flat-square&logo=github&color=%23008000)
 ![Commit Activity](https://img.shields.io/github/commit-activity/w/gelbphoenix/autocaliweb?logo=github&style=flat-square&label=commits)
-[![Docker Pulls](https://img.shields.io/docker/pulls/gelbphoenix/autocaliweb?style=flat-square&logo=docker)](https://hub.docker.com/r/gelbphoenix/autocaliweb)
 
 <details>
 <summary><strong>Table of Contents</strong> (click to expand)</summary>
@@ -19,11 +18,11 @@ Autocaliweb is a web app that offers a clean and intuitive interface for browsin
 4. [Troubleshooting](#troubleshooting)
 5. [Contributor Recognition](#contributor-recognition)
 6. [Contact](#contact)
-7. [Contributing to Autocaliweb](#contributing-to-autocaliweb)
+7. [Contributing to Autocaliweb-LXC](#contributing-to-autocaliweb)
 
 </details>
 
-_This software is a fork of [Calibre-Web](https://github.com/janeczku/calibre-web) and [Calibre-Web Automated](https://github.com/crocodilestick/Calibre-Web-Automated) and licensed under the GPL v3 License._
+_This software is a fork of [Calibre-Web](https://github.com/janeczku/calibre-web), [Calibre-Web Automated](https://github.com/crocodilestick/Calibre-Web-Automated) and [Autocaliweb](https://github.com/gelbphoenix/autocaliweb) and licensed under the GPL v3 License._
 
 ## Features
 
@@ -59,7 +58,7 @@ _This software is a fork of [Calibre-Web](https://github.com/janeczku/calibre-we
 - ISBNDB and Hardcover as additional providers for metadata
 - Syncing reading process to [Hardcover.app](https://hardcover.app/) (Only with Kobo E-Readers)
 
-### Features only in Autocaliweb
+### Features only in Autocaliweb-LXC
 
 - Usage of `DOCKER_MODS` from sources like linuxserver.io and others
 - Listing of Author information and other books from Goodreads or Hardcover
@@ -67,57 +66,25 @@ _This software is a fork of [Calibre-Web](https://github.com/janeczku/calibre-we
 
 ## Installation
 
-### Installation via Docker (recommended)
+### Create a Debian 12/13 LXC in Proxmox
 
-#### Quick Install
+Basic instructions for creating an LXC here.
 
-1. Download the Docker Compose template file to the folder where Autocaliweb should have it's data (e.g. /opt/autocaliweb) using the command below:
+### Autocaliweb-LXC installation
 
-```
-curl -Lo ./docker-compose.yml https://raw.githubusercontent.com/gelbphoenix/autocaliweb/master/docker-compose.yml
-```
-
-2.  Edit the compose file using the comments to help, filling in your Timezone and desired binds
-
-3.  Navigate to where you downloaded the Compose file and run:
-
-```
-docker compose up -d
-```
-
-And that's you off to the races! Continue with the [things after installation](#after-installation).
-
-#### Using Docker compose:
-
-```yml
-services:
-  autocaliweb:
-    image: gelbphoenix/autocaliweb:latest
-    container_name: autocaliweb
-    restart: unless-stopped
-    ports:
-      - "8083:8083"
-    environment:
-      - TZ=Etc/UTC # Change to your specific timezone (e.g. Europe/Berlin, America/Denver)
-      - PUID=1000
-      - PGID=1000
-    volumes:
-      - /path/to/config:/config
-      - /path/to/book/ingest:/acw-book-ingest
-      - /path/to/library:/calibre-library
-    stop_signal: SIGINT
-    stop_grace_period: 15s
-```
+The script takes care of nearly everything, from dependencies to grabbing all the necessary files and then installing them in the right places, to modifying files so things work in an LXC, to creating scripts and Systemd service files.
 
 ## After Installation
 
-1. **Access Autocaliweb**: Open your browser and navigate to: http://localhost:8083 or http://localhost:8083/opds for the OPDS catalog.
+1. **Access Autocaliweb-LXC**: Open your browser and navigate to: <http://localhost:8083> or <http://localhost:8083/opds> for the OPDS catalog.
 2. **Log in with the default admin credentials**:
+
    ```
    Username: admin
    Password: admin123
    ```
-3. Configure your Autocaliweb instance via the Admin Page
+
+3. Configure your Autocaliweb-LXC instance via the Admin Page
 
 - A guide to what all of the stock CW Settings do can be found [here](https://github.com/janeczku/calibre-web/wiki/Configuration#basic-configuration)
 - Make sure `Enable Uploads` is enabled in `Settings -> Basic Configuration -> Feature Configuration`
@@ -128,8 +95,8 @@ services:
 
 ## Deploy Requirements
 
-- Docker version 27.5.1 (minimum)
-- Docker Compose version 2.33.1 (minimum)
+- A Proxmox LXC running Debian 12 or Debian 13.
+  - Specs: 2CPU || 2GB RAM || at least 4GB of HD space
 
 ## Troubleshooting
 
@@ -149,13 +116,13 @@ services:
 
 ## Contributor Recognition
 
-We would like to thank all the [contributors](https://github.com/gelbphoenix/autocaliweb/graphs/contributors) and maintainers of Autocaliweb for their valuable input and dedication to the project. Your contributions are greatly appreciated.
+We would like to thank all the [contributors](https://github.com/gelbphoenix/autocaliweb/graphs/contributors) and maintainers of Autocaliweb-LXC for their valuable input and dedication to the project. Your contributions are greatly appreciated.
 
 ## Contact
 
 **To be build**
 
-## Contributing to Autocaliweb
+## Contributing to Autocaliweb-LXC
 
 To contribute, please check our [Contributing Guidelines](https://github.com/gelbphoenix/autocaliweb/blob/master/CONTRIBUTING.md). We welcome issues, feature requests, and pull requests from the community.
 
@@ -174,4 +141,4 @@ We welcome suggestions for new features. Please create a new issue in the reposi
 
 ---
 
-Thank you for using Autocaliweb! We hope you enjoy managing your eBook library with our tool.
+Thank you for using Autocaliweb-LXC! We hope you enjoy managing your eBook library with our tool.
