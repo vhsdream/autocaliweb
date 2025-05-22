@@ -472,6 +472,19 @@ def get_series(book):
 def get_seriesindex(book):
     return book.series_index if isinstance(book.series_index, float) else 1
 
+def get_subtitle(book):
+    col = (calibre_db.session.query(db.CustomColumns)
+           .filter(db.CustomColumns.mark_for_delete == 0)
+           .filter(db.CustomColumns.datatype.notin_(db.cc_exceptions))
+           .filter(db.CustomColumns.name == 'subtitle')
+           .order_by(db.CustomColumns.label).all())[0]
+    
+    if (col):
+        subtitleColumn = getattr(book, 'custom_column_' + str(col.id))
+        if len(subtitleColumn):
+            return subtitleColumn[0].value
+    else:
+        return ""
 
 def get_language(book):
     if not book.languages:
@@ -527,6 +540,7 @@ def get_metadata(book):
         "Publisher": {"Imprint": "", "Name": get_publisher(book), },
         "RevisionId": book_uuid,
         "Title": book.title,
+        "Subtitle": get_subtitle(book),
         "WorkId": book_uuid,
     }
     metadata.update(get_author(book))
