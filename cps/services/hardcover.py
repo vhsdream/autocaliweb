@@ -18,6 +18,7 @@
 
 from datetime import datetime
 import requests
+import time
 
 from .. import logger
 
@@ -46,6 +47,11 @@ USER_BOOK_FRAGMENT = """
             progress_pages
         }
     }"""
+
+_AUTHORS_CACHE = {}
+_CACHE_TIMEOUT = 167 * 60 * 60  # 167 hours (in seconds)
+_AUTHORS_BOOKS_CACHE = {}
+now = time.time()
 
 class HardcoverClient:
     def __init__(self, token):
@@ -234,6 +240,12 @@ class HardcoverClient:
         return identifiers
     
     def get_author_info(self, author):
+        author_info = _AUTHORS_CACHE.get(author, None)
+        if author_info:
+            if now < author_info["_timestamp"] + _CACHE_TIMEOUT:
+                return author_info["data"]
+            del _AUTHORS_CACHE[author]
+
         query = """
         query GetAuthorInfo($author: String!) {
             authors(where: {slug: {_eq: $author}}) {
@@ -247,9 +259,23 @@ class HardcoverClient:
             "author": author
         }
         response = self.execute(query, variables)
-        return next(iter(response.get("authors")), None)
+        author_info = next(iter(response.get("authors")), None)
+
+        if author_info:
+            _AUTHORS_CACHE[author] = {
+                "data": author_info,
+                "_timestamp": now,
+            }
+
+        return author_info
     
     def get_other_author_books(self, author, library_books):
+        cached_books = _AUTHORS_BOOKS_CACHE.get(author, None)
+        if cached_books:
+            if now < cached_books["_timestamp"] + _CACHE_TIMEOUT:
+                return cached_books["data"]
+            del _AUTHORS_BOOKS_CACHE[author]
+
         query = """
         query otherBooksFromAuthor($author: String!) {
             authors(where: {slug: {_eq: $author}}) {
@@ -277,6 +303,12 @@ class HardcoverClient:
             book = contribution.get("book", {})
             if book.get("slug") and book["slug"] not in library_books:
                 books.append(book)
+
+        _AUTHORS_BOOKS_CACHE[author] = {
+            "data": books,
+            "_timestamp": now,
+        }
+        
         return books
     
     def get_book_id(self, slug, isbn=None):
