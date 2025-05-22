@@ -294,12 +294,12 @@ class HardcoverClient:
             "author": author
         }
         response = self.execute(query, variables)
-        author = response.get("authors", [])
-        if not author:
+        author_res = response.get("authors", [])
+        if not author_res:
             return []
         
         books = []
-        for contribution in author[0].get("contributions", []):
+        for contribution in author_res[0].get("contributions", []):
             book = contribution.get("book", {})
             if book.get("slug") and book["slug"] not in library_books:
                 books.append(book)
@@ -308,7 +308,7 @@ class HardcoverClient:
             "data": books,
             "_timestamp": now,
         }
-        
+
         return books
     
     def get_book_id(self, slug, isbn=None):
