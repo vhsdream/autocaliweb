@@ -45,6 +45,10 @@ class NewBookProcessor:
         self.auto_convert_on = self.acw_settings['auto_convert']
         self.target_format = self.acw_settings['auto_convert_target_format']
         self.ingest_ignored_formats = self.acw_settings['auto_ingest_ignored_formats']
+
+        if isinstance(self.ingest_ignored_formats, str):
+            self.ingest_ignored_formats = [self.ingest_ignored_formats]
+
         self.ingest_ignored_formats.extend(['.crdownload', '.part', '.download'])
         self.convert_ignored_formats = self.acw_settings['auto_convert_ignored_formats']
         self.is_kindle_epub_fixer = self.acw_settings['kindle_epub_fixer']
@@ -185,9 +189,9 @@ class NewBookProcessor:
     def add_book_to_library(self, book_path:str, text: bool=True, format: str="text") -> None:
         if self.target_format == "epub" and self.is_kindle_epub_fixer:
             self.run_kindle_epub_fixer(book_path, dest=self.tmp_conversion_dir)
-            fixed_epub_path = str(self.empty_tmp_con_dir) + str(os.path.basename(book_path))
+            fixed_epub_path = Path(self.tmp_conversion_dir) / os.path.basename(book_path)
             if Path(fixed_epub_path).exists():
-                book_path = self.empty_tmp_con_dir + os.path.basename(book_path)
+                book_path = str(fixed_epub_path)
 
         print("[ingest-processor]: Importing new book to ACW...")
         import_path = Path(book_path)
@@ -260,6 +264,18 @@ class NewBookProcessor:
 def main(filepath=sys.argv[1]):
     """Checks if filepath is a directory. If it is, main will be ran on every file in the given directory
     Inotifywait won't detect files inside folders if the folder was moved rather than copied"""
+    
+    MAX_LENGTH = 150
+    filename = os.path.basename(filepath)
+    name, ext = os.path.splitext(filename)
+    allowed_len = MAX_LENGTH - len(ext)
+
+    if len(name) > allowed_len:
+        new_name = name[:allowed_len] + ext
+        new_path = os.path.join(os.path.dirname(filepath), new_name)
+        os.rename(filepath, new_path)
+        filepath = new_path
+
     if os.path.isdir(filepath) and Path(filepath).exists():
         # print(os.listdir(filepath))
         for filename in os.listdir(filepath):
