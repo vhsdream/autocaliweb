@@ -123,6 +123,7 @@ class _Settings(_Base):
     config_goodreads_api_key = Column(String)
     config_register_email = Column(Boolean, default=False)
     config_login_type = Column(Integer, default=0)
+    config_oauth_manual_urls = Column(Integer, default=0)
 
     config_kobo_proxy = Column(Boolean, default=False)
 
