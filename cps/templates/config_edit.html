@@ -150,9 +150,29 @@
         <input type="number" min="1" max="65535" class="form-control" name="config_external_port" id="config_external_port" value="{% if config.config_external_port != None %}{{ config.config_external_port }}{% endif %}" autocomplete="off" required>
       </div>
       <div class="form-group" style="margin-left:10px;">
+        <label for="config_kobo_pages_cc">{{_(Pages Custom Column)}}</label>
+        <select name="config_kobo_pages_cc" id="config_kobo_pages_cc" class="form-control">
+          <option value="0" {% if config.config_kobo_pages_cc == 0 %}selected{% endif %}>{{_('None')}}</option>
+          {% for wordspages_column in wordspages_columns %}
+          <option value="{{wordspages_column.id}}" {% if wordspages_column.id == config.config_kobo_pages_cc %}selected{% endif %}>{{wordspages_column.name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group" style="margin-left:10px;">
+        <label for="config_kobo_words_cc">{{_('Words Custom Column')}}</label>
+        <select name="config_kobo_words_cc" id="config_kobo_words_cc" class="form-control">
+          <option value="0" {% if config.config_kobo_words_cc == 0 %}selected{% endif %}>{{_('None')}}</option>
+          {% for wordspages_column in wordspages_columns %}
+          <option value="{{wordspages_column.id}}" {% if wordspages_column.id == config.config_kobo_words_cc %}selected{% endif %}>{{wordspages_column.name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      {% if feature_support['hardcover'] %}
+      <div class="form-group" style="margin-left:10px;">
         <input type="checkbox" id="config_hardcover_sync" name="config_hardcover_sync" {% if config.config_hardcover_sync %}checked{% endif %}>
         <label for="config_hardcover_sync">{{_('Sync Kobo read process to Hardcover (Requires an API key per user)')}}</label>
       </div>
+      {% endif %}
     </div>
     {% endif %}
     {% if feature_support['goodreads'] %}
