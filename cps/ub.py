@@ -714,6 +714,11 @@ def delete_download(book_id):
 
 # Generate user Guest (translated text), as anonymous user, no rights
 def create_anonymous_user(_session):
+    existing_guest = _session.query(User).filter(User.email == 'no@email').first()
+    if existing_guest:
+        log.info("Anonymous user already exists, skipping creation")
+        return
+
     user = User()
     user.name = "Guest"
     user.email = 'no@email'
@@ -723,8 +728,9 @@ def create_anonymous_user(_session):
     _session.add(user)
     try:
         _session.commit()
-    except Exception:
+    except Exception as e:
         _session.rollback()
+        log.error_or_exception(e)
 
 
 # Generate User admin with admin123 password, and access to everything
@@ -742,6 +748,7 @@ def create_admin_user(_session):
         _session.commit()
     except Exception:
         _session.rollback()
+        log.error_or_exception(e)
 
 def init_db_thread():
     global app_DB_path
