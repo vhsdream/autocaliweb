@@ -5,7 +5,6 @@ SHELL [ "/bin/bash", "-c" ]
 
 ARG BUILD_DATE 
 ARG VERSION
-ARG UNIVERSAL_CALIBRE_VERSION=7.16.0
 ARG DEBIAN_FRONTEND=noninteractive
 ARG S6_OVERLAY_VERSION=3.2.0.2
 
@@ -66,7 +65,8 @@ COPY . /app/autocaliweb/
 
 RUN cp -r /app/autocaliweb/root/* / && \ 
     rm -R /app/autocaliweb/root/ && \
-    /app/autocaliweb/scripts/setup-acw.sh
+    /app/autocaliweb/scripts/setup-acw.sh && \
+    echo $VERSION >| /app/ACW_RELEASE
 
 # To ensure that docker-mods for calibre-web can be used
 RUN ln -s /app/autocaliweb /app/calibre-web
@@ -79,11 +79,14 @@ RUN export KEPUBIFY_RELEASE=$(curl -s https://api.github.com/repos/pgaskin/kepub
 
 # Install Calibre binaries
 RUN mkdir -p /app/calibre && \
-    curl -o /tmp/calibre.txz -L https://download.calibre-ebook.com/${UNIVERSAL_CALIBRE_VERSION}/calibre-${UNIVERSAL_CALIBRE_VERSION}-$(uname -m | sed 's/x86_64/x86_64/;s/aarch64/arm64/').txz && \
+    CALIBRE_RELEASE=$(curl -s https://api.github.com/repos/kovidgoyal/calibre/releases/latest | awk -F'"' '/tag_name/{print $4;exit}') && \
+    CALIBRE_VERSION=${CALIBRE_RELEASE#v} && \
+    curl -o /tmp/calibre.txz -L https://download.calibre-ebook.com/${CALIBRE_VERSION}/calibre-${CALIBRE_VERSION}-$(uname -m | sed 's/x86_64/x86_64/;s/aarch64/arm64/').txz && \
     tar xf /tmp/calibre.txz -C /app/calibre && \
     strip --remove-section=.note.ABI-tag /app/calibre/lib/libQt6* && \
     rm /tmp/calibre.txz && \
-    /app/calibre/calibre_postinstall 
+    /app/calibre/calibre_postinstall && \
+    echo "$CALIBRE_RELEASE" >| /app/CALIBRE_RELEASE
 
 # Clean up
 RUN apt-get purge -y \
@@ -95,9 +98,6 @@ RUN apt-get purge -y \
     /tmp/* \
     /var/tmp/* \
     /root/.cache
-
-RUN echo $VERSION >| /app/ACW_RELEASE && \
-    echo $UNIVERSAL_CALIBRE_VERSION >| /app/CALIBRE_RELEASE
 
 COPY --from=ghcr.io/linuxserver/unrar:latest /usr/bin/unrar-ubuntu /usr/bin/unrar
 
