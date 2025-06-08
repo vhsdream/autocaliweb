@@ -126,8 +126,6 @@ class _Settings(_Base):
     config_oauth_manual_urls = Column(Integer, default=0)
 
     config_kobo_proxy = Column(Boolean, default=False)
-    config_kobo_pages_cc = Column(SmallInteger, default=0)
-    config_kobo_words_cc = Column(SmallInteger, default=0)
 
     config_ldap_provider_url = Column(String, default='example.org')
     config_ldap_port = Column(SmallInteger, default=389)
