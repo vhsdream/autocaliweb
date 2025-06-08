@@ -7,6 +7,7 @@ import tempfile
 import time
 import shutil
 from pathlib import Path
+import sqlite3
 
 from acw_db import ACW_DB
 from kindle_epub_fixer import EPUBFixer
@@ -66,6 +67,30 @@ class NewBookProcessor:
         self.is_target_format = bool(self.filepath.endswith(self.target_format))
         self.can_convert, self.input_format = self.can_convert_check()
 
+        self.calibre_env = os.environ.copy()
+        self.calibre_env['HOME'] = "/config"
+
+        self.split_library = self.get_split_library()
+        if self.split_library:
+            self.library_dir = self.split_library['split_path']
+            self.calibre_env["CALIBRE_OVERRIDE_DATABASE_PATH"] = os.path.join(self.split_library['db_path'], 'metadata.db')
+
+    def get_split_library(self) -> dict[str, str] | None:
+        con = sqlite3.connect(f"/config/app.db")
+        cur = con.cursor()
+        split_library = cur.execute("SELECT config_calibre_split FROM settings;").fetchone()[0]
+
+        if split_library:
+            split_path = cur.execute("SELECT config_calibre_split_dir FROM settings;").fetchone()[0]
+            db_path = cur.execute("SELECT config_calibre_dir FROM settings;").fetchone()[0]
+            con.close()
+            return {
+                "split_path": split_path,
+                "db_path": db_path
+            }
+        else:
+            con.close()
+            return None
 
     def get_dirs(self, dirs_json_path: str) -> tuple[str, str, str]:
         dirs = {}
@@ -198,7 +223,7 @@ class NewBookProcessor:
         import_filename = os.path.basename(book_path)
         try:
             if text:
-                subprocess.run(["calibredb", "add", book_path, "--automerge", "new_record", f"--library-path={self.library_dir}"], check=True)
+                subprocess.run(["calibredb", "add", book_path, "--automerge", "new_record", f"--library-path={self.library_dir}"], env=self.calibre_env, check=True)
                 print(f"[ingest-processor] Added {import_path.stem} to Calibre database", flush=True)
             else:
                 meta = audiobook.get_audio_file_info(book_path, format, os.path.basename(book_path), False)
