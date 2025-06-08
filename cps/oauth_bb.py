@@ -52,6 +52,9 @@ oauth = Blueprint('oauth', __name__)
 log = logger.create()
 generic = None
 
+# FOR DEVELOPMENT: Enable insecure transport for OAuth
+#os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+
 def oauth_required(f):
     @wraps(f)
     def inner(*args, **kwargs):
@@ -537,6 +540,11 @@ def generic_login():
                 .filter(and_(func.lower(ub.User.name) == username,
                             func.lower(ub.User.email) == email))
             ).first()
+
+            if user is None:
+                flash(_("User not found, please register first or contact your system administrator."), category="error")
+                log.error("User not found. username: %s, email: %s", username, email)
+                return redirect(url_for('generic.login'))
 
             return bind_oauth_or_register(oauthblueprints[2]['id'], user.id, 'generic.login', 'generic')
         flash(_("Generic Oauth error, please retry later."), category="error")
