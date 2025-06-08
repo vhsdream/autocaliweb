@@ -482,9 +482,9 @@ input.pill:not(:checked) + label .glyphicon {
   cursor: pointer;
 }
 
-.padded-bottom {
+/*.padded-bottom {
   margin-bottom: 15px;
-}
+}*/
 .upload-format-input-text {
   display: initial;
 }

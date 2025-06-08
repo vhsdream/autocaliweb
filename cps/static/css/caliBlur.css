@@ -3362,7 +3362,7 @@ textarea {
 
 #metaModal > .modal-dialog > .modal-content > .modal-header {
   padding: 0;
-  background: #282828;
+  background: #323232;
   border-radius: 3px 3px 0 0;
 }
 
@@ -3420,9 +3420,9 @@ textarea {
   opacity: 0.5;
 }
 
-#metaModal > .modal-dialog > .modal-content > .modal-header > #meta-search {
+/*#metaModal > .modal-dialog > .modal-content > .modal-header > #meta-search {
   margin: 25px 0 0;
-}
+}*/
 
 #metaModal
   > .modal-dialog
@@ -3431,8 +3431,8 @@ textarea {
   > #meta-search
   > .input-group
   > input {
-  width: calc(100% - 51px);
-  border-radius: 0;
+  width: 80%;
+  border-radius: 8px;
   background-color: hsla(0, 0%, 100%, 0.15);
 }
 
@@ -3444,6 +3444,11 @@ textarea {
   > .input-group {
   max-width: 100%;
   width: 100%;
+  background-color: #323232;
+  display: flex !important;
+  justify-content: space-around !important;
+  position: unset !important;
+  border-collapse: unset;
 }
 
 #metaModal
@@ -3454,9 +3459,9 @@ textarea {
   > .input-group
   > span
   > button {
-  height: 40px;
-  width: 50px;
-  padding: 0;
+  height: 36px;
+  /*width: 50px;*/
+  padding: 0 10px;
   font-family: "Open Sans Semibold", "Helvetica Neue", Helvetica, Arial,
     sans-serif;
   font-size: 13px !important;
@@ -3468,7 +3473,7 @@ textarea {
   color: #eee;
   vertical-align: middle;
   background-color: hsla(0, 0%, 100%, 0.15);
-  border-radius: 0;
+  border-radius: 10%;
   margin: 0 0 0 -1px;
 }
 
@@ -3487,7 +3492,7 @@ textarea {
   > span {
   float: right;
   text-align: right;
-  width: 50px;
+  width: fit-content;
   margin: 0;
 }
 
@@ -3508,7 +3513,7 @@ textarea {
 }
 
 #metaModal > .modal-dialog > .modal-content > .modal-body > .text-center {
-  text-align: left;
+  text-align: center;
   margin-bottom: 0;
   padding-top: 10px;
 }
@@ -4204,7 +4209,7 @@ body.book .author {
 }
 
 .more-stuff {
-  margin-top: 0;
+  /*margin-top: 0;*/
   padding-top: 0;
   border-top: 0;
 }
