@@ -864,6 +864,17 @@ def health_check():
         "version": version
     }), 200 if db_up else 503
 
+@web.route("/service-worker.js")
+def service_worker():
+    try:
+        return send_from_directory(constants.STATIC_DIR, "js/service-worker.js", mimetype="application/javascript")
+    except FileNotFoundError:
+        log.error("Service worker file not found")
+        abort(404)
+    except PermissionError:
+        log.error("Permission denied for service worker file")
+        abort(403)
+
 # ################################### View Books list ##################################################################
 
 

@@ -19,7 +19,7 @@ function getPath() {
     var jsFileLocation = $("script[src*=jquery]").attr("src"); // the js file path
     return jsFileLocation.substr(
         0,
-        jsFileLocation.search("/libs/jquery.min.js")
+        jsFileLocation.search("/static/js/libs/jquery.min.js")
     ); // the js folder path
 }
 

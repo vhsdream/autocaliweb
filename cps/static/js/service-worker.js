@@ -1,12 +1,10 @@
 const CACHE_NAME = "acw-cache-v1";
 const PRECACHE_URLS = [
-    "/", // Start‑URL, laut manifest.json
-    "/index.html",
+    "/",
     "/static/icon-dark.svg",
     "/static/icon-light.svg",
-    "/static/css/main.css", // ergänze eure CSS‑Dateien
-    "/static/js/main.js", // ergänze eure JS‑Dateien
-    "/static/…", // weitere Assets
+    "/static/css/main.css",
+    "/static/js/main.js",
 ];
 
 self.addEventListener("install", (event) => {
