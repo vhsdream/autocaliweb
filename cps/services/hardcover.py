@@ -115,45 +115,48 @@ class HardcoverClient:
         
     def update_reading_progress(self, identifiers, progress_percent):
         ids = self.parse_identifiers(identifiers)
-        book = self.get_user_book(ids)
-        # Book doesn't exist, add it in Reading status
-        if not book: 
-            book = self.add_book(ids, status=2)
-        # Book is either WTR or Read, and we aren't finished reading
-        if book.get("status_id") != 2 and progress_percent != 100: 
-            book = self.change_book_status(book, 2)
-        # Book is already marked as read, and we are also done
-        if book.get("status_id") == 3 and progress_percent == 100: 
-            return
-        pages = book.get("edition",{}).get("pages",0)
-        if pages:
-            pages_read = round(pages * (progress_percent / 100))
-            read = next(iter(book.get("user_book_reads")),None)
-            if not read:
-                read = self.add_read(book, pages_read)
-            else:
-                mutation = """
-                mutation ($readId: Int!, $pages: Int, $editionId: Int, $startedAt: date, $finishedAt: date) {
-                    update_user_book_read(id: $readId, object: {
-                        progress_pages: $pages,
-                        edition_id: $editionId,
-                        started_at: $startedAt,
-                        finished_at: $finishedAt
-                    }) {
-                        id
+        if len(ids) is not 0:
+            book = self.get_user_book(ids)
+            # Book doesn't exist, add it in Reading status
+            if not book: 
+                book = self.add_book(ids, status=2)
+            # Book is either WTR or Read, and we aren't finished reading
+            if book.get("status_id") != 2 and progress_percent != 100: 
+                book = self.change_book_status(book, 2)
+            # Book is already marked as read, and we are also done
+            if book.get("status_id") == 3 and progress_percent == 100: 
+                return
+            pages = book.get("edition",{}).get("pages",0)
+            if pages:
+                pages_read = round(pages * (progress_percent / 100))
+                read = next(iter(book.get("user_book_reads")),None)
+                if not read:
+                    read = self.add_read(book, pages_read)
+                else:
+                    mutation = """
+                    mutation ($readId: Int!, $pages: Int, $editionId: Int, $startedAt: date, $finishedAt: date) {
+                        update_user_book_read(id: $readId, object: {
+                            progress_pages: $pages,
+                            edition_id: $editionId,
+                            started_at: $startedAt,
+                            finished_at: $finishedAt
+                        }) {
+                            id
+                        }
+                    }""" 
+                    variables = {
+                        "readId": int(read.get("id")),
+                        "pages": pages_read,
+                        "editionId": int(book.get("edition").get("id")),
+                        "startedAt":read.get("started_at",datetime.now().strftime("%Y-%m-%d")),
+                        "finishedAt": datetime.now().strftime("%Y-%m-%d") if progress_percent == 100 else None
                     }
-                }""" 
-                variables = {
-                    "readId": int(read.get("id")),
-                    "pages": pages_read,
-                    "editionId": int(book.get("edition").get("id")),
-                    "startedAt":read.get("started_at",datetime.now().strftime("%Y-%m-%d")),
-                    "finishedAt": datetime.now().strftime("%Y-%m-%d") if progress_percent == 100 else None
-                }
-                if progress_percent == 100:
-                    self.change_book_status(book, 3)
-                self.execute(query=mutation, variables=variables)
-        return
+                    if progress_percent == 100:
+                        self.change_book_status(book, 3)
+                    self.execute(query=mutation, variables=variables)
+            return
+        else:
+            return
     
     def change_book_status(self, book, status):
         mutation = """
