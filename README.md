@@ -59,13 +59,16 @@ _This software is a fork of [Calibre-Web](https://github.com/janeczku/calibre-we
 - Batch edits of books
 - ISBNDB and Hardcover as additional providers for metadata
 - Syncing reading process to [Hardcover.app](https://hardcover.app/) (Only with Kobo E-Readers)
+- Split library support
+- Support for CLI compatible Calibre plugins
 
 ### Features only in Autocaliweb
 
 - Usage of `DOCKER_MODS` from sources like linuxserver.io and others
-- Listing of Author information and other books from Goodreads or Hardcover
+- Listing and caching of Author information and other books from Goodreads or Hardcover
 - User en- or disabling of the Kobo Sync and/or Overdrive tabs when using Kobo sync
 - Support for custom OIDC providers (with support for an .well-known link)
+- Support for manual installation (without docker specific features)
 
 ## Installation
 
@@ -156,8 +159,7 @@ sudo chmod +x ./install_autocaliweb.sh && sudo ./install_autocaliweb.sh
 
 4. **Google Drive Integration**: For hosting your Calibre library on Google Drive, refer to the [Google Drive integration guide of Calibre-Web](https://github.com/janeczku/calibre-web/wiki/G-Drive-Setup#using-google-drive-integration).
 
-> [!IMPORTANT]
-> **If you are migrating from Calibre-Web Automated please ensure that your cwa.db is renamed acw.db before start to load your existing settings**
+> [!IMPORTANT] > **If you are migrating from Calibre-Web Automated please ensure that your cwa.db is renamed acw.db before start to load your existing settings**
 
 ## Deploy Requirements
 
