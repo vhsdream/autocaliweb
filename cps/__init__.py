@@ -83,6 +83,7 @@ mimetypes.add_type('text/rtf', '.rtf')
 log = logger.create()
 
 app = Flask(__name__)
+app.secret_key = os.getenv('SECRET_KEY', config_sql.get_flask_session_key(ub.session))
 app.config.update(
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_SAMESITE='Lax',
@@ -177,7 +178,6 @@ def create_app():
     log.info('Starting Autocaliweb...')
     Principal(app)
     lm.init_app(app)
-    app.secret_key = os.getenv('SECRET_KEY', config_sql.get_flask_session_key(ub.session))
 
     web_server.init_app(app, config)
     from .cw_babel import babel, get_locale
