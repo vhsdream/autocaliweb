@@ -14,7 +14,7 @@ Autocaliweb is a web app that offers a clean and intuitive interface for browsin
 2. [Features](#features)
 3. [Installation](#installation)
    - [Installation via Docker (recommended)](#installation-via-docker-recommended)
-   - [Manual-Installation - without Docker](#manual-installation-without-docker)
+   - [Manual-Installation - without Docker (on your own risk)](#manual-installation-without-docker-on-your-own-risk)
    - [After Installation](#after-installation)
    - [Deploy Requirements](#deploy-requirements)
 4. [Troubleshooting](#troubleshooting)
@@ -110,12 +110,40 @@ services:
     stop_signal: SIGINT
     stop_grace_period: 15s
 ```
-### Manual installation without Docker  
-For manual installation without docker see [Manual Installation](https://github.com/gelbphoenix/autocaliweb/wiki/Manual-Installation).  
+
+### Manual installation without Docker (on your own risk)
+
+If you want to install Autocaliweb on your server without setting up Docker and Docker compose you can follow these steps:
+
+1. Download the prep_autocaliweb.sh file with the following command and check it:
+
+```bash
+curl -Lo ./prep_autocaliweb.sh https://github.com/gelbphoenix/autocaliweb/raw/refs/heads/master/scripts/prep_autocaliweb.sh
+```
+
+2. Make prep_autocaliweb.sh executeable and run it as root:
+
+```bash
+sudo chmod +x ./prep_autocaliweb.sh && sudo ./prep_autocaliweb.sh
+```
+
+3. Download install_autocaliweb.sh and check it:
+
+```bash
+curl -Lo ./install_autocaliweb.sh https://github.com/gelbphoenix/autocaliweb/raw/refs/heads/master/scripts/install_autocaliweb.sh
+```
+
+4. Make install_autocaliweb.sh executeable and run it as root:
+
+```bash
+sudo chmod +x ./install_autocaliweb.sh && sudo ./install_autocaliweb.sh
+```
+
+5. Follow now the next steps that are shown after install_autocaliweb run successfully
 
 ## After Installation
 
-1. **Access Autocaliweb**: Open your browser and navigate to: http://localhost:8083 or http://localhost:8083/opds for the OPDS catalog.
+1. **Access Autocaliweb**: Open your browser and navigate to: http://localhost:8083 (http://localhost:8083/opds for the OPDS catalog).
 2. **Log in with the default admin credentials**:
    ```
    Username: admin
@@ -128,7 +156,8 @@ For manual installation without docker see [Manual Installation](https://github.
 
 4. **Google Drive Integration**: For hosting your Calibre library on Google Drive, refer to the [Google Drive integration guide of Calibre-Web](https://github.com/janeczku/calibre-web/wiki/G-Drive-Setup#using-google-drive-integration).
 
-> [!IMPORTANT] > **If you are migrating from Calibre-Web Automated please ensure that your cwa.db is renamed acw.db before start to load your existing settings**
+> [!IMPORTANT]
+> **If you are migrating from Calibre-Web Automated please ensure that your cwa.db is renamed acw.db before start to load your existing settings**
 
 ## Deploy Requirements
 
