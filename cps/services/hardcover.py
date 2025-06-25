@@ -115,7 +115,7 @@ class HardcoverClient:
         
     def update_reading_progress(self, identifiers, progress_percent):
         ids = self.parse_identifiers(identifiers)
-        if len(ids) is not 0:
+        if len(ids) != 0:
             book = self.get_user_book(ids)
             # Book doesn't exist, add it in Reading status
             if not book: 
