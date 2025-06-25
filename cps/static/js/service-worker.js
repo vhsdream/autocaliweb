@@ -32,12 +32,30 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-    if (!event.request.url.startsWith(self.location.origin)) return;
+    if (event.request.mode === "navigate") {
+        return;
+    }
+
+    if (
+        !event.request.url.startsWith(self.location.origin) ||
+        event.request.url.includes("/login") ||
+        event.request.url.includes("/oauth")
+    ) {
+        return event.respondWith(fetch(event.request));
+    }
+
     event.respondWith(
         caches.match(event.request).then(
             (cached) =>
                 cached ||
                 fetch(event.request).then((response) => {
+                    if (
+                        response.type === "opaqueredirect" ||
+                        response.status === 302
+                    ) {
+                        return response;
+                    }
+
                     return caches.open(CACHE_NAME).then((cache) => {
                         cache.put(event.request, response.clone());
                         return response;
