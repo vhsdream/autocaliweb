@@ -375,7 +375,7 @@ if ub.oauth_support:
             log.error("Failed to log in with Generic OAuth")
             return redirect(url_for('web.login'))
 
-        headers= {
+        headers = {
             "Authorization": f"Bearer {token.get('access_token')}"
         }
 
