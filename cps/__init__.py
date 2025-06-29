@@ -125,10 +125,8 @@ def create_app():
     # pylint: disable=no-member
     encrypt_key, error = config_sql.get_encryption_key(os.path.dirname(cli_param.settings_path))
 
-    app.secret_key = os.getenv('SECRET_KEY', config_sql.get_flask_session_key(ub.session))
-    log.info('Using secret key: {}'.format(app.secret_key))
-
     config_sql.load_configuration(ub.session, encrypt_key)
+    app.secret_key = os.getenv('SECRET_KEY', config_sql.get_flask_session_key(ub.session))
     config.init_config(ub.session, encrypt_key, cli_param)
 
     if error:
