@@ -116,7 +116,7 @@ services:
 
 ### Manual installation without Docker (on your own risk)
 
-If you want to install Autocaliweb on your server without setting up Docker and Docker compose you can follow these steps:
+If you want to install Autocaliweb on your server without setting up Docker and Docker compose you can follow these steps (For an extensive installation and the uninstall guide look at the [relating wiki article](https://github.com/gelbphoenix/autocaliweb/wiki/Manual-Installation)):
 
 1. Download the prep_autocaliweb.sh file with the following command and check it:
 
@@ -188,7 +188,7 @@ We would like to thank all the [contributors](https://github.com/gelbphoenix/aut
 
 ## Contact
 
-**To be build**
+Autocaliweb has an **not finished** documentation in the [wiki of this repository](https://github.com/gelbphoenix/autocaliweb/wiki)
 
 ## Contributing to Autocaliweb
 
@@ -204,7 +204,7 @@ We welcome suggestions for new features. Please create a new issue in the reposi
 
 ## Additional Resources
 
-- **Documentation**: _Needs to be build_
+- **Documentation**: Find the documentation in the [wiki of this repository](https://github.com/gelbphoenix/autocaliweb/wiki)
 - **Community Contributions**: Explore the [community contributions](https://github.com/gelbphoenix/autocaliweb/pulls) to see ongoing work and how you can get involved.
 
 ---
