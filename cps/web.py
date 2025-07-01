@@ -1671,7 +1671,7 @@ def read_book(book_id, book_format):
                                                              ub.Bookmark.format == book_format.upper())).first()
     if book_format.lower() == "epub":
         log.debug("Start epub reader for %d", book_id)
-        return render_title_template('read.html', bookid=book_id, title=book.title, bookmark=bookmark)
+        return render_title_template('read.html', bookid=book_id, title=book.title, bookmark=bookmark, book_format=book_format)
     elif book_format.lower() == "pdf":
         log.debug("Start pdf reader for %d", book_id)
         return render_title_template('readpdf.html', pdffile=book_id, title=book.title)
