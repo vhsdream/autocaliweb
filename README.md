@@ -19,7 +19,7 @@ Autocaliweb is a web app that offers a clean and intuitive interface for browsin
    - [Deploy Requirements](#deploy-requirements)
 4. [Troubleshooting](#troubleshooting)
 5. [Contributor Recognition](#contributor-recognition)
-6. [Contact](#contact)
+6. [Documentation](#documentation)
 7. [Contributing to Autocaliweb](#contributing-to-autocaliweb)
 
 </details>
@@ -186,7 +186,7 @@ sudo chmod +x ./install_autocaliweb.sh && sudo ./install_autocaliweb.sh
 
 We would like to thank all the [contributors](https://github.com/gelbphoenix/autocaliweb/graphs/contributors) and maintainers of Autocaliweb for their valuable input and dedication to the project. Your contributions are greatly appreciated.
 
-## Contact
+## Documentation
 
 Autocaliweb has an **not finished** documentation in the [wiki of this repository](https://github.com/gelbphoenix/autocaliweb/wiki)
 

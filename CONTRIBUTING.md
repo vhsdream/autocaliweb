@@ -18,7 +18,7 @@ Some of the user languages in Autocaliweb having missing translations. We are ha
 
 ### **Documentation**
 
-Is at this time not available but is on the Roadmap.
+The documentation is not finished at this time but can be found [here](https://github.com/gelbphoenix/autocaliweb/wiki).
 
 ### **Reporting a bug**
 
