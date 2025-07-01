@@ -547,8 +547,8 @@ def generic_login():
 
             log.debug("Using username mapper %s, email_mapper %s", username_mapper, email_mapper)
 
-            email = str(account_info_json[email_mapper])
-            username = str(account_info_json[username_mapper])
+            email = str(account_info_json[email_mapper]).lower()
+            username = str(account_info_json[username_mapper]).lower()
 
             user = (
                 ub.session.query(ub.User)
