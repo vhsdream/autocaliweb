@@ -6,7 +6,6 @@ SHELL [ "/bin/bash", "-c" ]
 ARG BUILD_DATE 
 ARG VERSION
 ARG DEBIAN_FRONTEND=noninteractive
-ARG S6_OVERLAY_VERSION=3.2.0.2
 
 LABEL build_version="Version: ${VERSION}" \
       build_date="${BUILD_DATE}" \
@@ -43,8 +42,9 @@ RUN apt-get update && \
       netcat-openbsd binutils
 
 # Install S6-Overlay
-RUN curl -Lo /tmp/s6-overlay-$(uname -m | sed 's/x86_64/x86_64/;s/aarch64/aarch64/').tar.xz https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-$(uname -m | sed 's/x86_64/x86_64/;s/aarch64/aarch64/').tar.xz && \
-    curl -Lo /tmp/s6-overlay-noarch.tar.xz https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz && \
+RUN export S6_OVERLAY_VERSION=$(curl -s https://api.github.com/repos/just-containers/s6-overlay/releases/latest | awk -F'"' '/tag_name/{print $4;exit}') && \
+    curl -Lo /tmp/s6-overlay-$(uname -m | sed 's/x86_64/x86_64/;s/aarch64/aarch64/').tar.xz https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-$(uname -m | sed 's/x86_64/x86_64/;s/aarch64/aarch64/').tar.xz && \
+    curl -Lo /tmp/s6-overlay-noarch.tar.xz https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz && \
     tar -C / -Jxpf /tmp/s6-overlay-$(uname -m | sed 's/x86_64/x86_64/;s/aarch64/aarch64/').tar.xz && \
     tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz
 
