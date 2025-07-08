@@ -21,7 +21,7 @@ def main():
 class AutoLibrary:
     def __init__(self):
         self.config_dir = "/config"
-        self.library_dir = "/calibre-library"
+        self.library_dir = os.environ.get("LIBRARY_DIR", "/calibre-library")
         self.dirs_path = "/app/autocaliweb/dirs.json"
         self.app_db = "/config/app.db"
 
@@ -64,17 +64,17 @@ class AutoLibrary:
         db_files = [f for f in files_in_library if "metadata.db" in f]
         if len(db_files) == 1:
             self.metadb_path = db_files[0]
-            print(f"[acw-auto-library]: Existing library found at {self.lib_path}, mounting now...")
+            print(f"[acw-auto-library] Existing library found at {self.lib_path}, mounting now...")
             return True
         elif len(db_files) > 1:
-            print("[acw-auto-library]: Multiple metadata.db files found in library directory:\n")
+            print("[acw-auto-library] Multiple metadata.db files found in library directory:\n")
             for db in db_files:
                 print(f"    - {db} | Size: {os.path.getsize(db)}")
             db_sizes = [os.path.getsize(f) for f in db_files]
             index_of_biggest_db = max(range(len(db_sizes)), key=db_sizes.__getitem__)
             self.metadb_path = db_files[index_of_biggest_db]
-            print(f"\n[acw-auto-library]: Automatically mounting the largest database using the following db file - {db_files[index_of_biggest_db]} ...")
-            print("\n[acw-auto-library]: If this is unwanted, please ensure only 1 metadata.db file / only your desired Calibre Database exists in '/calibre-library', then restart the container")
+            print(f"\n[acw-auto-library] Automatically mounting the largest database using the following db file - {db_files[index_of_biggest_db]} ...")
+            print("\n[acw-auto-library] If this is unwanted, please ensure only 1 metadata.db file / only your desired Calibre Database exists in '/calibre-library', then restart the container")
             return True
         else:
             return False
@@ -86,25 +86,25 @@ class AutoLibrary:
             self.update_calibre_web_db()
             return
         else:
-            print("[acw-auto-library]: ERROR: metadata.db found but not mounted")
+            print("[acw-auto-library] ERROR: metadata.db found but not mounted")
             sys.exit(1)
 
     # Uses sql to update CW's app.db with the correct library location (config_calibre_dir in the settings table)
     def update_calibre_web_db(self):
         if os.path.exists(self.metadb_path): # type: ignore
             try:
-                print("[acw-auto-library]: Updating Settings Database with library location...")
+                print("[acw-auto-library] Updating Settings Database with library location...")
                 con = sqlite3.connect(self.app_db)
                 cur = con.cursor()
                 cur.execute(f'UPDATE settings SET config_calibre_dir="{self.lib_path}";')
                 con.commit()
                 return
             except Exception as e:
-                print("[acw-auto-library]: ERROR: Could not update Calibre Web Database")
+                print("[acw-auto-library] ERROR: Could not update Calibre Web Database")
                 print(e)
                 sys.exit(1)
         else:
-            print(f"[acw-auto-library]: ERROR: app.db in {self.app_db} not found")
+            print(f"[acw-auto-library] ERROR: app.db in {self.app_db} not found")
             sys.exit(1)
 
     # Update the dirs.json file with the new library location (lib_path))
@@ -119,13 +119,13 @@ class AutoLibrary:
                 json.dump(dirs, f, indent=4)
             return
         except Exception as e:
-            print("[acw-auto-library]: ERROR: Could not update dirs.json")
+            print("[acw-auto-library] ERROR: Could not update dirs.json")
             print(e)
             sys.exit(1)
 
     # Uses the empty metadata.db in /app/autocaliweb to create a new library
     def make_new_library(self):
-        print("[acw-auto-library]: No existing library found. Creating new library...")
+        print("[acw-auto-library] No existing library found. Creating new library...")
         shutil.copyfile(self.empty_metadb, f"{self.library_dir}/metadata.db")
         os.system(f"chown -R abc:abc {self.library_dir}")
         self.metadb_path = f"{self.library_dir}/metadata.db"
