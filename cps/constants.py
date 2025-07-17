@@ -190,5 +190,10 @@ COVER_THUMBNAIL_SMALL    = 1
 COVER_THUMBNAIL_MEDIUM   = 2
 COVER_THUMBNAIL_LARGE    = 4
 
+ALLOWED_UNRAR_PATHS = [
+    '/usr/bin/unrar',
+    '/usr/local/bin/unrar',
+]
+
 # clean-up the module namespace
 del sys, os, namedtuple
