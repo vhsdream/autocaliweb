@@ -235,7 +235,7 @@ class HardcoverClient:
             isbn = identifiers.get("isbn")
             if not slug:
                 log.error("No hardcover slug in identifiers: %s", identifiers)
-		return identifiers
+		        return identifiers
             book_id, edition_id = self.get_book_id(slug, isbn)
             identifiers["hardcover-id"] = book_id
             if edition_id is not None:
