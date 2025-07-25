@@ -909,7 +909,7 @@ class CalibreDB:
             authors_ordered = list()
             # error = False
             for auth in sort_authors:
-                auth = auth.strip()
+                auth = strip_whitespaces(auth)
                 results = self.session.query(Authors).filter(Authors.sort == auth).all()
                 # ToDo: How to handle not found author name
                 if not len(results):
