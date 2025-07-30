@@ -850,8 +850,6 @@ def render_archived_books(page, sort_param):
 def health_check():
     uptime = time.time() - _start_time
 
-    version = open("/app/ACW_RELEASE", "r").read().strip()
-
     try:
         db_path = acw_get_library_location() + "metadata.db"
         conn = sqlite3.connect(db_path)
@@ -865,7 +863,7 @@ def health_check():
     return jsonify({
         "status": "ok" if db_up else "degraded",
         "uptime": round(uptime, 2),
-        "version": version
+        "version": constants.USER_AGENT
     }), 200 if db_up else 503
 
 @web.route("/service-worker.js")
