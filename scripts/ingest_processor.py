@@ -234,7 +234,7 @@ class NewBookProcessor:
 
                 subprocess.run(
                     [
-                        "calibredb", "add", book_path, "--automerge", "new_record", 
+                        "calibredb", "add", book_path, "--automerge", self.acw_settings['auto_ingest_automerge'], 
                         "--title", meta[2], 
                         "--authors", meta[3], 
                         "--cover", meta[4], 
