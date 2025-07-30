@@ -873,7 +873,7 @@ def service_worker():
         headers = [
             "default-src 'self';",
             "font-src 'self' data:;",
-            "img-src 'self' data:;",
+            "img-src 'self' portal.dnb.de images.isbndb.com books.google.com images-na.ssl-images-amazon.com m.media-amazon.com img9.doubanio.com comicvine.gamespot.com s.lubimyczytac.pl data:;",
             "connect-src 'self';",
             "object-src 'none';"
         ]
